@@ -81,6 +81,32 @@ void wait1s(){
 	}
 }
 
+//SKELETON CODE FOR STATE MACHINE
+void move_forward(){
+
+}
+
+void parallel_park(){
+
+}
+
+void move_backwards(){
+
+}
+
+void move_car_closer(){
+
+}
+
+void move_car_further(){
+
+}
+
+void rotate_car_180(){
+	
+}
+
+
 void main (void)
 {	
 	while(1){
