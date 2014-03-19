@@ -82,14 +82,17 @@ void wait1s(){
 }
 
 //SKELETON CODE FOR STATE MACHINE
-void move_forward(void){
-
-}
 
 void parallel_park(void){
 
 }
 
+// This causes the car to move forwards in a straight line
+void move_forward(void){
+
+}
+
+// This causes the car to move backards in a straight line
 void move_backwards(void){
 
 }
@@ -122,16 +125,17 @@ void Move_Left_Motor_Forwards (void){
 
 }
 
+// The purpose of this function is to contain the code you
+// wish to test, then to put the Testing_Code() function in
+// a while(1) loop in the main function. This insures that
+// the code you're testing doesn't interfere with correct code
+// in the main body of the program 
+void Testing_Code(){
 
+}
 
 void main (void)
 {	
 	while (1){
-		pwm1 = 100;
-		wait1s();
-		pwm1 = 50;
-		wait1s();
-		pwm1 = -50;
-		wait1s();
 	}
 }
