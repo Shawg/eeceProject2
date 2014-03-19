@@ -83,6 +83,12 @@ void wait1s(){
 
 //SKELETON CODE FOR STATE MACHINE
 
+//This causes the care to stop moving
+void Stop_Car (void){
+	Stop_Right_Motor();
+	Stop_Left_Motor();
+}
+
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void parallel_park(void){
 
@@ -137,6 +143,16 @@ void Move_Left_Motor_Forwards (void){
 // This causes the motor on the left side of the
 // car to move backwards
 void Move_Left_Motor_Back (void){
+
+}
+
+//This stops the right motor
+void Stop_Right_Motor (void){
+
+}
+
+//This stops the left motor
+void Stop_Left_Motor (void){
 
 }
 
