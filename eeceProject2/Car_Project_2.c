@@ -83,6 +83,7 @@ void wait1s(){
 
 //SKELETON CODE FOR STATE MACHINE
 
+//This causes the car to parallel park in a length that is 1.5*(length of car)
 void parallel_park(void){
 
 }
@@ -97,31 +98,45 @@ void move_backwards(void){
 
 }
 
+//This causes the predetermined distance between the car and the 
+//transmitter to decrease, making the car move closer to the transmitter
 void move_car_closer(void){
 
 }
 
+
+//This causes the predetermined distance between the car and the 
+//transmitter to increase, making the car move further from the transmitter
 void move_car_further(void){
 
 }
 
+//This causes the care to rotate 180 degrees
 void rotate_car_180(void){
 
 }
 
+// This causes the motor on the right side of the
+// car to move forwards
 void Move_Right_Motor_Forwards (void){
 
 }
 
+// This causes the motor on the right side of the
+// car to move backwards
 void Move_Right_Motor_Backwards (void){
 
 }
 
-void Move_Left_Motor_Back (void){
+// This causes the motor on the left side of the
+// car to move forwards
+void Move_Left_Motor_Forwards (void){
 
 }
 
-void Move_Left_Motor_Forwards (void){
+// This causes the motor on the left side of the
+// car to move backwards
+void Move_Left_Motor_Back (void){
 
 }
 
