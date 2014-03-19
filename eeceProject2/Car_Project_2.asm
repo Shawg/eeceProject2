@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Tue Mar 18 16:46:01 2014
+; This file was generated Tue Mar 18 17:37:36 2014
 ;--------------------------------------------------------
 $name Car_Project_2
 $optc51 --model-small
@@ -575,9 +575,21 @@ _rotate_car_180:
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:112: pwm1 = 50;
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:112: while (1){
+L012002?:
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:113: pwm1 = 100;
+	mov	_pwm1,#0x64
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:114: wait1s();
+	lcall	_wait1s
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:115: pwm1 = 50;
 	mov	_pwm1,#0x32
-	ret
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:116: wait1s();
+	lcall	_wait1s
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:117: pwm1 = -50;
+	mov	_pwm1,#0xCE
+;	C:\Users\Acer\Documents\Projects\EECE281\eeceProject2\Car_Project_2.c:118: wait1s();
+	lcall	_wait1s
+	sjmp	L012002?
 	rseg R_CSEG
 
 	rseg R_XINIT
