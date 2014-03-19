@@ -82,49 +82,56 @@ void wait1s(){
 }
 
 //SKELETON CODE FOR STATE MACHINE
-void move_forward(){
+void move_forward(void){
 
 }
 
-void parallel_park(){
+void parallel_park(void){
 
 }
 
-void move_backwards(){
+void move_backwards(void){
 
 }
 
-void move_car_closer(){
+void move_car_closer(void){
 
 }
 
-void move_car_further(){
+void move_car_further(void){
 
 }
 
-void rotate_car_180(){
-	
+void rotate_car_180(void){
+
 }
+
+void Move_Right_Motor_Forwards (void){
+
+}
+
+void Move_Right_Motor_Backwards (void){
+
+}
+
+void Move_Left_Motor_Back (void){
+
+}
+
+void Move_Left_Motor_Forwards (void){
+
+}
+
 
 
 void main (void)
 {	
-	while(1){
-		pwm1=10; //50% duty cycle wave at 100Hz
+	while (1){
+		pwm1 = 100;
 		wait1s();
-		pwm1=20;
+		pwm1 = 50;
 		wait1s();
-		pwm1=30;
-		wait1s();
-		pwm1=40;
-		wait1s();
-		pwm1=50;
-		wait1s();
-		pwm1=60;
-		wait1s();
-		pwm1=70;
-		wait1s();
-		pwm1=80;
+		pwm1 = -50;
 		wait1s();
 	}
 }
