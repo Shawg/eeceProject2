@@ -12,10 +12,16 @@
 #define TIMER0_RELOAD_VALUE (65536L-(CLK/(12L*FREQ)))
 
 //These variables are used in the ISR
-volatile unsigned char pwmcount;
-volatile unsigned char pwmcount2;
-volatile unsigned char pwm1;
-volatile unsigned char pwm2;
+volatile unsigned char left_motor_pwmcount1;
+volatile unsigned char left_motor_pwmcount2;
+volatile unsigned char left_motor_pwm1;
+volatile unsigned char left_motor_pwm2;
+
+volatile unsigned char right_motor_pwmcount1;
+volatile unsigned char right_motor_pwmcount2;
+volatile unsigned char right_motor_pwm1;
+volatile unsigned char right_motor_pwm2;
+
 
 unsigned char _c51_external_startup(void)
 {
@@ -47,9 +53,11 @@ unsigned char _c51_external_startup(void)
 	ET0=1; // Enable timer 0 interrupt
 	EA=1;  // Enable global interrupts
 	
-	pwmcount=0;
-	pwmcount2=0;
-    
+	left_motor_pwmcount1 = 0;    
+	left_motor_pwmcount2 = 0;
+	right_motor_pwmcount1 = 0;
+	right_motor_pwmcount2 = 0;
+
     return 0;
 }
 
@@ -57,10 +65,18 @@ unsigned char _c51_external_startup(void)
 // timer 0 overflows: 100 us.
 void pwmcounter (void) interrupt 1
 {
-	if(++pwmcount>99) pwmcount=0;
-	P1_0=(pwm1>pwmcount)?1:0;
-	if(++pwmcount2>99) pwmcount2=0;
-	P1_1=(pwm2>pwmcount2)?1:0;
+	if(++left_motor_pwmcount1>99) left_motor_pwmcount1=0;
+	P1_0=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
+	
+	if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
+	P1_1=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
+
+	if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
+	P1_2=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
+	
+	if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
+	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
+
 }
 
 void wait50ms(){
