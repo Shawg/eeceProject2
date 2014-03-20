@@ -56,6 +56,8 @@ unsigned char _c51_external_startup(void)
 void pwmcounter (void) interrupt 1
 {
 	if(++pwmcount>99) pwmcount=0;
+	
+
 	P1_0=(pwm1>pwmcount)?1:0;
 	P1_1=(pwm2>pwmcount)?1:0;
 }
@@ -91,7 +93,7 @@ void Stop_Car (void){
 
 //This causes the car to turn so that it is facing the transmitter
 void Face_Transmitter(void){
-	
+
 }
 
 //This causes the car to parallel park in a length that is 1.5*(length of car)
@@ -144,7 +146,7 @@ void rotate_car_180(void){
 // This causes the motor on the right side of the
 // car to move forwards
 void Move_Right_Motor_Forwards (void){
-
+//wu_tang_is for the children
 }
 
 // This causes the motor on the right side of the
