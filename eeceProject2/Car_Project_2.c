@@ -89,18 +89,37 @@ void Stop_Car (void){
 	Stop_Left_Motor();
 }
 
+//This causes the car to turn so that it is facing the transmitter
+void Face_Transmitter(void){
+	
+}
+
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void parallel_park(void){
 
 }
 
+//This causes the care to turn to the left
+void Turn_Car_Left(void){
+	Move_Right_Motor_Forwards();
+	Move_Left_Motor_Backwards();
+}
+
+void Turn_Car_Right(void){
+	Move_Right_Motor_Backwards();
+	Move_Left_Motor_Forwards();
+}
+
 // This causes the car to move forwards in a straight line
 void move_forward(void){
-
+	Move_Right_Motor_Forwards();
+	Move_Left_Motor_Forwards();
 }
 
 // This causes the car to move backards in a straight line
 void move_backwards(void){
+	Move_Right_Motor_Backwards();
+	Move_Left_Motor_Backwards();
 
 }
 
@@ -142,7 +161,7 @@ void Move_Left_Motor_Forwards (void){
 
 // This causes the motor on the left side of the
 // car to move backwards
-void Move_Left_Motor_Back (void){
+void Move_Left_Motor_Backwards (void){
 
 }
 
@@ -168,5 +187,6 @@ void Testing_Code(){
 void main (void)
 {	
 	while (1){
+		Testing_Code();
 	}
 }
