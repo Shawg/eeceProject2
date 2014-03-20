@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <at89lp51rd2.h>
 // test test 
 // ~C51~ 
@@ -22,6 +23,7 @@ volatile unsigned char right_motor_pwmcount2;
 volatile unsigned char right_motor_pwm1;
 volatile unsigned char right_motor_pwm2;
 
+void Move_Left_Motor_Forwards(void);
 
 unsigned char _c51_external_startup(void)
 {
@@ -78,6 +80,47 @@ void pwmcounter (void) interrupt 1
 	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
 
 }
+// This causes the motor on the right side of the
+// car to move forwards emmett
+void Move_Right_Motor_Forwards (void){
+	right_motor_pwm1 = 50;
+	right_motor_pwm2 = 0;
+	
+}
+
+// This causes the motor on the right side of the
+// car to move backwards
+void Move_Right_Motor_Backwards (void){
+	right_motor_pwm1 = 0;
+	right_motor_pwm2 = 50;
+
+}
+
+// This causes the motor on the left side of the
+// car to move forwards
+void Move_Left_Motor_Forwards (void){
+	left_motor_pwm1 = 50;
+	left_motor_pwm2 = 0;
+}
+
+// This causes the motor on the left side of the
+// car to move backwards
+void Move_Left_Motor_Backwards (void){
+	left_motor_pwm1 = 0;
+	left_motor_pwm2 = 50;
+}
+
+//This stops the right motor
+void Stop_Right_Motor (void){
+	right_motor_pwm1 = 0;
+	right_motor_pwm2 = 0;
+}
+
+//This stops the left motor
+void Stop_Left_Motor (void){
+	left_motor_pwm1 = 0;
+	left_motor_pwm2 = 0;
+}
 
 void wait50ms(){
 	_asm	
@@ -113,6 +156,12 @@ void Face_Transmitter(void){
 
 }
 
+// This causes the car to move backards in a straight line
+void move_backwards(void){
+	Move_Right_Motor_Backwards();
+	Move_Left_Motor_Backwards();
+
+}
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void parallel_park(void){
 	move_backwards();
@@ -146,12 +195,6 @@ void move_forward(void){
 	Move_Left_Motor_Forwards();
 }
 
-// This causes the car to move backards in a straight line
-void move_backwards(void){
-	Move_Right_Motor_Backwards();
-	Move_Left_Motor_Backwards();
-
-}
 
 //This causes the predetermined distance between the car and the 
 //transmitter to decrease, making the car move closer to the transmitter
@@ -166,53 +209,21 @@ void move_car_further(void){
 
 }
 
-//This causes the care to rotate 180 degrees
-void rotate_car_180(void){
-	Move_Right_Motor_Backwards();
-	Move_Left_Motor_forwards();
+//This causes the car to rotate 180 degrees clockwise
+void rotate_car_180_cw(void){
+	Turn_Car_Left();
+	wait1s();	
+	Turn_Car_Left();
 }
 
-// This causes the motor on the right side of the
-// car to move forwards emmett
-void Move_Right_Motor_Forwards (void){
-	right_motor_pwm1 = 50;
-	right_motor_pwm2 = 0;
-	
+
+//This causes the car to rotate 180 degrees counter clockwise
+void rotate_car_180_ccw(void){
+ 	Turn_Car_Right();
+ 	wait1s();
+ 	Turn_Car_Right();
 }
 
-// This causes the motor on the right side of the
-// car to move backwards
-void Move_Right_Motor_Backwards (void){
-	right_motor_pwm1 = 0;
-	right_motor_pwm2 = 50;
-
-}
-
-// This causes the motor on the left side of the
-// car to move forwards
-void Move_Left_Motor_Forwards (void){
-	left_motor_pwm1 = 50;
-	left_motor_pwm2 = 0
-}
-
-// This causes the motor on the left side of the
-// car to move backwards
-void Move_Left_Motor_Backwards (void){
-	left_motor_pwm1 = 0;
-	left_motor_pwm2 = 50;
-}
-
-//This stops the right motor
-void Stop_Right_Motor (void){
-	right_motor_pwm1 = 0;
-	right_motor_pwm2 = 0;
-}
-
-//This stops the left motor
-void Stop_Left_Motor (void){
-	left_motor_pwm1 = 0;
-	left_motor_pwm2 = 0;
-}
 
 // The purpose of this function is to contain the code you
 // wish to test, then to put the Testing_Code() function in
@@ -220,7 +231,8 @@ void Stop_Left_Motor (void){
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
 void Testing_Code(){
-
+	Move_Right_Motor_Forwards();
+	Move_Left_Motor_Forwards();
 }
 
 void main (void)
