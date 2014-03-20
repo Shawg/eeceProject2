@@ -26,7 +26,7 @@ unsigned char _c51_external_startup(void)
     BDRCON=0;
     BRL=BRG_VAL;
     BDRCON=BRR|TBCK|RBCK|SPD;
-	
+/*	
 	// Initialize timer 0 for ISR 'pwmcounter()' below
 	TR0=0; // Stop timer 0
 	TMOD=0x01; // 16-bit timer
@@ -41,11 +41,26 @@ unsigned char _c51_external_startup(void)
 	EA=1;  // Enable global interrupts
 	
 	pwmcount=0;
-    
+*/
     return 0;
 }
+//This waits 
+void wait_bit_time(void)
+{
+	_asm	
+		;For a 22.1184MHz crystal one machine cycle 
+		;takes 12/22.1184MHz=0.5425347us
+	    mov R2, #20
+	L3:	mov R1, #248
+	L2:	mov R0, #184
+	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    djnz R1, L2 ; 200us*250=0.05s
+	    djnz R2, L3 ; 0.05s*20=1s
+	    ret
+    _endasm;
+}
 
-void tx_byte ( unsigned char val )
+void tx_byte(unsigned char val)
 {
 	unsigned char j;
 	//Send the start bit
@@ -60,40 +75,6 @@ void tx_byte ( unsigned char val )
 	//Send the stop bits
 	wait_bit_time();
 	wait_bit_time();
-}
-void SPIWrite(unsigned char value)
-{
-	SPSTA&=(~SPIF); // Clear the SPIF flag in SPSTA
-	SPDAT=value;
-	while((SPSTA & SPIF)!=SPIF); //Wait for transmission to end
-}
-
-// Read 10 bits from the MCP3004 ADC converter
-unsigned int GetADC(unsigned char channel)
-{
-	unsigned int adc;
-
-	// initialize the SPI port to read the MCP3004 ADC attached to it.
-	SPCON&=(~SPEN); // Disable SPI
-	SPCON=MSTR|CPOL|CPHA|SPR1|SPR0|SSDIS;
-	SPCON|=SPEN; // Enable SPI
-	
-	P1_4=0; // Activate the MCP3004 ADC.
-	SPIWrite(channel|0x18);	// Send start bit, single/diff* bit, D2, D1, and D0 bits.
-	for(adc=0; adc<10; adc++); // Wait for S/H to setup
-	SPIWrite(0x55); // Read bits 9 down to 4
-	adc=((SPDAT&0x3f)*0x100);
-	SPIWrite(0x55);// Read bits 3 down to 0
-	P1_4=1; // Deactivate the MCP3004 ADC.
-	adc+=(SPDAT&0xf0); // SPDR contains the low part of the result. 
-	adc>>=4;
-		
-	return adc;
-}
-
-float voltage (unsigned char channel)
-{
-	return ( (GetADC(channel)*4.84)/1023.0 ); // VCC=4.84V (measured)
 }
 
 void main (void)
