@@ -115,7 +115,18 @@ void Face_Transmitter(void){
 
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void parallel_park(void){
-
+	move_backwards();
+	//wait x time
+	Stop_Car();
+	//wait x time
+	Move_Left_Motor_Backwards();
+	//wait x time
+	Stop_Car();
+	//wait x time
+	Move_Right_Motor_Backwards();
+	//wait x time
+	Stop_Car();
+	//wait x time
 }
 
 //This causes the care to turn to the left
@@ -164,37 +175,43 @@ void rotate_car_180(void){
 // This causes the motor on the right side of the
 // car to move forwards emmett
 void Move_Right_Motor_Forwards (void){
-//wu_tang_is for the children
-//Just another test
+	right_motor_pwm1 = 50;
+	right_motor_pwm2 = 0;
 	
 }
 
 // This causes the motor on the right side of the
 // car to move backwards
 void Move_Right_Motor_Backwards (void){
+	right_motor_pwm1 = 0;
+	right_motor_pwm2 = 50;
 
 }
 
 // This causes the motor on the left side of the
 // car to move forwards
 void Move_Left_Motor_Forwards (void){
-
+	left_motor_pwm1 = 50;
+	left_motor_pwm2 = 0
 }
 
 // This causes the motor on the left side of the
 // car to move backwards
 void Move_Left_Motor_Backwards (void){
-
+	left_motor_pwm1 = 0;
+	left_motor_pwm2 = 50;
 }
 
 //This stops the right motor
 void Stop_Right_Motor (void){
-
+	right_motor_pwm1 = 0;
+	right_motor_pwm2 = 0;
 }
 
 //This stops the left motor
 void Stop_Left_Motor (void){
-
+	left_motor_pwm1 = 0;
+	left_motor_pwm2 = 0;
 }
 
 // The purpose of this function is to contain the code you
