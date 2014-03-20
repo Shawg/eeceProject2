@@ -140,8 +140,8 @@ void move_car_further(void){
 
 //This causes the care to rotate 180 degrees
 void rotate_car_180(void){
-	Move_Right_Motor_Backwards();
-	Move_Left_Motor_forwards();
+	Move_Right_Motor_Forwards();
+	Move_Left_Motor_Backwards();
 }
 
 // This causes the motor on the right side of the
