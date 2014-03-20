@@ -13,6 +13,7 @@
 
 //These variables are used in the ISR
 volatile unsigned char pwmcount;
+volatile unsigned char pwmcount2;
 volatile unsigned char pwm1;
 volatile unsigned char pwm2;
 
@@ -47,6 +48,7 @@ unsigned char _c51_external_startup(void)
 	EA=1;  // Enable global interrupts
 	
 	pwmcount=0;
+	pwmcount2=0;
     
     return 0;
 }
@@ -56,10 +58,9 @@ unsigned char _c51_external_startup(void)
 void pwmcounter (void) interrupt 1
 {
 	if(++pwmcount>99) pwmcount=0;
-	
-
 	P1_0=(pwm1>pwmcount)?1:0;
-	P1_1=(pwm2>pwmcount)?1:0;
+	if(++pwmcount2>99) pwmcount2=0;
+	P1_1=(pwm2>pwmcount2)?1:0;
 }
 
 void wait50ms(){
