@@ -79,6 +79,10 @@ void pwmcounter (void) interrupt 1
 	if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
 	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
 
+//swagmonster
+	if(false){
+	
+	}
 }
 // This causes the motor on the right side of the
 // car to move forwards emmett
