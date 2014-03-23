@@ -171,6 +171,24 @@ void Face_Transmitter(void){
 	right_distance = Get_Right_Distance();
 	left_distance = Get_Left_Distance();
 
+	if (left_distance > right_distance){
+		Turn_Car_Right();
+		while(left_distance > right_distance ){
+			right_distance = Get_Right_Distance();
+			left_distance = Get_Left_Distance();
+		}
+		Stop_Car();
+	}
+	if (left_distance < right_distance){
+		Turn_Car_Left();
+		while(left_distance < right_distance ){
+			right_distance = Get_Right_Distance();
+			left_distance = Get_Left_Distance();
+		}
+		Stop_Car();
+	}
+
+
 }
 
 
@@ -229,7 +247,7 @@ void move_car_closer(void){
 void move_car_further(void){
 	right_distance = Get_Right_Distance();
 	left_distance = Get_Left_Distance();
-	
+
 }
 
 //This causes the car to rotate 180 degrees clockwise
