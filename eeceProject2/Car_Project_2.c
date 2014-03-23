@@ -79,11 +79,7 @@ void pwmcounter (void) interrupt 1
 	if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
 	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
 
-//swagmonster
-	if(false){
-	
-	}
-}
+
 // This causes the motor on the right side of the
 // car to move forwards emmett
 void Move_Right_Motor_Forwards (void){
@@ -128,15 +124,15 @@ void Stop_Left_Motor (void){
 
 void wait50ms(){
 	_asm	
-		;For a 22.1184MHz crystal one machine cycle 
-		;takes 12/22.1184MHz=0.5425347us
-	    mov R2, #1
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #1
 	La3:	mov R1, #248
 	La2:	mov R0, #184
 	La1:	djnz R0, La1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	    djnz R1, La2 ; 200us*250=0.05s
-	    djnz R2, La3 ; 0.05s*20=50ms
-	    ret
+	    	djnz R1, La2 ; 200us*250=0.05s
+	    	djnz R2, La3 ; 0.05s*20=50ms
+	    	ret
     _endasm;
 }
 
@@ -149,6 +145,18 @@ void wait1s(){
 
 //SKELETON CODE FOR STATE MACHINE
 
+// Finds and returns the distance between the right
+// receiver and the transmitter  
+unsigned int Get_Right_Distance(void){
+	return 0;
+}
+
+// Finds and returns the distance between the left
+// receiver and the transmitter  
+unsigned int Get_Left_Distance(void){
+	return 0;
+}
+
 //This causes the care to stop moving
 void Stop_Car (void){
 	Stop_Right_Motor();
@@ -157,8 +165,14 @@ void Stop_Car (void){
 
 //This causes the car to turn so that it is facing the transmitter
 void Face_Transmitter(void){
+	unsigned int right_distance;
+	unsigned int left_distance;
+
+	right_distance = Get_Right_Distance();
+	left_distance = Get_Left_Distance();
 
 }
+
 
 // This causes the car to move backards in a straight line
 void move_backwards(void){
@@ -203,6 +217,9 @@ void move_forward(void){
 //This causes the predetermined distance between the car and the 
 //transmitter to decrease, making the car move closer to the transmitter
 void move_car_closer(void){
+	right_distance = Get_Right_Distance();
+	left_distance = Get_Left_Distance();
+
 
 }
 
@@ -210,7 +227,9 @@ void move_car_closer(void){
 //This causes the predetermined distance between the car and the 
 //transmitter to increase, making the car move further from the transmitter
 void move_car_further(void){
-
+	right_distance = Get_Right_Distance();
+	left_distance = Get_Left_Distance();
+	
 }
 
 //This causes the car to rotate 180 degrees clockwise
