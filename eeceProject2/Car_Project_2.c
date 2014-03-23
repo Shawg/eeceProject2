@@ -235,8 +235,8 @@ void move_forward(void){
 //This causes the predetermined distance between the car and the 
 //transmitter to decrease, making the car move closer to the transmitter
 void move_car_closer(void){
-	right_distance = Get_Right_Distance();
-	left_distance = Get_Left_Distance();
+	unsigned int right_distance = Get_Right_Distance();
+	unsigned int left_distance = Get_Left_Distance();
 
 
 }
@@ -245,8 +245,8 @@ void move_car_closer(void){
 //This causes the predetermined distance between the car and the 
 //transmitter to increase, making the car move further from the transmitter
 void move_car_further(void){
-	right_distance = Get_Right_Distance();
-	left_distance = Get_Left_Distance();
+	unsigned int right_distance = Get_Right_Distance();
+	unsigned int left_distance = Get_Left_Distance();
 
 }
 
