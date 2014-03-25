@@ -3,6 +3,7 @@
 #include <at89lp51rd2.h>
 // test test 
 // ~C51~ 
+//GS test 2:22pm 25/03/2014
  
 #define CLK 22118400L
 #define BAUD 115200L
@@ -23,7 +24,30 @@ volatile unsigned char right_motor_pwmcount2;
 volatile unsigned char right_motor_pwm1;
 volatile unsigned char right_motor_pwm2;
 
+	//Motor Control
 void Move_Left_Motor_Forwards(void);
+void Move_Left_Motor_Backwards(void);
+void Move_Right_Motor_Forwards(void);
+void Move_Right_Motor_Backwards(void);
+void Stop_Right_Motor(void);
+void Stop_Left_Motor(void);
+	//Basic Car Control
+void Rotate_Car_180_CW(void);
+void Rotate_Car_180_CCW(void);
+void Turn_Car_Right(void);
+void Turn_Car_Left(void);
+void Stop_Car(void);
+	//Advanced Car Control
+void Parallel_Park(void);
+void Face_Transmitter(void);
+
+unsigned int Get_Right_Distance(void);
+unsigned int Get_Left_Distance(void);
+
+	//Misc Functions
+void Testing_Code(void);
+void wait50ms(void);
+void wait1s(void);
 
 unsigned char _c51_external_startup(void)
 {
@@ -78,15 +102,11 @@ void pwmcounter (void) interrupt 1
 	
 	if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
 	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
-//swagmonster
-	if(false){
-	//test
-		int testest;
-	}
 }
+
 // This causes the motor on the right side of the
 // car to move forwards emmett
-void Move_Right_Motor_Forwards (void){
+void Move_Right_Motor_Forwards(){
 	right_motor_pwm1 = 50;
 	right_motor_pwm2 = 0;
 	
@@ -128,15 +148,15 @@ void Stop_Left_Motor (void){
 
 void wait50ms(){
 	_asm	
-		;For a 22.1184MHz crystal one machine cycle 
-		;takes 12/22.1184MHz=0.5425347us
-	    mov R2, #1
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #1
 	La3:	mov R1, #248
 	La2:	mov R0, #184
 	La1:	djnz R0, La1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	    djnz R1, La2 ; 200us*250=0.05s
-	    djnz R2, La3 ; 0.05s*20=50ms
-	    ret
+	    	djnz R1, La2 ; 200us*250=0.05s
+	    	djnz R2, La3 ; 0.05s*20=50ms
+	    	ret
     _endasm;
 }
 
@@ -149,6 +169,18 @@ void wait1s(){
 
 //SKELETON CODE FOR STATE MACHINE
 
+// Finds and returns the distance between the right
+// receiver and the transmitter  
+unsigned int Get_Right_Distance(void){
+	return 0;
+}
+
+// Finds and returns the distance between the left
+// receiver and the transmitter  
+unsigned int Get_Left_Distance(void){
+	return 0;
+}
+
 //This causes the care to stop moving
 void Stop_Car (void){
 	Stop_Right_Motor();
@@ -157,26 +189,52 @@ void Stop_Car (void){
 
 //This causes the car to turn so that it is facing the transmitter
 void Face_Transmitter(void){
+	unsigned int right_distance;
+	unsigned int left_distance;
 
+	right_distance = Get_Right_Distance();
+	left_distance = Get_Left_Distance();
+
+	if(left_distance > right_distance || left_distance < right_distance) return;//find a good error bound, we dont need to be pointing 
+																				//EXACTLY at the transmitter at all times while moving 
+																				//to or from it 
+
+	if (left_distance > right_distance){
+		Turn_Car_Right();
+		while(left_distance > right_distance ){
+			right_distance = Get_Right_Distance();
+			left_distance = Get_Left_Distance();
+		}
+		Stop_Car();
+	}
+	if (left_distance < right_distance){
+		Turn_Car_Left();
+		while(left_distance < right_distance ){
+			right_distance = Get_Right_Distance();
+			left_distance = Get_Left_Distance();
+		}
+		Stop_Car();
+	}
 }
 
+
 // This causes the car to move backards in a straight line
-void move_backwards(void){
+void Move_Backwards(void){
 	Move_Right_Motor_Backwards();
 	Move_Left_Motor_Backwards();
 
 }
 //This causes the car to parallel park in a length that is 1.5*(length of car)
-void parallel_park(void){
-	move_backwards();
+void Parallel_Park(void){
+	Move_Backwards();
 	//wait x time
 	Stop_Car();
 	//wait x time
-	Move_Left_Motor_Backwards();
+	Turn_Car_Left();
 	//wait x time
 	Stop_Car();
 	//wait x time
-	Move_Right_Motor_Backwards();
+	Turn_Car_Right();
 	//wait x time
 	Stop_Car();
 	//wait x time
@@ -185,12 +243,14 @@ void parallel_park(void){
 //This causes the care to turn to the left
 void Turn_Car_Left(void){
 	Move_Right_Motor_Forwards();
-	Move_Left_Motor_Backwards();
+	Move_Left_Motor_Backwards(); //We might want to get rid of this and just move one wheel
+								 //We'll have a better idea when we do testing with
+								 //the chassis
 }
 
 void Turn_Car_Right(void){
 	Move_Right_Motor_Backwards();
-	Move_Left_Motor_Forwards();
+	Move_Left_Motor_Forwards(); //Same thoughts as above, (in Turn_Car_Left)
 }
 
 // This causes the car to move forwards in a straight line
@@ -202,30 +262,35 @@ void move_forward(void){
 
 //This causes the predetermined distance between the car and the 
 //transmitter to decrease, making the car move closer to the transmitter
-void move_car_closer(void){
+void Move_Car_Closer(void){
+	unsigned int right_distance = Get_Right_Distance();
+	unsigned int left_distance = Get_Left_Distance();
+
 
 }
 
 
 //This causes the predetermined distance between the car and the 
 //transmitter to increase, making the car move further from the transmitter
-void move_car_further(void){
+void Move_Car_Further(void){
+	unsigned int right_distance = Get_Right_Distance();
+	unsigned int left_distance = Get_Left_Distance();
 
 }
 
 //This causes the car to rotate 180 degrees clockwise
-void rotate_car_180_cw(void){
-	Turn_Car_Left();
-	wait1s();	
-	Turn_Car_Left();
+void Rotate_Car_180_CW(void){
+	Turn_Car_Right();
+	wait1s();	//TO DO: change this to the correct time
+	Stop_Car();
 }
 
 
 //This causes the car to rotate 180 degrees counter clockwise
-void rotate_car_180_ccw(void){
- 	Turn_Car_Right();
- 	wait1s();
- 	Turn_Car_Right();
+void Rotate_Car_180_CCW(void){
+ 	Turn_Car_Left();
+ 	wait1s(); 	// TO DO: change this to the correct time
+ 	Stop_Car();
 }
 
 
@@ -235,13 +300,19 @@ void rotate_car_180_ccw(void){
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
 void Testing_Code(){
+	while(1){	
 	Move_Right_Motor_Forwards();
 	Move_Left_Motor_Forwards();
+	}
 }
 
 void main (void)
 {	
-	while (1){
+	//TODO: put any initialization stuff here
+
+	//the main running loop
+	while(1){
 		Testing_Code();
+		
 	}
 }
