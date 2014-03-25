@@ -3,7 +3,6 @@
 #include <at89lp51rd2.h>
 // test test 
 // ~C51~ 
-//GS test 2:22pm 25/03/2014
  
 #define CLK 22118400L
 #define BAUD 115200L
@@ -79,7 +78,6 @@ void pwmcounter (void) interrupt 1
 	
 	if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
 	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
-
 //swagmonster
 	if(false){
 	//test
