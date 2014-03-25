@@ -81,7 +81,8 @@ void pwmcounter (void) interrupt 1
 
 //swagmonster
 	if(false){
-	
+	//test
+		int testest;
 	}
 }
 // This causes the motor on the right side of the
