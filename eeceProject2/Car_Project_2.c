@@ -194,7 +194,7 @@ void Face_Transmitter(void){
 	right_distance = Get_Right_Distance();
 	left_distance = Get_Left_Distance();
 
-	if(left_distance > right_distance || left_distance < right_distance) return; //find a good error bound, we dont need to be pointing 
+	if(left_distance > right_distance || left_distance < right_distance) return;//find a good error bound, we dont need to be pointing 
 																				//EXACTLY at the transmitter at all times while moving 
 																				//to or from it 
 
@@ -214,8 +214,6 @@ void Face_Transmitter(void){
 		}
 		Stop_Car();
 	}
-
-
 }
 
 
@@ -231,11 +229,11 @@ void Parallel_Park(void){
 	//wait x time
 	Stop_Car();
 	//wait x time
-	Move_Left_Motor_Backwards();
+	Turn_Car_Left();
 	//wait x time
 	Stop_Car();
 	//wait x time
-	Move_Right_Motor_Backwards();
+	Turn_Car_Right();
 	//wait x time
 	Stop_Car();
 	//wait x time
@@ -316,6 +314,4 @@ void main (void)
 		Testing_Code();
 		
 	}
-
-
 }
