@@ -3,7 +3,6 @@
 #include <at89lp51rd2.h>
 // test test 
 // ~C51~ 
-//GS test 2:22pm 25/03/2014
  
 #define CLK 22118400L
 #define BAUD 115200L
@@ -37,6 +36,8 @@ void Rotate_Car_180_CCW(void);
 void Turn_Car_Right(void);
 void Turn_Car_Left(void);
 void Stop_Car(void);
+void Move_Forward(void);
+void Move_Backwards(void);
 	//Advanced Car Control
 void Parallel_Park(void);
 void Face_Transmitter(void);
@@ -254,7 +255,7 @@ void Turn_Car_Right(void){
 }
 
 // This causes the car to move forwards in a straight line
-void move_forward(void){
+void Move_Forward(void){
 	Move_Right_Motor_Forwards();
 	Move_Left_Motor_Forwards();
 }
@@ -308,11 +309,12 @@ void Testing_Code(){
 
 void main (void)
 {	
+	Move_Forward();
 	//TODO: put any initialization stuff here
 
 	//the main running loop
-	while(1){
-		Testing_Code();
+	// while(1){
+	// 	Testing_Code();
 		
-	}
+	// }
 }
