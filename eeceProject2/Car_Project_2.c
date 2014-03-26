@@ -93,22 +93,22 @@ unsigned char _c51_external_startup(void)
 void pwmcounter (void) interrupt 1
 {
 	if(++left_motor_pwmcount1>99) left_motor_pwmcount1=0;
-	P1_0=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
+	P1_2=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
 	
 	if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
-	P1_1=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
+	P1_3=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
 
 	if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
-	P1_2=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
+	P1_0=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
 	
 	if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
-	P1_3=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
+	P1_1=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
 }
 
 // This causes the motor on the right side of the
 // car to move forwards emmett
 void Move_Right_Motor_Forwards(){
-	right_motor_pwm1 = 50;
+	right_motor_pwm1 = 100;
 	right_motor_pwm2 = 0;
 	
 }
@@ -124,7 +124,7 @@ void Move_Right_Motor_Backwards (void){
 // This causes the motor on the left side of the
 // car to move forwards
 void Move_Left_Motor_Forwards (void){
-	left_motor_pwm1 = 50;
+	left_motor_pwm1 = 45;
 	left_motor_pwm2 = 0;
 }
 
@@ -303,12 +303,13 @@ void Rotate_Car_180_CCW(void){
 void Testing_Code(){
 	while(1){	
 	Move_Right_Motor_Forwards();
-	Move_Left_Motor_Forwards();
+	Move_Left_Motor_Backwards();
 	}
 }
 
 void main (void)
 {	
+	Testing_Code();
 	Move_Forward();
 	//TODO: put any initialization stuff here
 
