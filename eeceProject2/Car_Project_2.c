@@ -244,13 +244,12 @@ void Parallel_Park(void){
 //This causes the care to turn to the left
 void Turn_Car_Left(void){
 	Move_Right_Motor_Forwards();
-	Move_Left_Motor_Backwards(); //We might want to get rid of this and just move one wheel
+	//We might want to get rid of this and just move one wheel
 								 //We'll have a better idea when we do testing with
 								 //the chassis
 }
 
 void Turn_Car_Right(void){
-	Move_Right_Motor_Backwards();
 	Move_Left_Motor_Forwards(); //Same thoughts as above, (in Turn_Car_Left)
 }
 
@@ -302,7 +301,7 @@ void Rotate_Car_180_CCW(void){
 // in the main body of the program 
 void Testing_Code(){
 	while(1){	
-	Move_Forward();
+	Turn_Car_Left();
 	}
 }
 
