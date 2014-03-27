@@ -108,11 +108,8 @@ void pwmcounter (void) interrupt 1
 // This causes the motor on the right side of the
 // car to move forwards emmett
 void Move_Right_Motor_Forwards(){
-<<<<<<< HEAD
-	right_motor_pwm1 = 50;
-=======
 	right_motor_pwm1 = 45;
->>>>>>> f9319947837fd64c2fad251dcd06498798bbdfc9
+
 	right_motor_pwm2 = 0;
 	
 }
@@ -305,12 +302,9 @@ void Rotate_Car_180_CCW(void){
 // in the main body of the program 
 void Testing_Code(){
 	while(1){	
-<<<<<<< HEAD
 	Move_Right_Motor_Forwards();
 	// Move_Left_Motor_Backwards();
-=======
 	Turn_Car_Left();
->>>>>>> f9319947837fd64c2fad251dcd06498798bbdfc9
 	}
 }
 
