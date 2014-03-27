@@ -36,7 +36,7 @@ void Rotate_Car_180_CCW(void);
 void Turn_Car_Right(void);
 void Turn_Car_Left(void);
 void Stop_Car(void);
-void Move_Forward(void);
+void Move_Forwards(void);
 void Move_Backwards(void);
 	//Advanced Car Control
 void Parallel_Park(void);
@@ -96,7 +96,7 @@ void pwmcounter (void) interrupt 1
 	P1_2=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
 	
 	if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
-	P1_3=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
+	P1_4=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
 
 	if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
 	P1_0=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
@@ -108,7 +108,7 @@ void pwmcounter (void) interrupt 1
 // This causes the motor on the right side of the
 // car to move forwards emmett
 void Move_Right_Motor_Forwards(){
-	right_motor_pwm1 = 45;
+	right_motor_pwm1 = 75;
 
 	right_motor_pwm2 = 0;
 	
@@ -118,14 +118,14 @@ void Move_Right_Motor_Forwards(){
 // car to move backwards
 void Move_Right_Motor_Backwards (void){
 	right_motor_pwm1 = 0;
-	right_motor_pwm2 = 50;
+	right_motor_pwm2 = 90;
 
 }
 
 // This causes the motor on the left side of the
 // car to move forwards
 void Move_Left_Motor_Forwards (void){
-	left_motor_pwm1 = 100;
+	left_motor_pwm1 = 82;
 	left_motor_pwm2 = 0;
 }
 
@@ -133,7 +133,7 @@ void Move_Left_Motor_Forwards (void){
 // car to move backwards
 void Move_Left_Motor_Backwards (void){
 	left_motor_pwm1 = 0;
-	left_motor_pwm2 = 50;
+	left_motor_pwm2 = 95;
 }
 
 //This stops the right motor
@@ -153,11 +153,11 @@ void wait50ms(){
 			;For a 22.1184MHz crystal one machine cycle 
 			;takes 12/22.1184MHz=0.5425347us
 		    mov R2, #1
-	La3:	mov R1, #248
-	La2:	mov R0, #184
-	La1:	djnz R0, La1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	    	djnz R1, La2 ; 200us*250=0.05s
-	    	djnz R2, La3 ; 0.05s*20=50ms
+	Lg3:	mov R1, #248
+	Lg2:	mov R0, #184
+	Lg1:	djnz R0, Lg1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Lg2 ; 200us*250=0.05s
+	    	djnz R2, Lg3 ; 0.05s*20=50ms
 	    	ret
     _endasm;
 }
@@ -219,6 +219,95 @@ void Face_Transmitter(void){
 	}
 }
 
+void Parallel_Park_Wait_1(void){
+			_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #20   ;25
+	La3:	mov R1, #248
+	La2:	mov R0, #184
+	La1:	djnz R0, La1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, La2 ; 200us*250=0.05s
+	    	djnz R2, La3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
+
+}
+
+void Parallel_Park_Wait_2(void){
+	_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #1
+	Lb3:	mov R1, #248
+	Lb2:	mov R0, #184
+	Lb1:	djnz R0, Lb1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Lb2 ; 200us*250=0.05s
+	    	djnz R2, Lb3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
+
+}
+
+void Parallel_Park_Wait_3(void){
+	_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #12
+	Lc3:	mov R1, #248
+	Lc2:	mov R0, #184
+	Lc1:	djnz R0, Lc1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Lc2 ; 200us*250=0.05s
+	    	djnz R2, Lc3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
+
+}
+
+void Parallel_Park_Wait_4(void){
+	_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #20
+	Ld3:	mov R1, #248
+	Ld2:	mov R0, #184
+	Ld1:	djnz R0, Ld1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Ld2 ; 200us*250=0.05s
+	    	djnz R2, Ld3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
+
+}
+
+void Parallel_Park_Wait_5(void){
+	_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #6
+	Le3:	mov R1, #248
+	Le2:	mov R0, #184
+	Le1:	djnz R0, Le1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Le2 ; 200us*250=0.05s
+	    	djnz R2, Le3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
+
+}
+
+void Parallel_Park_Wait_6(void){
+	_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #1
+	Lf3:	mov R1, #248
+	Lf2:	mov R0, #184
+	Lf1:	djnz R0, Lf1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Lf2 ; 200us*250=0.05s
+	    	djnz R2, Lf3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
+
+}
 
 // This causes the car to move backards in a straight line
 void Move_Backwards(void){
@@ -229,17 +318,23 @@ void Move_Backwards(void){
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void Parallel_Park(void){
 	Move_Backwards();
-	//wait x time
+	Parallel_Park_Wait_1();
+	
 	Stop_Car();
-	//wait x time
+	Parallel_Park_Wait_2();
+	
 	Turn_Car_Left();
-	//wait x time
-	Stop_Car();
-	//wait x time
+	Parallel_Park_Wait_3();
+	
+	Move_Backwards();
+	Parallel_Park_Wait_4();
+	
 	Turn_Car_Right();
-	//wait x time
+	Parallel_Park_Wait_5();
+	
 	Stop_Car();
-	//wait x time
+	Parallel_Park_Wait_6();
+	
 }
 
 //This causes the care to turn to the left
@@ -255,7 +350,7 @@ void Turn_Car_Right(void){
 }
 
 // This causes the car to move forwards in a straight line
-void Move_Forward(void){
+void Move_Forwards(void){
 	Move_Right_Motor_Forwards();
 	Move_Left_Motor_Forwards();
 }
@@ -302,15 +397,16 @@ void Rotate_Car_180_CCW(void){
 // in the main body of the program 
 void Testing_Code(){
 	while(1){	
-	Move_Right_Motor_Forwards();
-	// Move_Left_Motor_Backwards();
-	Turn_Car_Left();
+		
 	}
 }
 
 void main (void)
 {	
-	Testing_Code();
+	// Testing_Code();
+	wait1s();
+	Parallel_Park();
+	
 	
 	//TODO: put any initialization stuff here
 
