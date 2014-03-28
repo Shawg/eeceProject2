@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <at89lp51rd2.h>
@@ -40,6 +41,7 @@ void Move_Forwards(void);
 void Move_Backwards(void);
 	//Advanced Car Control
 void Parallel_Park(void);
+void Undo_Parallel_Park(void);
 void Face_Transmitter(void);
 
 unsigned int Get_Right_Distance(void);
@@ -268,7 +270,7 @@ void Parallel_Park_Wait_4(void){
 	_asm	
 			;For a 22.1184MHz crystal one machine cycle 
 			;takes 12/22.1184MHz=0.5425347us
-		    mov R2, #20
+		    mov R2, #21
 	Ld3:	mov R1, #248
 	Ld2:	mov R0, #184
 	Ld1:	djnz R0, Ld1 ; 2 machine cycles-> 2*0.5425347us*184=200us
@@ -283,7 +285,7 @@ void Parallel_Park_Wait_5(void){
 	_asm	
 			;For a 22.1184MHz crystal one machine cycle 
 			;takes 12/22.1184MHz=0.5425347us
-		    mov R2, #6
+		    mov R2, #13
 	Le3:	mov R1, #248
 	Le2:	mov R0, #184
 	Le1:	djnz R0, Le1 ; 2 machine cycles-> 2*0.5425347us*184=200us
@@ -329,12 +331,36 @@ void Parallel_Park(void){
 	Move_Backwards();
 	Parallel_Park_Wait_4();
 	
+	Stop_Car();
 	Turn_Car_Right();
 	Parallel_Park_Wait_5();
 	
 	Stop_Car();
 	Parallel_Park_Wait_6();
 	
+}
+
+void Undo_Parallel_Park (void){
+	Turn_Car_Left();
+	Parallel_Park_Wait_3();
+	
+	Move_Forwards();
+	Parallel_Park_Wait_4();
+	
+	Stop_Car();
+	Turn_Car_Right();
+	Parallel_Park_Wait_3();
+	
+	Move_Forwards();
+	Parallel_Park_Wait_1();
+	
+	Stop_Car();
+	Parallel_Park_Wait_5();
+	
+	Stop_Car();
+	Parallel_Park_Wait_6();
+
+
 }
 
 //This causes the care to turn to the left
@@ -397,14 +423,17 @@ void Rotate_Car_180_CCW(void){
 // in the main body of the program 
 void Testing_Code(){
 	while(1){	
-		
+		Parallel_Park();
+		wait1s();
+		Undo_Parallel_Park();
+		wait1s();	
 	}
 }
 
 void main (void)
 {	
-	// Testing_Code();
 	wait1s();
+	Testing_Code();
 	Parallel_Park();
 	
 	
