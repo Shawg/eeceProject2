@@ -176,12 +176,15 @@ void wait1s(){
 // Finds and returns the distance between the right
 // receiver and the transmitter  
 unsigned int Get_Right_Distance(void){
+	//In here use the ADC from lab...(capacitor one)
+	//and have the value be the peak detector voltage over the right distance
 	return 0;
 }
 
 // Finds and returns the distance between the left
 // receiver and the transmitter  
 unsigned int Get_Left_Distance(void){
+	//same as Get_right_distance
 	return 0;
 }
 
@@ -430,6 +433,10 @@ void Testing_Code(){
 	}
 }
 
+void run (void){
+	//in here put the robot logice, ie use left distance and right distance to make the robot 
+	//stay in a certain distance from the transiever
+}
 void main (void)
 {	
 	wait1s();
