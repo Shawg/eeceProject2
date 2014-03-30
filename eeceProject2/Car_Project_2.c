@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <at89lp51rd2.h>
-// test test 
 // ~C51~ 
  
 #define CLK 22118400L
@@ -68,6 +67,7 @@ float voltage (unsigned char channel);
 void Testing_Code(void);
 void wait50ms(void);
 void wait1s(void);
+void run (int dist_index);
 
 unsigned char _c51_external_startup(void)
 {
@@ -477,11 +477,11 @@ void wait_one_and_half_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #3
-	L3:	mov R1, #248
-	L2:	mov R0, #184
-	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	    djnz R1, L2 ; 200us*250=0.05s
-	    djnz R2, L3 ; 0.05s*3=150ms
+	L6:	mov R1, #248
+	L5:	mov R0, #184
+	L4:	djnz R0, L4 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    djnz R1, L5 ; 200us*250=0.05s
+	    djnz R2, L6 ; 0.05s*3=150ms
 	    ret
     _endasm;
 }
@@ -538,7 +538,7 @@ float voltage (unsigned char channel){
 // a while(1) loop in the main function. This insures that
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
-void Testing_Code(){
+void Testing_Code(void){
 	while(1){	
 		Parallel_Park();
 		wait1s();
@@ -549,32 +549,34 @@ void Testing_Code(){
 
 void run (int dist_index){
 
+	unsigned int dist;
+
 	Face_Transmitter();
 
-	unsigned int distance = 0;
-	distance = Get_Right_Distance();
+	dist = Get_Right_Distance();
 
-	while(distance < dist_table[dist_index]) {
+	while(dist < dist_table[dist_index]) {
 		Move_Forwards();
-		distance = Get_Right_Distance();
+		dist = Get_Right_Distance();
 	}
 	Stop_Car();
 
-	while(distance > dist_table[dist_index]) {
+	while(dist > dist_table[dist_index]) {
 		Move_Backwards();
-		distance = Get_Right_Distance();
+		dist = Get_Right_Distance();
 	}
 	Stop_Car();
 }
 void main (void)
 {	
-	wait1s();
-	Testing_Code();
-	Parallel_Park();
+	//Testing_Code();
+	//Parallel_Park();
 	
 	//TODO: put any initialization stuff here
-	const unsigned int v_min = 0; //define this as the voltage to be read as 0
+    const unsigned int v_min = 0;
 	unsigned char cmd;
+	dist_table[1] = 150;
+	dist_index = 1;
 
 	//the main running loop
 	while(1){

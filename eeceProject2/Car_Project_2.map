@@ -1,0 +1,341 @@
+Modules linked:
+   'Car_Project_2' from 'Car_Project_2.obj'
+   'uint2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsmul' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
+   'fsdiv' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'ulong2fs' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsreturnval' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsnormalize' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+   'fsget2args' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libfloat.lib'
+
+Memory use per module linked:
+      Car_Project_2: C:01274 D:018 I:000 B:000 X:00000
+            uint2fs: C:00012 D:000 I:000 B:000 X:00000
+              fsmul: C:00163 D:000 I:000 B:000 X:00000
+               crt0: C:00113 D:000 I:000 B:000 X:00000
+              fsdiv: C:00287 D:004 I:000 B:000 X:00000
+           ulong2fs: C:00019 D:000 I:000 B:000 X:00000
+        fsreturnval: C:00079 D:000 I:000 B:000 X:00000
+        fsnormalize: C:00051 D:000 I:000 B:000 X:00000
+         fsget2args: C:00046 D:000 I:000 B:000 X:00000
+           ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
+------------------------------------------------------
+             Totals: C:02051 D:022 I:000 B:000 X:00000
+
+INTERMAL RAM map (see legend below):
+00: 0 0 0 0 0 0 0 0 a a a a a a a a 
+10: a a a a a a a a a a b b b b . . 
+20: . . . . . . . . . . . . . . . . 
+30: . . . . . . . . . . . . . . . . 
+40: . . . . . . . . . . . . . . . . 
+50: . . . . . . . . . . . . . . . . 
+60: . . . . . . . . . . . . . . . . 
+70: . . . . . . . . . . . . . . . . 
+80: . . . . . . . . . . . . . . . . 
+90: . . . . . . . . . . . . . . . . 
+A0: . . . . . . . . . . . . . . . . 
+B0: . . . . . . . . . . . . . . . . 
+C0: . . . . . . . . . . . . . . . . 
+D0: . . . . . . . . . . . . . . . . 
+E0: . . . . . . . . . . . . . . . . 
+F0: . . . . . . . . . . . . . . . . 
+
+Legend:
+	0: Register bank 0
+	1: Register bank 1
+	2: Register bank 2
+	3: Register bank 3
+	B: bits (see 'BIT map' below)
+	a: Car_Project_2:R_DSEG
+	b: R_OSEG
+
+BIT map:
+00: . . . . . . . . . . . . . . . . 
+10: . . . . . . . . . . . . . . . . 
+20: . . . . . . . . . . . . . . . . 
+30: . . . . . . . . . . . . . . . . 
+40: . . . . . . . . . . . . . . . . 
+50: . . . . . . . . . . . . . . . . 
+60: . . . . . . . . . . . . . . . . 
+70: . . . . . . . . . . . . . . . . 
+
+CODE usage map:
+0000: 249 256 256 256 256 256 256 256 010 000 000 000 000 000 000 000 
+1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+4000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+5000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+6000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+7000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+8000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+9000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+A000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+B000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+Total: 2051 bytes
+
+XDATA usage map:
+0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+4000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+5000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+6000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+7000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+8000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+9000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+A000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+B000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+Total: 0 bytes
+
+Base Segments:
+   BIT_BANK=D:0000, size=0000
+   R_BSEG=B:0000, size=0000
+   R_CONST=C:0000, size=0000
+   R_CSEG=C:007F, size=078B
+   R_DINIT=C:0003, size=0000
+   R_DSEG=D:0000, size=0012
+   R_GSINIT=C:000E, size=0071
+   R_HOME=C:0000, size=0000
+   R_ISEG=I:0000, size=0000
+   R_IXSEG=X:0000, size=0000
+   R_OSEG=D:001A, size=0004
+   R_PSEG=X:0000, size=0000
+   R_XINIT=C:0000, size=0000
+   R_XSEG=X:0000, size=0000
+   rbank0=D:0000, size=0008
+
+Module Segments:
+   CSEG=C:0000, size=0007
+   Car_Project_2:R_CSEG=C:007F, size=04FA
+   Car_Project_2:R_DSEG=D:0008, size=0012
+   crt0:R_GSINIT=C:000E, size=0071
+   fsdiv:R_CSEG=C:0628, size=011F
+   fsdiv:R_OSEG=D:001A, size=0004
+   fsget2args:R_CSEG=C:07DC, size=002E
+   fsmul:R_CSEG=C:0585, size=00A3
+   fsnormalize:R_CSEG=C:07A9, size=0033
+   fsreturnval:R_CSEG=C:075A, size=004F
+   uint2fs:R_CSEG=C:0579, size=000C
+   ulong2fs:R_CSEG=C:0747, size=0013
+
+Public symbols:
+   _Car_Project_2_R_DSEG_size=L:0012
+   _Car_Project_2_R_DSEG_start=L:0008
+   _Face_Transmitter=C:018D
+   _GetADC=C:03E6
+   _Get_Left_Distance=C:0181
+   _Get_Right_Distance=C:017B
+   _Move_Backwards=C:029D
+   _Move_Car_Closer=C:02FD
+   _Move_Car_Further=C:0318
+   _Move_Forwards=C:02F7
+   _Move_Left_Motor_Backwards=C:013F
+   _Move_Left_Motor_Forwards=C:0138
+   _Move_Right_Motor_Backwards=C:0131
+   _Move_Right_Motor_Forwards=C:012A
+   _Parallel_Park=C:02A3
+   _Parallel_Park_Wait_1=C:0249
+   _Parallel_Park_Wait_2=C:0257
+   _Parallel_Park_Wait_3=C:0265
+   _Parallel_Park_Wait_4=C:0273
+   _Parallel_Park_Wait_5=C:0281
+   _Parallel_Park_Wait_6=C:028F
+   _R_BSEG_size=L:0000
+   _R_BSEG_start=L:0000
+   _R_CONST_size=L:0000
+   _R_CONST_start=L:0000
+   _R_CSEG_size=L:078B
+   _R_CSEG_start=L:007F
+   _R_DINIT_size=L:0000
+   _R_DINIT_start=L:0003
+   _R_GSINIT_size=L:0071
+   _R_GSINIT_start=L:000E
+   _R_HOME_size=L:0000
+   _R_HOME_start=L:0000
+   _R_ISEG_size=L:0000
+   _R_ISEG_start=L:0000
+   _R_IXSEG_size=L:0000
+   _R_IXSEG_start=L:0000
+   _R_OSEG_size=L:0004
+   _R_OSEG_start=L:001A
+   _R_PSEG_size=L:0000
+   _R_PSEG_start=L:0000
+   _R_XINIT_size=L:0000
+   _R_XINIT_start=L:0000
+   _R_XSEG_size=L:0000
+   _R_XSEG_start=L:0000
+   _Rotate_Car_180_CCW=C:0337
+   _Rotate_Car_180_CW=C:032E
+   _SPIWrite=C:03D6
+   _Stop_Car=C:0187
+   _Stop_Left_Motor=C:014D
+   _Stop_Right_Motor=C:0146
+   _Testing_Code=C:049D
+   _Turn_Car_Left=C:02F1
+   _Turn_Car_Right=C:02F4
+   _Undo_Parallel_Park=C:02CA
+   ___fsdiv=C:0628
+   ___fsmul=C:0585
+   ___uint2fs=C:0579
+   ___ulong2fs=C:0747
+   __c51_external_startup=C:007F
+   _crt0=C:000E
+   _dist_index=D:0018
+   _dist_table=D:0010
+   _dummy_name_crt0=C:0628
+   _left_motor_pwm1=D:000A
+   _left_motor_pwm2=D:000B
+   _left_motor_pwmcount1=D:0008
+   _left_motor_pwmcount2=D:0009
+   _main=C:0528
+   _pwmcounter=C:00D6
+   _right_motor_pwm1=D:000E
+   _right_motor_pwm2=D:000F
+   _right_motor_pwmcount1=D:000C
+   _right_motor_pwmcount2=D:000D
+   _run=C:04AB
+   _rx_byte=C:0340
+   _stack_start=L:001E
+   _voltage=C:0442
+   _wait1s=C:0162
+   _wait50ms=C:0154
+   _wait_bit_time=C:03BA
+   _wait_one_and_half_bit_time=C:03C8
+   fs_direct_return=C:0783
+   fs_normalize_a=C:07A9
+   fs_return_inf=C:0791
+   fs_return_nan=C:079E
+   fs_return_zero=C:077B
+   fs_round_and_return=C:075A
+   fs_zerocheck_return=C:0772
+   fsgetargs=C:07DC
+   ulong2fs_doit=C:0750
+
+Local symbols:
+   Car_Project_2:L003002?=C:00E8
+   Car_Project_2:L003004?=C:00FA
+   Car_Project_2:L003006?=C:010C
+   Car_Project_2:L003008?=C:011E
+   Car_Project_2:L011003?=C:0166
+   Car_Project_2:L011009?=C:0176
+   Car_Project_2:L015001?=C:01B7
+   Car_Project_2:L015002?=C:01B8
+   Car_Project_2:L015004?=C:01D2
+   Car_Project_2:L015006?=C:01F9
+   Car_Project_2:L015008?=C:0210
+   Car_Project_2:L015009?=C:0226
+   Car_Project_2:L015011?=C:0245
+   Car_Project_2:L015014?=C:0248
+   Car_Project_2:L028003?=C:0317
+   Car_Project_2:L028007?=C:0317
+   Car_Project_2:L029003?=C:032D
+   Car_Project_2:L029007?=C:032D
+   Car_Project_2:L032001?=C:0357
+   Car_Project_2:L032004?=C:03B0
+   Car_Project_2:L032007?=C:0395
+   Car_Project_2:L032008?=C:0397
+   Car_Project_2:L032013?=C:035A
+   Car_Project_2:L032016?=C:038D
+   Car_Project_2:L032018?=C:038F
+   Car_Project_2:L035001?=C:03DD
+   Car_Project_2:L036003?=C:03FF
+   Car_Project_2:L036009?=C:0404
+   Car_Project_2:L038002?=C:049D
+   Car_Project_2:L039001?=C:04CC
+   Car_Project_2:L039003?=C:04F1
+   Car_Project_2:L039004?=C:0508
+   Car_Project_2:L039006?=C:0525
+   Car_Project_2:L040002?=C:055D
+   Car_Project_2:L040004?=C:0567
+   Car_Project_2:L040006?=C:0571
+   Car_Project_2:L040012?=C:0534
+   Car_Project_2:L1=C:03C0
+   Car_Project_2:L2=C:03BE
+   Car_Project_2:L3=C:03BC
+   Car_Project_2:L4=C:03CE
+   Car_Project_2:L5=C:03CC
+   Car_Project_2:L6=C:03CA
+   Car_Project_2:La1=C:024F
+   Car_Project_2:La2=C:024D
+   Car_Project_2:La3=C:024B
+   Car_Project_2:Lb1=C:025D
+   Car_Project_2:Lb2=C:025B
+   Car_Project_2:Lb3=C:0259
+   Car_Project_2:Lc1=C:026B
+   Car_Project_2:Lc2=C:0269
+   Car_Project_2:Lc3=C:0267
+   Car_Project_2:Ld1=C:0279
+   Car_Project_2:Ld2=C:0277
+   Car_Project_2:Ld3=C:0275
+   Car_Project_2:Le1=C:0287
+   Car_Project_2:Le2=C:0285
+   Car_Project_2:Le3=C:0283
+   Car_Project_2:Lf1=C:0295
+   Car_Project_2:Lf2=C:0293
+   Car_Project_2:Lf3=C:0291
+   Car_Project_2:Lg1=C:015A
+   Car_Project_2:Lg2=C:0158
+   Car_Project_2:Lg3=C:0156
+   crt0:PClearLoop?done?=C:0077
+   crt0:PClearLoop?repeat?=C:0069
+   crt0:XClearLoop?done?=C:005F
+   crt0:XClearLoop?repeat?=C:0051
+   crt0:XInitLoop?done?=C:0047
+   crt0:XInitLoop?repeat?=C:0027
+   crt0:__c51_init_data=C:001B
+   crt0:__c51_program_startup=C:007A
+   crt0:forever?home?=C:007D
+   fsdiv:L00001?=C:0630
+   fsdiv:L00002?=C:0639
+   fsdiv:L00003?=C:063C
+   fsdiv:L00004?=C:0642
+   fsdiv:L00005?=C:064F
+   fsdiv:L00006?=C:0652
+   fsdiv:L00007?=C:065A
+   fsdiv:L00008?=C:0666
+   fsdiv:L00009?=C:066E
+   fsdiv:L00010?=C:0684
+   fsdiv:L00011?=C:06D4
+   fsdiv:L00012?=C:06E7
+   fsdiv:L00013?=C:0736
+   fsdiv:L00014?=C:0744
+   fsdiv:_dummy=C:0628
+   fsdiv:saved_b=D:001D
+   fsdiv:saved_r5=D:001A
+   fsdiv:saved_r6=D:001B
+   fsdiv:saved_r7=D:001C
+   fsget2args:L00001?=C:07E9
+   fsget2args:L00002?=C:0805
+   fsget2args:_dummy=C:07DC
+   fsmul:L00001?=C:058B
+   fsmul:L00002?=C:058E
+   fsmul:L00003?=C:0596
+   fsmul:L00004?=C:059E
+   fsmul:L00005?=C:05A6
+   fsmul:L00006?=C:05B1
+   fsmul:L00007?=C:05B9
+   fsmul:L00010?=C:0625
+   fsmul:_dummy=C:0585
+   fsnormalize:L00001?=C:07AC
+   fsnormalize:L00002?=C:07BE
+   fsnormalize:L00003?=C:07BF
+   fsnormalize:L00004?=C:07C3
+   fsnormalize:L00005?=C:07CA
+   fsnormalize:L00006?=C:07D9
+   fsnormalize:_dummy=C:07A9
+   fsreturnval:L00001?=C:0760
+   fsreturnval:_dummy=C:075A
+   uint2fs:_dummy=C:0579
+   ulong2fs:_dummy=C:0747
+   ulong2fs:long2fs_doit=C:0752
