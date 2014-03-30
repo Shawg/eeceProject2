@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <at89lp51rd2.h>
@@ -29,6 +28,10 @@ volatile unsigned char right_motor_pwmcount1;
 volatile unsigned char right_motor_pwmcount2;
 volatile unsigned char right_motor_pwm1;
 volatile unsigned char right_motor_pwm2;
+
+//Distances
+unsigned int dist_table[4]; // = {array of distance values}
+int dist_index; //number from 0-3 that determines distance
 
 	//Motor Control
 void Move_Left_Motor_Forwards(void);
@@ -191,14 +194,14 @@ void wait1s(){
 unsigned int Get_Right_Distance(void){
 	//In here use the ADC from lab...(capacitor one)
 	//and have the value be the peak detector voltage over the right distance
-	return (unsigned int) voltage(1); //for now channel 1 is right motor
+	return GetADC(1); //for now channel 1 is right motor
 }
 
 // Finds and returns the distance between the left
 // receiver and the transmitter  
 unsigned int Get_Left_Distance(void){
 	//same as Get_right_distance
-	return (unsigned int) voltage(0); //for now channel 0 is left motor
+	return GetADC(0); //for now channel 0 is left motor
 }
 
 //This causes the care to stop moving
@@ -401,17 +404,18 @@ void Move_Forwards(void){
 //This causes the predetermined distance between the car and the 
 //transmitter to decrease, making the car move closer to the transmitter
 void Move_Car_Closer(void){
-	unsigned int right_distance = Get_Right_Distance();
-	unsigned int left_distance = Get_Left_Distance();
+	// unsigned int right_distance = Get_Right_Distance();
+	// unsigned int left_distance = Get_Left_Distance();
+	if(dist_index > 0) dist_index--;
 }
 
 
 //This causes the predetermined distance between the car and the 
 //transmitter to increase, making the car move further from the transmitter
 void Move_Car_Further(void){
-	unsigned int right_distance = Get_Right_Distance();
-	unsigned int left_distance = Get_Left_Distance();
-
+	// unsigned int right_distance = Get_Right_Distance();
+	// unsigned int left_distance = Get_Left_Distance();
+	if(dist_index < 3) dist_index++;
 }
 
 //This causes the car to rotate 180 degrees clockwise
@@ -543,9 +547,24 @@ void Testing_Code(){
 	}
 }
 
-void run (void){
-	//in here put the robot logice, ie use left distance and right distance to make the robot 
-	//stay in a certain distance from the transiever
+void run (int dist_index){
+
+	Face_Transmitter();
+
+	unsigned int distance = 0;
+	distance = Get_Right_Distance();
+
+	while(distance < dist_table[dist_index]) {
+		Move_Forwards();
+		distance = Get_Right_Distance();
+	}
+	Stop_Car();
+
+	while(distance > dist_table[dist_index]) {
+		Move_Backwards();
+		distance = Get_Right_Distance();
+	}
+	Stop_Car();
 }
 void main (void)
 {	
@@ -553,22 +572,22 @@ void main (void)
 	Testing_Code();
 	Parallel_Park();
 	
-	
 	//TODO: put any initialization stuff here
+	const unsigned int v_min = 0; //define this as the voltage to be read as 0
+	unsigned char cmd;
 
 	//the main running loop
-	// while(1){
-	// 	Testing_Code();
+	while(1){
 		
-	// }
-
-	// reciever logic
-	// unsigned char cmd;
-	// if(Get_Right_Distance() <= V_MIN){
-    //     cmd = rx_byte (V_MIN);
-    //     if(cmd == 0xfd) moveCloser
-    //     if(cmd == 0xf5) moveFarther
-    //     if(cmd == 0xd5) rotate180
-    //     if(cmd == 0x55) prlPark
-    //}
+		run(dist_index);
+		
+		//Check for start bit to indicate a command from transmitter
+		if(Get_Right_Distance() <= v_min){
+        	cmd = rx_byte (v_min);
+        	if(cmd == MOVE_BACKWARDS) Move_Backwards();
+        	if(cmd == MOVE_FORWARDS) Move_Forwards();
+        	if(cmd == ROTATE_180) Rotate_Car_180_CW();
+        	if(cmd == PRL_PARK) Parallel_Park();
+        }
+    }
 }
