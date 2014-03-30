@@ -13,6 +13,12 @@
 #define FREQ 10000L
 #define TIMER0_RELOAD_VALUE (65536L-(CLK/(12L*FREQ)))
 
+//Reciever commands
+#define MOVE_FORWARDS 0xfd
+#define MOVE_BACKWARDS 0xf5
+#define ROTATE_180 0xd5
+#define PRL_PARK 0x55
+
 //These variables are used in the ISR
 volatile unsigned char left_motor_pwmcount1;
 volatile unsigned char left_motor_pwmcount2;
@@ -46,6 +52,14 @@ void Face_Transmitter(void);
 
 unsigned int Get_Right_Distance(void);
 unsigned int Get_Left_Distance(void);
+
+	//Reciever Functions
+unsigned char rx_byte (int min);
+void wait_bit_time(void);
+void wait_one_and_half_bit_time(void);
+void SPIWrite(unsigned char value);
+unsigned int GetADC(unsigned char channel);
+float voltage (unsigned char channel);
 
 	//Misc Functions
 void Testing_Code(void);
@@ -111,7 +125,6 @@ void pwmcounter (void) interrupt 1
 // car to move forwards emmett
 void Move_Right_Motor_Forwards(){
 	right_motor_pwm1 = 75;
-
 	right_motor_pwm2 = 0;
 	
 }
@@ -178,14 +191,14 @@ void wait1s(){
 unsigned int Get_Right_Distance(void){
 	//In here use the ADC from lab...(capacitor one)
 	//and have the value be the peak detector voltage over the right distance
-	return 0;
+	return (unsigned int) voltage(1); //for now channel 1 is right motor
 }
 
 // Finds and returns the distance between the left
 // receiver and the transmitter  
 unsigned int Get_Left_Distance(void){
 	//same as Get_right_distance
-	return 0;
+	return (unsigned int) voltage(0); //for now channel 0 is left motor
 }
 
 //This causes the care to stop moving
@@ -390,8 +403,6 @@ void Move_Forwards(void){
 void Move_Car_Closer(void){
 	unsigned int right_distance = Get_Right_Distance();
 	unsigned int left_distance = Get_Left_Distance();
-
-
 }
 
 
@@ -418,6 +429,105 @@ void Rotate_Car_180_CCW(void){
  	Stop_Car();
 }
 
+// Recieves a command byte from the transmitter, call this function
+// when the transmitter senses the start bit of 0. Takes the voltage
+// that is considered to be zero as an input and returns the recieved
+// byte
+unsigned char rx_byte (int min){
+	unsigned char j, val;
+	int v;
+
+	//Skip the start bit
+	val=0;
+	wait_one_and_half_bit_time();
+	for(j=0; j<8; j++)
+	{
+	v=GetADC(0);
+	val|=(v>min)?(0x01<<j):0x00;
+	wait_bit_time();
+	}
+	//Wait for stop bits
+	wait_one_and_half_bit_time();
+	return val;
+}
+
+// Currently set to 100ms. If you change this function, change it in the
+// transmitter program as well.  Also change the 1.5 bit time function
+void wait_bit_time(void){
+		_asm	
+		;For a 22.1184MHz crystal one machine cycle 
+		;takes 12/22.1184MHz=0.5425347us
+	    mov R2, #2
+	L3:	mov R1, #248
+	L2:	mov R0, #184
+	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    djnz R1, L2 ; 200us*250=0.05s
+	    djnz R2, L3 ; 0.05s*2=100ms
+	    ret
+    _endasm;
+}
+
+// Waits 1.5 bits.  Keep this scaled with wait_bit_time()
+void wait_one_and_half_bit_time(void){
+		_asm	
+		;For a 22.1184MHz crystal one machine cycle 
+		;takes 12/22.1184MHz=0.5425347us
+	    mov R2, #3
+	L3:	mov R1, #248
+	L2:	mov R0, #184
+	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    djnz R1, L2 ; 200us*250=0.05s
+	    djnz R2, L3 ; 0.05s*3=150ms
+	    ret
+    _endasm;
+}
+
+// Called by GetADC() to do SPI
+void SPIWrite(unsigned char value){
+	SPSTA&=(~SPIF); // Clear the SPIF flag in SPSTA
+	SPDAT=value;
+	while((SPSTA & SPIF)!=SPIF); //Wait for transmission to end
+}
+
+// Read 10 bits from the MCP3004 ADC converter
+unsigned int GetADC(unsigned char channel){
+	unsigned int adc;
+
+	// initialize the SPI port to read the MCP3004 ADC attached to it.
+	SPCON&=(~SPEN); // Disable SPI
+	SPCON=MSTR|CPOL|CPHA|SPR1|SPR0|SSDIS;
+	SPCON|=SPEN; // Enable SPI
+	
+	P4_1=0; // Activate the MCP3004 ADC.
+	SPIWrite(channel|0x18);	// Send start bit, single/diff* bit, D2, D1, and D0 bits.
+	for(adc=0; adc<10; adc++); // Wait for S/H to setup
+	SPIWrite(0x55); // Read bits 9 down to 4
+	adc=((SPDAT&0x3f)*0x100);
+	SPIWrite(0x55);// Read bits 3 down to 0
+	P4_1=1; // Deactivate the MCP3004 ADC.
+	adc+=(SPDAT&0xf0); // SPDR contains the low part of the result. 
+	adc>>=4;
+		
+	return adc;
+}
+
+//         LP51B    MCP3004
+//---------------------------
+// MISO  -  P1.5  - pin 10
+// SCK   -  P1.6  - pin 11
+// MOSI  -  P1.7  - pin 9
+// CE*   -  P4.1  - pin 8
+// 4.8V  -  VCC   - pins 13, 14
+// 0V    -  GND   - pins 7, 12
+// CH0   -        - pin 1
+// CH1   -        - pin 2
+// CH2   -        - pin 3
+// CH3   -        - pin 4
+
+// Returns the voltage of the channel that you input into the function
+float voltage (unsigned char channel){
+	return ( (GetADC(channel)*5.02)/1023.0 ); // VCC=5.02V (measured)
+}
 
 // The purpose of this function is to contain the code you
 // wish to test, then to put the Testing_Code() function in
@@ -451,4 +561,14 @@ void main (void)
 	// 	Testing_Code();
 		
 	// }
+
+	// reciever logic
+	// unsigned char cmd;
+	// if(Get_Right_Distance() <= V_MIN){
+    //     cmd = rx_byte (V_MIN);
+    //     if(cmd == 0xfd) moveCloser
+    //     if(cmd == 0xf5) moveFarther
+    //     if(cmd == 0xd5) rotate180
+    //     if(cmd == 0x55) prlPark
+    //}
 }

@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <at89lp51rd2.h>
 
+#define MOVE_FORWARDS 0xfd
+#define MOVE_BACKWARDS 0xf5
+#define ROTATE_180 0xd5
+#define PRL_PARK 0x55
+
 unsigned char _c51_external_startup(void)
 {
 	// Configure ports as a bidirectional with internal pull-ups.
@@ -13,18 +18,19 @@ unsigned char _c51_external_startup(void)
 
     return 0;
 }
-//This currently waits 500ms 
+// This currently waits 100ms. If you change this function, change it in
+// reciever program as well. Also change the 1.5 bit time function
 void wait_bit_time(void)
 {
 	_asm	
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
-	    mov R2, #10
+	    mov R2, #2
 	L3:	mov R1, #248
 	L2:	mov R0, #184
 	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
 	    djnz R1, L2 ; 200us*250=0.05s
-	    djnz R2, L3 ; 0.05s*10=500ms
+	    djnz R2, L3 ; 0.05s*2=100ms
 	    ret
     _endasm;
 }
@@ -48,22 +54,22 @@ void tx_byte(unsigned char val)
 
 void moveCloser(void) 
 {
-	tx_byte(0xfd); // move closer is 11111101
+	tx_byte(MOVE_BACKWARDS); // move closer is 11111101
 }
 
 void moveFarther(void)
 {
-	tx_byte(0xf5); // move farther is 11110101
+	tx_byte(MOVE_FORWARDS); // move farther is 11110101
 }
 
 void rotate180(void)
 {
-	tx_byte(0xd5); // rotate is 11010101
+	tx_byte(ROTATE_180); // rotate is 11010101
 }
 
 void prlPark(void)
 {
-	tx_byte(0x55); // parallel park is 01010101
+	tx_byte(PRL_PARK); // parallel park is 01010101
 }
 
 void main (void)
