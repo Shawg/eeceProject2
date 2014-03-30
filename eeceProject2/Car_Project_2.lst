@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Sat Mar 29 21:49:06 2014
+0000              4   ; This file was generated Sun Mar 30 13:27:25 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Car_Project_2
                   6   $optc51 --model-small
@@ -1523,154 +1523,171 @@
 042C           1523   _run:
 042C AA82      1524            mov     r2,dpl
 042E AB83      1525            mov     r3,dph
-0430           1526   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:554: Face_Transmitter();
+0430           1526   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:556: dist = Get_Right_Distance();
 0430 C002      1527            push    ar2
 0432 C003      1528            push    ar3
-0434 120100    1529            lcall   _Face_Transmitter
-0437           1530   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:556: dist = Get_Right_Distance();
-0437 120100    1531            lcall   _Get_Right_Distance
-043A AC82      1532            mov     r4,dpl
-043C AD83      1533            mov     r5,dph
-043E D003      1534            pop     ar3
-0440 D002      1535            pop     ar2
-0442           1536   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:558: while(dist < dist_table[dist_index]) {
-0442 EB        1537            mov     a,r3
+0434 120100    1529            lcall   _Get_Right_Distance
+0437 AC82      1530            mov     r4,dpl
+0439 AD83      1531            mov     r5,dph
+043B D003      1532            pop     ar3
+043D D002      1533            pop     ar2
+043F           1534   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:558: printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
+043F EB        1535            mov     a,r3
+0440 CA        1536            xch     a,r2
+0441 25E0      1537            add     a,acc
 0443 CA        1538            xch     a,r2
-0444 25E0      1539            add     a,acc
-0446 CA        1540            xch     a,r2
-0447 33        1541            rlc     a
-0448 FB        1542            mov     r3,a
-0449 EA        1543            mov     a,r2
-044A 24C0      1544            add     a,#_dist_table
-044C F8        1545            mov     r0,a
-044D           1546   L039001?:
-044D 8606      1547            mov     ar6,@r0
-044F 08        1548            inc     r0
-0450 8607      1549            mov     ar7,@r0
-0452 18        1550            dec     r0
-0453 C3        1551            clr     c
-0454 EC        1552            mov     a,r4
-0455 9E        1553            subb    a,r6
-0456 ED        1554            mov     a,r5
-0457 9F        1555            subb    a,r7
-0458 5001      1556            jnc     L039003?
-045A           1557   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:559: Move_Forwards();
-045A C002      1558            push    ar2
-045C C003      1559            push    ar3
-045E C000      1560            push    ar0
-0460 120100    1561            lcall   _Move_Forwards
-0463           1562   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:560: dist = Get_Right_Distance();
-0463 120100    1563            lcall   _Get_Right_Distance
-0466 AC82      1564            mov     r4,dpl
-0468 AD83      1565            mov     r5,dph
-046A D000      1566            pop     ar0
-046C D003      1567            pop     ar3
-046E D002      1568            pop     ar2
-0470 8001      1569            sjmp    L039001?
-0472           1570   L039003?:
-0472           1571   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:562: Stop_Car();
-0472 C002      1572            push    ar2
-0474 C003      1573            push    ar3
-0476 C004      1574            push    ar4
-0478 C005      1575            push    ar5
-047A 120100    1576            lcall   _Stop_Car
-047D D005      1577            pop     ar5
-047F D004      1578            pop     ar4
-0481 D003      1579            pop     ar3
-0483 D002      1580            pop     ar2
-0485           1581   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:564: while(dist > dist_table[dist_index]) {
-0485 EA        1582            mov     a,r2
-0486 24C0      1583            add     a,#_dist_table
-0488 F8        1584            mov     r0,a
-0489           1585   L039004?:
-0489 8602      1586            mov     ar2,@r0
-048B 08        1587            inc     r0
-048C 8603      1588            mov     ar3,@r0
-048E 18        1589            dec     r0
-048F C3        1590            clr     c
-0490 EA        1591            mov     a,r2
-0491 9C        1592            subb    a,r4
-0492 EB        1593            mov     a,r3
-0493 9D        1594            subb    a,r5
-0494 5001      1595            jnc     L039006?
-0496           1596   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:565: Move_Backwards();
-0496 C000      1597            push    ar0
-0498 120100    1598            lcall   _Move_Backwards
-049B           1599   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:566: dist = Get_Right_Distance();
-049B 120100    1600            lcall   _Get_Right_Distance
-049E AC82      1601            mov     r4,dpl
-04A0 AD83      1602            mov     r5,dph
-04A2 D000      1603            pop     ar0
-04A4 8001      1604            sjmp    L039004?
-04A6           1605   L039006?:
-04A6           1606   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:568: Stop_Car();
-04A6 020100    1607            ljmp    _Stop_Car
-04A9           1608   ;------------------------------------------------------------
-04A9           1609   ;Allocation info for local variables in function 'main'
-04A9           1610   ;------------------------------------------------------------
-04A9           1611   ;v_min                     Allocated to registers 
-04A9           1612   ;cmd                       Allocated to registers r2 
-04A9           1613   ;------------------------------------------------------------
-04A9           1614   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:570: void main (void)
-04A9           1615   ;        -----------------------------------------
-04A9           1616   ;         function main
-04A9           1617   ;        -----------------------------------------
-04A9           1618   _main:
-04A9           1619   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:578: dist_table[1] = 150;
-04A9 75C296    1620            mov     (_dist_table + 0x0002),#0x96
-04AC 75C300    1621            mov     ((_dist_table + 0x0002) + 1),#0x00
-04AF           1622   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:579: dist_index = 1;
-04AF 758001    1623            mov     _dist_index,#0x01
-04B2 E4        1624            clr     a
-04B3 F581      1625            mov     (_dist_index + 1),a
-04B5           1626   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:582: while(1){
-04B5           1627   L040012?:
-04B5           1628   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:584: run(dist_index);
-04B5 858082    1629            mov     dpl,_dist_index
-04B8 858183    1630            mov     dph,(_dist_index + 1)
-04BB 120100    1631            lcall   _run
-04BE           1632   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:587: if(Get_Right_Distance() <= v_min){
-04BE 120100    1633            lcall   _Get_Right_Distance
-04C1 AA82      1634            mov     r2,dpl
-04C3 AB83      1635            mov     r3,dph
-04C5 C3        1636            clr     c
-04C6 E4        1637            clr     a
-04C7 9A        1638            subb    a,r2
-04C8 E4        1639            clr     a
-04C9 9B        1640            subb    a,r3
-04CA 4001      1641            jc      L040012?
-04CC           1642   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:588: cmd = rx_byte (v_min);
-04CC 900000    1643            mov     dptr,#0x0000
-04CF 120100    1644            lcall   _rx_byte
-04D2 AA82      1645            mov     r2,dpl
-04D4           1646   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:589: if(cmd == MOVE_BACKWARDS) Move_Backwards();
-04D4 BAF580    1647            cjne    r2,#0xF5,L040002?
-04D7 C002      1648            push    ar2
-04D9 120100    1649            lcall   _Move_Backwards
-04DC D002      1650            pop     ar2
-04DE           1651   L040002?:
-04DE           1652   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:590: if(cmd == MOVE_FORWARDS) Move_Forwards();
-04DE BAFDC0    1653            cjne    r2,#0xFD,L040004?
-04E1 C002      1654            push    ar2
-04E3 120100    1655            lcall   _Move_Forwards
-04E6 D002      1656            pop     ar2
-04E8           1657   L040004?:
-04E8           1658   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:591: if(cmd == ROTATE_180) Rotate_Car_180_CW();
-04E8 BAD500    1659            cjne    r2,#0xD5,L040006?
-04EB C002      1660            push    ar2
-04ED 120100    1661            lcall   _Rotate_Car_180_CW
-04F0 D002      1662            pop     ar2
-04F2           1663   L040006?:
-04F2           1664   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:592: if(cmd == PRL_PARK) Parallel_Park();
-04F2 BA5540    1665            cjne    r2,#0x55,L040012?
-04F5 120100    1666            lcall   _Parallel_Park
-04F8 8001      1667            sjmp    L040012?
-04FA           1668            rseg R_CSEG
-04FA           1669   
-0000           1670            rseg R_XINIT
-0000           1671   
-0000           1672            rseg R_CONST
-0000           1673   
-000E           1674            CSEG
-000E           1675   
-000E           1676   end
+0444 33        1539            rlc     a
+0445 FB        1540            mov     r3,a
+0446 EA        1541            mov     a,r2
+0447 24C0      1542            add     a,#_dist_table
+0449 F8        1543            mov     r0,a
+044A 8606      1544            mov     ar6,@r0
+044C 08        1545            inc     r0
+044D 8607      1546            mov     ar7,@r0
+044F C002      1547            push    ar2
+0451 C003      1548            push    ar3
+0453 C004      1549            push    ar4
+0455 C005      1550            push    ar5
+0457 C006      1551            push    ar6
+0459 C007      1552            push    ar7
+045B C004      1553            push    ar4
+045D C005      1554            push    ar5
+045F 7440      1555            mov     a,#__str_0
+0461 C0E0      1556            push    acc
+0463 749D      1557            mov     a,#(__str_0 >> 8)
+0465 C0E0      1558            push    acc
+0467 7480      1559            mov     a,#0x80
+0469 C0E0      1560            push    acc
+046B 120100    1561            lcall   _printf
+046E E581      1562            mov     a,sp
+0470 24F9      1563            add     a,#0xf9
+0472 F581      1564            mov     sp,a
+0474 D005      1565            pop     ar5
+0476 D004      1566            pop     ar4
+0478 D003      1567            pop     ar3
+047A D002      1568            pop     ar2
+047C           1569   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:559: while(dist < dist_table[dist_index]) {
+047C EA        1570            mov     a,r2
+047D 24C0      1571            add     a,#_dist_table
+047F F8        1572            mov     r0,a
+0480           1573   L039001?:
+0480 8606      1574            mov     ar6,@r0
+0482 08        1575            inc     r0
+0483 8607      1576            mov     ar7,@r0
+0485 18        1577            dec     r0
+0486 C3        1578            clr     c
+0487 EC        1579            mov     a,r4
+0488 9E        1580            subb    a,r6
+0489 ED        1581            mov     a,r5
+048A 9F        1582            subb    a,r7
+048B 5001      1583            jnc     L039003?
+048D           1584   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:560: Move_Forwards();
+048D C002      1585            push    ar2
+048F C003      1586            push    ar3
+0491 C000      1587            push    ar0
+0493 120100    1588            lcall   _Move_Forwards
+0496           1589   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:561: dist = Get_Right_Distance();
+0496 120100    1590            lcall   _Get_Right_Distance
+0499 AC82      1591            mov     r4,dpl
+049B AD83      1592            mov     r5,dph
+049D D000      1593            pop     ar0
+049F D003      1594            pop     ar3
+04A1 D002      1595            pop     ar2
+04A3 8001      1596            sjmp    L039001?
+04A5           1597   L039003?:
+04A5           1598   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:563: Stop_Car();
+04A5 C002      1599            push    ar2
+04A7 C003      1600            push    ar3
+04A9 C004      1601            push    ar4
+04AB C005      1602            push    ar5
+04AD 120100    1603            lcall   _Stop_Car
+04B0 D005      1604            pop     ar5
+04B2 D004      1605            pop     ar4
+04B4 D003      1606            pop     ar3
+04B6 D002      1607            pop     ar2
+04B8           1608   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:565: while(dist > dist_table[dist_index]) {
+04B8 EA        1609            mov     a,r2
+04B9 24C0      1610            add     a,#_dist_table
+04BB F8        1611            mov     r0,a
+04BC           1612   L039004?:
+04BC 8602      1613            mov     ar2,@r0
+04BE 08        1614            inc     r0
+04BF 8603      1615            mov     ar3,@r0
+04C1 18        1616            dec     r0
+04C2 C3        1617            clr     c
+04C3 EA        1618            mov     a,r2
+04C4 9C        1619            subb    a,r4
+04C5 EB        1620            mov     a,r3
+04C6 9D        1621            subb    a,r5
+04C7 5001      1622            jnc     L039006?
+04C9           1623   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:566: Move_Backwards();
+04C9 C000      1624            push    ar0
+04CB 120100    1625            lcall   _Move_Backwards
+04CE           1626   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:567: dist = Get_Right_Distance();
+04CE 120100    1627            lcall   _Get_Right_Distance
+04D1 AC82      1628            mov     r4,dpl
+04D3 AD83      1629            mov     r5,dph
+04D5 D000      1630            pop     ar0
+04D7 8001      1631            sjmp    L039004?
+04D9           1632   L039006?:
+04D9           1633   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:569: Stop_Car();
+04D9 020100    1634            ljmp    _Stop_Car
+04DC           1635   ;------------------------------------------------------------
+04DC           1636   ;Allocation info for local variables in function 'main'
+04DC           1637   ;------------------------------------------------------------
+04DC           1638   ;v_min                     Allocated to registers 
+04DC           1639   ;cmd                       Allocated with name '_main_cmd_1_153'
+04DC           1640   ;------------------------------------------------------------
+04DC           1641   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:571: void main (void)
+04DC           1642   ;        -----------------------------------------
+04DC           1643   ;         function main
+04DC           1644   ;        -----------------------------------------
+04DC           1645   _main:
+04DC           1646   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:579: dist_table[1] = 150;
+04DC 75C296    1647            mov     (_dist_table + 0x0002),#0x96
+04DF 75C300    1648            mov     ((_dist_table + 0x0002) + 1),#0x00
+04E2           1649   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:580: dist_index = 1;
+04E2 758001    1650            mov     _dist_index,#0x01
+04E5 E4        1651            clr     a
+04E6 F581      1652            mov     (_dist_index + 1),a
+04E8           1653   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:582: printf("\n");
+04E8 74C0      1654            mov     a,#__str_1
+04EA C0E0      1655            push    acc
+04EC 749E      1656            mov     a,#(__str_1 >> 8)
+04EE C0E0      1657            push    acc
+04F0 7480      1658            mov     a,#0x80
+04F2 C0E0      1659            push    acc
+04F4 120100    1660            lcall   _printf
+04F7 1581      1661            dec     sp
+04F9 1581      1662            dec     sp
+04FB 1581      1663            dec     sp
+04FD           1664   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:585: while(1){
+04FD           1665   L040002?:
+04FD           1666   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:587: run(dist_index);
+04FD 858082    1667            mov     dpl,_dist_index
+0500 858183    1668            mov     dph,(_dist_index + 1)
+0503 120100    1669            lcall   _run
+0506 8001      1670            sjmp    L040002?
+0508           1671            rseg R_CSEG
+0508           1672   
+0000           1673            rseg R_XINIT
+0000           1674   
+0000           1675            rseg R_CONST
+0000           1676   __str_0:
+0000 52696768  1677            db 'Right Distance: %u Set Dist: %u'
+     74204469
+     7374616E
+     63653A20
+     25752053
+     65742044
+     6973743A
+     202575
+001F 0D        1678            db 0x0D
+0020 00        1679            db 0x00
+0021           1680   __str_1:
+0021 0A        1681            db 0x0A
+0022 00        1682            db 0x00
+0023           1683   
+000E           1684            CSEG
+000E           1685   
+000E           1686   end

@@ -551,10 +551,11 @@ void run (int dist_index){
 
 	unsigned int dist;
 
-	Face_Transmitter();
+	//Face_Transmitter();
 
 	dist = Get_Right_Distance();
 
+	printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
 	while(dist < dist_table[dist_index]) {
 		Move_Forwards();
 		dist = Get_Right_Distance();
@@ -577,6 +578,8 @@ void main (void)
 	unsigned char cmd;
 	dist_table[1] = 150;
 	dist_index = 1;
+	
+	printf("\n");
 
 	//the main running loop
 	while(1){
@@ -584,12 +587,12 @@ void main (void)
 		run(dist_index);
 		
 		//Check for start bit to indicate a command from transmitter
-		if(Get_Right_Distance() <= v_min){
-        	cmd = rx_byte (v_min);
-        	if(cmd == MOVE_BACKWARDS) Move_Backwards();
-        	if(cmd == MOVE_FORWARDS) Move_Forwards();
-        	if(cmd == ROTATE_180) Rotate_Car_180_CW();
-        	if(cmd == PRL_PARK) Parallel_Park();
-        }
+		//if(Get_Right_Distance() <= v_min){
+        //	cmd = rx_byte (v_min);
+        //	if(cmd == MOVE_BACKWARDS) Move_Backwards();
+        //	if(cmd == MOVE_FORWARDS) Move_Forwards();
+        //	if(cmd == ROTATE_180) Rotate_Car_180_CW();
+        //	if(cmd == PRL_PARK) Parallel_Park();
+        //}
     }
 }
