@@ -17,7 +17,7 @@ Modules linked:
    'strlen' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
 
 Memory use per module linked:
-      Car_Project_2: C:01323 D:018 I:000 B:000 X:00000
+      Car_Project_2: C:01529 D:020 I:000 B:000 X:00000
             uint2fs: C:00012 D:000 I:000 B:000 X:00000
               fsmul: C:00163 D:000 I:000 B:000 X:00000
             vprintf: C:00054 D:001 I:000 B:000 X:00000
@@ -35,14 +35,14 @@ Memory use per module linked:
              strlen: C:00040 D:000 I:000 B:000 X:00000
            ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:03847 D:046 I:006 B:014 X:00000
+             Totals: C:04053 D:048 I:006 B:014 X:00000
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 a b b b b b b b 
-10: b b b b b b b b b b b c e e e e 
+10: b b b b b b b b b b b b b c . . 
 20: B B d d d d d d d d d d d d d d 
-30: d d d d d d d f f f f f f . . . 
-40: . . . . . . . . . . . . . . . . 
+30: d d d d d d d e e e e f f f f f 
+40: f . . . . . . . . . . . . . . . 
 50: . . . . . . . . . . . . . . . . 
 60: . . . . . . . . . . . . . . . . 
 70: . . . . . . . . . . . . . . . . 
@@ -79,7 +79,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 249 256 256 256 256 256 256 256 256 256 256 256 256 256 256 014 
+0000: 249 256 256 256 256 256 256 256 256 256 256 256 256 256 256 220 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -95,7 +95,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 3847 bytes
+Total: 4053 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -121,14 +121,14 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=000E
    R_CONST=C:007F, size=002E
-   R_CSEG=C:00AD, size=0E61
+   R_CSEG=C:00AD, size=0F2F
    R_DINIT=C:0003, size=0000
-   R_DSEG=D:0000, size=0014
+   R_DSEG=D:0000, size=0016
    R_GSINIT=C:000E, size=0071
    R_HOME=C:0000, size=0000
-   R_ISEG=I:0037, size=0006
+   R_ISEG=I:003B, size=0006
    R_IXSEG=X:0000, size=0000
-   R_OSEG=D:001C, size=0004
+   R_OSEG=D:0037, size=0004
    R_PSEG=X:0000, size=0000
    R_XINIT=C:0000, size=0000
    R_XSEG=X:0000, size=0000
@@ -137,48 +137,48 @@ Base Segments:
 Module Segments:
    CSEG=C:0000, size=0007
    Car_Project_2:R_CONST=C:007F, size=0023
-   Car_Project_2:R_CSEG=C:00AD, size=0508
-   Car_Project_2:R_DSEG=D:0009, size=0012
+   Car_Project_2:R_CSEG=C:00AD, size=05D6
+   Car_Project_2:R_DSEG=D:0009, size=0014
    bp:R_DSEG=D:0008, size=0001
    crt0:R_GSINIT=C:000E, size=0071
-   fsdiv:R_CSEG=C:069A, size=011F
-   fsdiv:R_OSEG=D:001C, size=0004
-   fsget2args:R_CSEG=C:084E, size=002E
-   fsmul:R_CSEG=C:05C1, size=00A3
-   fsnormalize:R_CSEG=C:081B, size=0033
-   fsreturnval:R_CSEG=C:07CC, size=004F
-   gptrget:R_CSEG=C:0EB1, size=001C
-   gptrput:R_CSEG=C:0ECD, size=0019
-   gptrput:R_OSEG=D:001C, size=0001
+   fsdiv:R_CSEG=C:0768, size=011F
+   fsdiv:R_OSEG=D:0037, size=0004
+   fsget2args:R_CSEG=C:091C, size=002E
+   fsmul:R_CSEG=C:068F, size=00A3
+   fsnormalize:R_CSEG=C:08E9, size=0033
+   fsreturnval:R_CSEG=C:089A, size=004F
+   gptrget:R_CSEG=C:0F7F, size=001C
+   gptrput:R_CSEG=C:0F9B, size=0019
+   gptrput:R_OSEG=D:0037, size=0001
    print_format:?lib?dseg?1=D:0022, size=0015
    print_format:R_BSEG=B:0000, size=000E
    print_format:R_CONST=C:00A2, size=000B
-   print_format:R_CSEG=C:087C, size=0620
-   print_format:R_ISEG=I:0037, size=0006
-   putchar:R_CSEG=C:0E9C, size=0015
-   strlen:R_CSEG=C:0EE6, size=0028
-   uint2fs:R_CSEG=C:05B5, size=000C
-   ulong2fs:R_CSEG=C:07B9, size=0013
-   vprintf:R_CSEG=C:0664, size=0036
-   vprintf:R_DSEG=D:001B, size=0001
+   print_format:R_CSEG=C:094A, size=0620
+   print_format:R_ISEG=I:003B, size=0006
+   putchar:R_CSEG=C:0F6A, size=0015
+   strlen:R_CSEG=C:0FB4, size=0028
+   uint2fs:R_CSEG=C:0683, size=000C
+   ulong2fs:R_CSEG=C:0887, size=0013
+   vprintf:R_CSEG=C:0732, size=0036
+   vprintf:R_DSEG=D:001D, size=0001
 
 Public symbols:
    _?lib?dseg?1_size=L:0015
    _?lib?dseg?1_start=L:0022
-   _Car_Project_2_R_DSEG_size=L:0012
+   _Car_Project_2_R_DSEG_size=L:0014
    _Car_Project_2_R_DSEG_start=L:0009
    _Face_Transmitter=C:01BB
    _GetADC=C:0414
    _Get_Left_Distance=C:01AF
    _Get_Right_Distance=C:01A9
-   _Move_Backwards=C:02CB
+   _Move_Backwards=C:0325
    _Move_Car_Closer=C:032B
    _Move_Car_Further=C:0346
-   _Move_Forwards=C:0325
-   _Move_Left_Motor_Backwards=C:016D
-   _Move_Left_Motor_Forwards=C:0166
-   _Move_Right_Motor_Backwards=C:015F
-   _Move_Right_Motor_Forwards=C:0158
+   _Move_Forwards=C:02CB
+   _Move_Left_Motor_Backwards=C:0166
+   _Move_Left_Motor_Forwards=C:016D
+   _Move_Right_Motor_Backwards=C:0158
+   _Move_Right_Motor_Forwards=C:015F
    _Parallel_Park=C:02D1
    _Parallel_Park_Wait_1=C:0277
    _Parallel_Park_Wait_2=C:0285
@@ -190,7 +190,7 @@ Public symbols:
    _R_BSEG_start=L:0000
    _R_CONST_size=L:002E
    _R_CONST_start=L:007F
-   _R_CSEG_size=L:0E61
+   _R_CSEG_size=L:0F2F
    _R_CSEG_start=L:00AD
    _R_DINIT_size=L:0000
    _R_DINIT_start=L:0003
@@ -203,7 +203,7 @@ Public symbols:
    _R_IXSEG_size=L:0000
    _R_IXSEG_start=L:0000
    _R_OSEG_size=L:0004
-   _R_OSEG_start=L:001C
+   _R_OSEG_start=L:0037
    _R_PSEG_size=L:0000
    _R_PSEG_start=L:0000
    _R_XINIT_size=L:0000
@@ -220,15 +220,15 @@ Public symbols:
    _Turn_Car_Left=C:031F
    _Turn_Car_Right=C:0322
    _Undo_Parallel_Park=C:02F8
-   ___fsdiv=C:069A
-   ___fsmul=C:05C1
-   ___uint2fs=C:05B5
-   ___ulong2fs=C:07B9
+   ___fsdiv=C:0768
+   ___fsmul=C:068F
+   ___uint2fs=C:0683
+   ___ulong2fs=C:0887
    __c51_external_startup=C:00AD
-   __gptrget=C:0EB1
-   __gptrput=C:0ECD
-   __gptrput_PARM_2=D:001C
-   __print_format=C:0905
+   __gptrget=C:0F7F
+   __gptrput=C:0F9B
+   __gptrput_PARM_2=D:0037
+   __print_format=C:09D3
    __print_format_PARM_2=D:0030
    __print_format_PARM_3=D:0033
    _bp=D:0008
@@ -237,41 +237,41 @@ Public symbols:
    _crt0=C:000E
    _dist_index=D:0019
    _dist_table=D:0011
-   _dummy_name_crt0=C:069A
+   _dummy_name_crt0=C:0768
    _left_motor_pwm1=D:000B
    _left_motor_pwm2=D:000C
    _left_motor_pwmcount1=D:0009
    _left_motor_pwmcount2=D:000A
-   _main=C:0589
-   _printf=C:0679
-   _putchar=C:0E9C
+   _main=C:0657
+   _printf=C:0747
+   _putchar=C:0F6A
    _pwmcounter=C:0104
    _right_motor_pwm1=D:000F
    _right_motor_pwm2=D:0010
    _right_motor_pwmcount1=D:000D
    _right_motor_pwmcount2=D:000E
-   _run=C:04D9
+   _run=C:04FD
    _rx_byte=C:036E
-   _stack_start=L:003D
-   _strlen=C:0EE6
+   _stack_start=L:0041
+   _strlen=C:0FB4
    _voltage=C:0470
-   _vprintf=C:0667
-   _vprintf_PARM_2=D:001B
+   _vprintf=C:0735
+   _vprintf_PARM_2=D:001D
    _vprintf_R_DSEG_size=L:0001
-   _vprintf_R_DSEG_start=L:001B
+   _vprintf_R_DSEG_start=L:001D
    _wait1s=C:0190
    _wait50ms=C:0182
    _wait_bit_time=C:03E8
    _wait_one_and_half_bit_time=C:03F6
-   fs_direct_return=C:07F5
-   fs_normalize_a=C:081B
-   fs_return_inf=C:0803
-   fs_return_nan=C:0810
-   fs_return_zero=C:07ED
-   fs_round_and_return=C:07CC
-   fs_zerocheck_return=C:07E4
-   fsgetargs=C:084E
-   ulong2fs_doit=C:07C2
+   fs_direct_return=C:08C3
+   fs_normalize_a=C:08E9
+   fs_return_inf=C:08D1
+   fs_return_nan=C:08DE
+   fs_return_zero=C:08BB
+   fs_round_and_return=C:089A
+   fs_zerocheck_return=C:08B2
+   fsgetargs=C:091C
+   ulong2fs_doit=C:0890
 
 Local symbols:
    Car_Project_2:L003002?=C:0116
@@ -303,11 +303,15 @@ Local symbols:
    Car_Project_2:L036003?=C:042D
    Car_Project_2:L036009?=C:0432
    Car_Project_2:L038002?=C:04CB
-   Car_Project_2:L039001?=C:052D
-   Car_Project_2:L039003?=C:0552
-   Car_Project_2:L039004?=C:0569
-   Car_Project_2:L039006?=C:0586
-   Car_Project_2:L040002?=C:05AA
+   Car_Project_2:L039001?=C:0544
+   Car_Project_2:L039002?=C:0545
+   Car_Project_2:L039004?=C:057F
+   Car_Project_2:L039006?=C:05E3
+   Car_Project_2:L039008?=C:05E6
+   Car_Project_2:L039009?=C:05EF
+   Car_Project_2:L039011?=C:0653
+   Car_Project_2:L039014?=C:0656
+   Car_Project_2:L040002?=C:0678
    Car_Project_2:L1=C:03EE
    Car_Project_2:L2=C:03EC
    Car_Project_2:L3=C:03EA
@@ -337,6 +341,7 @@ Local symbols:
    Car_Project_2:Lg3=C:0184
    Car_Project_2:__str_0=C:007F
    Car_Project_2:__str_1=C:00A0
+   Car_Project_2:_run_dist_1_149=D:001B
    crt0:PClearLoop?done?=C:0077
    crt0:PClearLoop?repeat?=C:0069
    crt0:XClearLoop?done?=C:005F
@@ -346,174 +351,174 @@ Local symbols:
    crt0:__c51_init_data=C:001B
    crt0:__c51_program_startup=C:007A
    crt0:forever?home?=C:007D
-   fsdiv:L00001?=C:06A2
-   fsdiv:L00002?=C:06AB
-   fsdiv:L00003?=C:06AE
-   fsdiv:L00004?=C:06B4
-   fsdiv:L00005?=C:06C1
-   fsdiv:L00006?=C:06C4
-   fsdiv:L00007?=C:06CC
-   fsdiv:L00008?=C:06D8
-   fsdiv:L00009?=C:06E0
-   fsdiv:L00010?=C:06F6
-   fsdiv:L00011?=C:0746
-   fsdiv:L00012?=C:0759
-   fsdiv:L00013?=C:07A8
-   fsdiv:L00014?=C:07B6
-   fsdiv:_dummy=C:069A
-   fsdiv:saved_b=D:001F
-   fsdiv:saved_r5=D:001C
-   fsdiv:saved_r6=D:001D
-   fsdiv:saved_r7=D:001E
-   fsget2args:L00001?=C:085B
-   fsget2args:L00002?=C:0877
-   fsget2args:_dummy=C:084E
-   fsmul:L00001?=C:05C7
-   fsmul:L00002?=C:05CA
-   fsmul:L00003?=C:05D2
-   fsmul:L00004?=C:05DA
-   fsmul:L00005?=C:05E2
-   fsmul:L00006?=C:05ED
-   fsmul:L00007?=C:05F5
-   fsmul:L00010?=C:0661
-   fsmul:_dummy=C:05C1
-   fsnormalize:L00001?=C:081E
-   fsnormalize:L00002?=C:0830
-   fsnormalize:L00003?=C:0831
-   fsnormalize:L00004?=C:0835
-   fsnormalize:L00005?=C:083C
-   fsnormalize:L00006?=C:084B
-   fsnormalize:_dummy=C:081B
-   fsreturnval:L00001?=C:07D2
-   fsreturnval:_dummy=C:07CC
-   gptrget:codeptr?=C:0EC8
-   gptrget:dataptrrestore?=C:0EBF
-   gptrget:pdataptr?=C:0EC5
-   gptrget:xdataptr?=C:0ECB
-   gptrput:codeptr?=C:0EE0
-   gptrput:dataptrrestore?=C:0EDB
-   gptrput:pdataptr?=C:0EE1
-   gptrput:xdataptr?=C:0EE4
-   print_format:L002003?=C:088D
-   print_format:L002004?=C:0895
-   print_format:L003004?=C:08AA
-   print_format:L005003?=C:08D3
-   print_format:L005004?=C:08F7
-   print_format:L006001?=C:095F
-   print_format:L006003?=C:097E
-   print_format:L006007?=C:09A4
-   print_format:L006010?=C:09B3
-   print_format:L006015?=C:09C0
-   print_format:L006017?=C:09D5
-   print_format:L006018?=C:09D7
-   print_format:L006020?=C:0A47
-   print_format:L006021?=C:0A4C
-   print_format:L006022?=C:0A51
-   print_format:L006023?=C:0A56
-   print_format:L006024?=C:0A5B
-   print_format:L006025?=C:0A60
-   print_format:L006026?=C:0A65
-   print_format:L006028?=C:0A78
-   print_format:L006031?=C:0A98
-   print_format:L006034?=C:0A8A
-   print_format:L006036?=C:0AAA
-   print_format:L006038?=C:0AB7
-   print_format:L006039?=C:0AC6
-   print_format:L006040?=C:0ACE
-   print_format:L006042?=C:0AFC
-   print_format:L006043?=C:0B0D
-   print_format:L006050?=C:0B1C
-   print_format:L006052?=C:0B55
-   print_format:L006053?=C:0B6C
-   print_format:L006059?=C:0B7E
-   print_format:L006061?=C:0BB0
-   print_format:L006064?=C:0BA8
-   print_format:L006067?=C:0B9F
-   print_format:L006068?=C:0BB2
-   print_format:L006070?=C:0BDD
-   print_format:L006073?=C:0BE5
-   print_format:L006074?=C:0BEC
-   print_format:L006075?=C:0BF1
-   print_format:L006076?=C:0BF6
-   print_format:L006077?=C:0BFB
-   print_format:L006078?=C:0BFF
-   print_format:L006079?=C:0C03
-   print_format:L006080?=C:0C07
-   print_format:L006081?=C:0C31
-   print_format:L006082?=C:0C36
-   print_format:L006083?=C:0C65
-   print_format:L006091?=C:0CF2
-   print_format:L006094?=C:0CD0
-   print_format:L006095?=C:0D1C
-   print_format:L006097?=C:0D58
-   print_format:L006102?=C:0D3A
-   print_format:L006105?=C:0D62
-   print_format:L006108?=C:0D88
-   print_format:L006111?=C:0D8A
-   print_format:L006113?=C:0DAB
-   print_format:L006114?=C:0DAD
-   print_format:L006115?=C:0D91
-   print_format:L006119?=C:0DC4
-   print_format:L006120?=C:0DCA
-   print_format:L006124?=C:0DE1
-   print_format:L006129?=C:0E07
-   print_format:L006134?=C:0DF2
-   print_format:L006135?=C:0E16
-   print_format:L006136?=C:0E19
-   print_format:L006140?=C:0E47
-   print_format:L006143?=C:0E37
-   print_format:L006146?=C:0E62
-   print_format:L006147?=C:0E69
-   print_format:L006148?=C:0E4C
-   print_format:L006150?=C:0E75
-   print_format:L006151?=C:0E7B
-   print_format:L006158?=C:0C3F
-   print_format:L006159?=C:0C99
-   print_format:L006164?=C:0E8D
-   print_format:L006166?=C:0910
-   print_format:L006168?=C:0E95
-   print_format:L006171?=C:0E2A
-   print_format:L006172?=C:0E2C
-   print_format:L006259?=C:0E4A
-   print_format:L006264?=C:0932
-   print_format:L006265?=C:0937
-   print_format:L006266?=C:093A
-   print_format:L006269?=C:0983
-   print_format:L006279?=C:09C5
-   print_format:L006282?=C:09DC
-   print_format:L006283?=C:09E2
-   print_format:L006284?=C:09E8
-   print_format:L006285?=C:09ED
-   print_format:L006286?=C:09F2
-   print_format:L006287?=C:09F7
-   print_format:L006288?=C:09FD
-   print_format:L006289?=C:0A03
-   print_format:L006290?=C:0A09
-   print_format:L006291?=C:0A0F
-   print_format:L006292?=C:0A15
-   print_format:L006293?=C:0A1B
-   print_format:L006294?=C:0A20
-   print_format:L006295?=C:0A26
-   print_format:L006296?=C:0A2C
-   print_format:L006297?=C:0A32
-   print_format:L006298?=C:0A38
-   print_format:L006299?=C:0A3E
-   print_format:L006300?=C:0A44
-   print_format:L006313?=C:0B4D
-   print_format:L006314?=C:0B5B
-   print_format:L006315?=C:0B65
-   print_format:L006316?=C:0B76
-   print_format:L006320?=C:0BD2
-   print_format:L006321?=C:0BD7
-   print_format:L006325?=C:0C92
-   print_format:L006326?=C:0CA0
-   print_format:L006356?=C:0E7B
-   print_format:L006357?=C:0E85
-   print_format:__output_char=C:087C
+   fsdiv:L00001?=C:0770
+   fsdiv:L00002?=C:0779
+   fsdiv:L00003?=C:077C
+   fsdiv:L00004?=C:0782
+   fsdiv:L00005?=C:078F
+   fsdiv:L00006?=C:0792
+   fsdiv:L00007?=C:079A
+   fsdiv:L00008?=C:07A6
+   fsdiv:L00009?=C:07AE
+   fsdiv:L00010?=C:07C4
+   fsdiv:L00011?=C:0814
+   fsdiv:L00012?=C:0827
+   fsdiv:L00013?=C:0876
+   fsdiv:L00014?=C:0884
+   fsdiv:_dummy=C:0768
+   fsdiv:saved_b=D:003A
+   fsdiv:saved_r5=D:0037
+   fsdiv:saved_r6=D:0038
+   fsdiv:saved_r7=D:0039
+   fsget2args:L00001?=C:0929
+   fsget2args:L00002?=C:0945
+   fsget2args:_dummy=C:091C
+   fsmul:L00001?=C:0695
+   fsmul:L00002?=C:0698
+   fsmul:L00003?=C:06A0
+   fsmul:L00004?=C:06A8
+   fsmul:L00005?=C:06B0
+   fsmul:L00006?=C:06BB
+   fsmul:L00007?=C:06C3
+   fsmul:L00010?=C:072F
+   fsmul:_dummy=C:068F
+   fsnormalize:L00001?=C:08EC
+   fsnormalize:L00002?=C:08FE
+   fsnormalize:L00003?=C:08FF
+   fsnormalize:L00004?=C:0903
+   fsnormalize:L00005?=C:090A
+   fsnormalize:L00006?=C:0919
+   fsnormalize:_dummy=C:08E9
+   fsreturnval:L00001?=C:08A0
+   fsreturnval:_dummy=C:089A
+   gptrget:codeptr?=C:0F96
+   gptrget:dataptrrestore?=C:0F8D
+   gptrget:pdataptr?=C:0F93
+   gptrget:xdataptr?=C:0F99
+   gptrput:codeptr?=C:0FAE
+   gptrput:dataptrrestore?=C:0FA9
+   gptrput:pdataptr?=C:0FAF
+   gptrput:xdataptr?=C:0FB2
+   print_format:L002003?=C:095B
+   print_format:L002004?=C:0963
+   print_format:L003004?=C:0978
+   print_format:L005003?=C:09A1
+   print_format:L005004?=C:09C5
+   print_format:L006001?=C:0A2D
+   print_format:L006003?=C:0A4C
+   print_format:L006007?=C:0A72
+   print_format:L006010?=C:0A81
+   print_format:L006015?=C:0A8E
+   print_format:L006017?=C:0AA3
+   print_format:L006018?=C:0AA5
+   print_format:L006020?=C:0B15
+   print_format:L006021?=C:0B1A
+   print_format:L006022?=C:0B1F
+   print_format:L006023?=C:0B24
+   print_format:L006024?=C:0B29
+   print_format:L006025?=C:0B2E
+   print_format:L006026?=C:0B33
+   print_format:L006028?=C:0B46
+   print_format:L006031?=C:0B66
+   print_format:L006034?=C:0B58
+   print_format:L006036?=C:0B78
+   print_format:L006038?=C:0B85
+   print_format:L006039?=C:0B94
+   print_format:L006040?=C:0B9C
+   print_format:L006042?=C:0BCA
+   print_format:L006043?=C:0BDB
+   print_format:L006050?=C:0BEA
+   print_format:L006052?=C:0C23
+   print_format:L006053?=C:0C3A
+   print_format:L006059?=C:0C4C
+   print_format:L006061?=C:0C7E
+   print_format:L006064?=C:0C76
+   print_format:L006067?=C:0C6D
+   print_format:L006068?=C:0C80
+   print_format:L006070?=C:0CAB
+   print_format:L006073?=C:0CB3
+   print_format:L006074?=C:0CBA
+   print_format:L006075?=C:0CBF
+   print_format:L006076?=C:0CC4
+   print_format:L006077?=C:0CC9
+   print_format:L006078?=C:0CCD
+   print_format:L006079?=C:0CD1
+   print_format:L006080?=C:0CD5
+   print_format:L006081?=C:0CFF
+   print_format:L006082?=C:0D04
+   print_format:L006083?=C:0D33
+   print_format:L006091?=C:0DC0
+   print_format:L006094?=C:0D9E
+   print_format:L006095?=C:0DEA
+   print_format:L006097?=C:0E26
+   print_format:L006102?=C:0E08
+   print_format:L006105?=C:0E30
+   print_format:L006108?=C:0E56
+   print_format:L006111?=C:0E58
+   print_format:L006113?=C:0E79
+   print_format:L006114?=C:0E7B
+   print_format:L006115?=C:0E5F
+   print_format:L006119?=C:0E92
+   print_format:L006120?=C:0E98
+   print_format:L006124?=C:0EAF
+   print_format:L006129?=C:0ED5
+   print_format:L006134?=C:0EC0
+   print_format:L006135?=C:0EE4
+   print_format:L006136?=C:0EE7
+   print_format:L006140?=C:0F15
+   print_format:L006143?=C:0F05
+   print_format:L006146?=C:0F30
+   print_format:L006147?=C:0F37
+   print_format:L006148?=C:0F1A
+   print_format:L006150?=C:0F43
+   print_format:L006151?=C:0F49
+   print_format:L006158?=C:0D0D
+   print_format:L006159?=C:0D67
+   print_format:L006164?=C:0F5B
+   print_format:L006166?=C:09DE
+   print_format:L006168?=C:0F63
+   print_format:L006171?=C:0EF8
+   print_format:L006172?=C:0EFA
+   print_format:L006259?=C:0F18
+   print_format:L006264?=C:0A00
+   print_format:L006265?=C:0A05
+   print_format:L006266?=C:0A08
+   print_format:L006269?=C:0A51
+   print_format:L006279?=C:0A93
+   print_format:L006282?=C:0AAA
+   print_format:L006283?=C:0AB0
+   print_format:L006284?=C:0AB6
+   print_format:L006285?=C:0ABB
+   print_format:L006286?=C:0AC0
+   print_format:L006287?=C:0AC5
+   print_format:L006288?=C:0ACB
+   print_format:L006289?=C:0AD1
+   print_format:L006290?=C:0AD7
+   print_format:L006291?=C:0ADD
+   print_format:L006292?=C:0AE3
+   print_format:L006293?=C:0AE9
+   print_format:L006294?=C:0AEE
+   print_format:L006295?=C:0AF4
+   print_format:L006296?=C:0AFA
+   print_format:L006297?=C:0B00
+   print_format:L006298?=C:0B06
+   print_format:L006299?=C:0B0C
+   print_format:L006300?=C:0B12
+   print_format:L006313?=C:0C1B
+   print_format:L006314?=C:0C29
+   print_format:L006315?=C:0C33
+   print_format:L006316?=C:0C44
+   print_format:L006320?=C:0CA0
+   print_format:L006321?=C:0CA5
+   print_format:L006325?=C:0D60
+   print_format:L006326?=C:0D6E
+   print_format:L006356?=C:0F49
+   print_format:L006357?=C:0F53
+   print_format:__output_char=C:094A
    print_format:__print_format_sloc0_1_0=D:0034
-   print_format:__print_format_store_4_104=I:0037
+   print_format:__print_format_store_4_104=I:003B
    print_format:__str_0=C:00A2
-   print_format:_calculate_digit=C:08C6
+   print_format:_calculate_digit=C:0994
    print_format:_char_argument=B:0009
    print_format:_charsOutputted=D:0029
    print_format:_decimals=D:002D
@@ -527,9 +532,9 @@ Local symbols:
    print_format:_long_argument=B:000A
    print_format:_lower_case=B:0000
    print_format:_lsd=B:000C
-   print_format:_output_2digits=C:08AF
+   print_format:_output_2digits=C:097D
    print_format:_output_char=D:0022
-   print_format:_output_digit=C:0896
+   print_format:_output_digit=C:0964
    print_format:_pound_argument=B:000B
    print_format:_prefix_sign=B:0006
    print_format:_prefix_space=B:0007
@@ -538,13 +543,13 @@ Local symbols:
    print_format:_value=D:0024
    print_format:_width=D:002C
    print_format:_zero_padding=B:0005
-   putchar:L002001?=C:0EA1
-   putchar:L002006?=C:0EA9
-   putchar:L002017?=C:0EA6
-   putchar:L002018?=C:0EAE
-   strlen:L002001?=C:0EF0
-   strlen:L002003?=C:0F09
-   uint2fs:_dummy=C:05B5
-   ulong2fs:_dummy=C:07B9
-   ulong2fs:long2fs_doit=C:07C4
-   vprintf:_put_char_to_stdout=C:0664
+   putchar:L002001?=C:0F6F
+   putchar:L002006?=C:0F77
+   putchar:L002017?=C:0F74
+   putchar:L002018?=C:0F7C
+   strlen:L002001?=C:0FBE
+   strlen:L002003?=C:0FD7
+   uint2fs:_dummy=C:0683
+   ulong2fs:_dummy=C:0887
+   ulong2fs:long2fs_doit=C:0892
+   vprintf:_put_char_to_stdout=C:0732

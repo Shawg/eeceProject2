@@ -12,8 +12,8 @@
 #define TIMER0_RELOAD_VALUE (65536L-(CLK/(12L*FREQ)))
 
 //Reciever commands
-#define MOVE_FORWARDS 0xfd
-#define MOVE_BACKWARDS 0xf5
+#define MOVE_Backwards 0xfd
+#define MOVE_Forwards 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x55
 
@@ -33,10 +33,10 @@ unsigned int dist_table[4]; // = {array of distance values}
 int dist_index; //number from 0-3 that determines distance
 
 	//Motor Control
-void Move_Left_Motor_Forwards(void);
 void Move_Left_Motor_Backwards(void);
-void Move_Right_Motor_Forwards(void);
+void Move_Left_Motor_Forwards(void);
 void Move_Right_Motor_Backwards(void);
+void Move_Right_Motor_Forwards(void);
 void Stop_Right_Motor(void);
 void Stop_Left_Motor(void);
 	//Basic Car Control
@@ -45,8 +45,8 @@ void Rotate_Car_180_CCW(void);
 void Turn_Car_Right(void);
 void Turn_Car_Left(void);
 void Stop_Car(void);
-void Move_Forwards(void);
 void Move_Backwards(void);
+void Move_Forwards(void);
 	//Advanced Car Control
 void Parallel_Park(void);
 void Undo_Parallel_Park(void);
@@ -125,31 +125,31 @@ void pwmcounter (void) interrupt 1
 }
 
 // This causes the motor on the right side of the
-// car to move forwards emmett
-void Move_Right_Motor_Forwards(){
+// car to move Backwards emmett
+void Move_Right_Motor_Backwards(){
 	right_motor_pwm1 = 75;
 	right_motor_pwm2 = 0;
 	
 }
 
 // This causes the motor on the right side of the
-// car to move backwards
-void Move_Right_Motor_Backwards (void){
+// car to move Forwards
+void Move_Right_Motor_Forwards (void){
 	right_motor_pwm1 = 0;
 	right_motor_pwm2 = 90;
 
 }
 
 // This causes the motor on the left side of the
-// car to move forwards
-void Move_Left_Motor_Forwards (void){
+// car to move Backwards
+void Move_Left_Motor_Backwards (void){
 	left_motor_pwm1 = 82;
 	left_motor_pwm2 = 0;
 }
 
 // This causes the motor on the left side of the
-// car to move backwards
-void Move_Left_Motor_Backwards (void){
+// car to move Forwards
+void Move_Left_Motor_Forwards (void){
 	left_motor_pwm1 = 0;
 	left_motor_pwm2 = 95;
 }
@@ -331,14 +331,14 @@ void Parallel_Park_Wait_6(void){
 }
 
 // This causes the car to move backards in a straight line
-void Move_Backwards(void){
-	Move_Right_Motor_Backwards();
-	Move_Left_Motor_Backwards();
+void Move_Forwards(void){
+	Move_Right_Motor_Forwards();
+	Move_Left_Motor_Forwards();
 
 }
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void Parallel_Park(void){
-	Move_Backwards();
+	Move_Forwards();
 	Parallel_Park_Wait_1();
 	
 	Stop_Car();
@@ -347,7 +347,7 @@ void Parallel_Park(void){
 	Turn_Car_Left();
 	Parallel_Park_Wait_3();
 	
-	Move_Backwards();
+	Move_Forwards();
 	Parallel_Park_Wait_4();
 	
 	Stop_Car();
@@ -363,14 +363,14 @@ void Undo_Parallel_Park (void){
 	Turn_Car_Left();
 	Parallel_Park_Wait_3();
 	
-	Move_Forwards();
+	Move_Backwards();
 	Parallel_Park_Wait_4();
 	
 	Stop_Car();
 	Turn_Car_Right();
 	Parallel_Park_Wait_3();
 	
-	Move_Forwards();
+	Move_Backwards();
 	Parallel_Park_Wait_1();
 	
 	Stop_Car();
@@ -384,20 +384,20 @@ void Undo_Parallel_Park (void){
 
 //This causes the care to turn to the left
 void Turn_Car_Left(void){
-	Move_Right_Motor_Forwards();
+	Move_Right_Motor_Backwards();
 	//We might want to get rid of this and just move one wheel
 								 //We'll have a better idea when we do testing with
 								 //the chassis
 }
 
 void Turn_Car_Right(void){
-	Move_Left_Motor_Forwards(); //Same thoughts as above, (in Turn_Car_Left)
+	Move_Left_Motor_Backwards(); //Same thoughts as above, (in Turn_Car_Left)
 }
 
-// This causes the car to move forwards in a straight line
-void Move_Forwards(void){
-	Move_Right_Motor_Forwards();
-	Move_Left_Motor_Forwards();
+// This causes the car to move Backwards in a straight line
+void Move_Backwards(void){
+	Move_Right_Motor_Backwards();
+	Move_Left_Motor_Backwards();
 }
 
 
@@ -539,10 +539,22 @@ float voltage (unsigned char channel){
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
 void Testing_Code(void){
-	while(1){	
-		Parallel_Park();
+	while(1){
+		Move_Left_Motor_Backwards(); //fwds and Forwards go opposite directions!
+		wait1s();	
+		Stop_Car();
+		wait1s();	
+		Move_Left_Motor_Forwards();
 		wait1s();
-		Undo_Parallel_Park();
+		Stop_Car();
+		wait1s();	
+		Move_Right_Motor_Backwards();
+		wait1s();	
+		Stop_Car();
+		wait1s();	
+		Move_Right_Motor_Forwards();
+		wait1s();	
+		Stop_Car();
 		wait1s();	
 	}
 }
@@ -554,19 +566,27 @@ void run (int dist_index){
 	//Face_Transmitter();
 
 	dist = Get_Right_Distance();
-
+	if (dist - dist_table[dist_index] <= 80 || dist_table[dist_index] - dist <= 80)
+		return;
 	printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
-	while(dist < dist_table[dist_index]) {
-		Move_Forwards();
-		dist = Get_Right_Distance();
+	if(dist < dist_table[dist_index]){
+		while(dist - dist_table[dist_index] >= 80) {
+			Move_Backwards();
+			dist = Get_Right_Distance();
+			printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
+		}
+		Stop_Car();
+		return;
 	}
+	if(dist > dist_table[dist_index]){
+		while(dist_table[dist_index]-dist > 80) {
+			Move_Forwards();
+			dist = Get_Right_Distance();
+			printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
+		}
 	Stop_Car();
-
-	while(dist > dist_table[dist_index]) {
-		Move_Backwards();
-		dist = Get_Right_Distance();
+	return;
 	}
-	Stop_Car();
 }
 void main (void)
 {	
@@ -585,12 +605,13 @@ void main (void)
 	while(1){
 		
 		run(dist_index);
-		
+		//Testing_Code();
+
 		//Check for start bit to indicate a command from transmitter
 		//if(Get_Right_Distance() <= v_min){
         //	cmd = rx_byte (v_min);
-        //	if(cmd == MOVE_BACKWARDS) Move_Backwards();
-        //	if(cmd == MOVE_FORWARDS) Move_Forwards();
+        //	if(cmd == MOVE_Forwards) Move_Forwards();
+        //	if(cmd == MOVE_Backwards) Move_Backwards();
         //	if(cmd == ROTATE_180) Rotate_Car_180_CW();
         //	if(cmd == PRL_PARK) Parallel_Park();
         //}

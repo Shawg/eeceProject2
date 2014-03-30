@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Sun Mar 30 13:27:25 2014
+0000              4   ; This file was generated Sun Mar 30 16:47:15 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Car_Project_2
                   6   $optc51 --model-small
@@ -44,10 +44,10 @@
 0000             44            public _left_motor_pwm1
 0000             45            public _left_motor_pwmcount2
 0000             46            public _left_motor_pwmcount1
-0000             47            public _Move_Right_Motor_Forwards
-0000             48            public _Move_Right_Motor_Backwards
-0000             49            public _Move_Left_Motor_Forwards
-0000             50            public _Move_Left_Motor_Backwards
+0000             47            public _Move_Right_Motor_Backwards
+0000             48            public _Move_Right_Motor_Forwards
+0000             49            public _Move_Left_Motor_Backwards
+0000             50            public _Move_Left_Motor_Forwards
 0000             51            public _Stop_Right_Motor
 0000             52            public _Stop_Left_Motor
 0000             53            public _wait50ms
@@ -56,12 +56,12 @@
 0000             56            public _Get_Left_Distance
 0000             57            public _Stop_Car
 0000             58            public _Face_Transmitter
-0000             59            public _Move_Backwards
+0000             59            public _Move_Forwards
 0000             60            public _Parallel_Park
 0000             61            public _Undo_Parallel_Park
 0000             62            public _Turn_Car_Left
 0000             63            public _Turn_Car_Right
-0000             64            public _Move_Forwards
+0000             64            public _Move_Backwards
 0000             65            public _Rotate_Car_180_CW
 0000             66            public _Rotate_Car_180_CCW
 0000             67            public _rx_byte
@@ -345,1336 +345,1475 @@
 0008            345            ds 8
 0010            346   _dist_index:
 0010            347            ds 2
-0012            348   ;--------------------------------------------------------
-0012            349   ; overlayable items in internal ram 
-0012            350   ;--------------------------------------------------------
-0000            351            rseg    R_OSEG
-0000            352   ;--------------------------------------------------------
-0000            353   ; indirectly addressable internal ram data
+0012            348   _run_dist_1_149:
+0012            349            ds 2
+0014            350   ;--------------------------------------------------------
+0014            351   ; overlayable items in internal ram 
+0014            352   ;--------------------------------------------------------
+0000            353            rseg    R_OSEG
 0000            354   ;--------------------------------------------------------
-0000            355            rseg R_ISEG
+0000            355   ; indirectly addressable internal ram data
 0000            356   ;--------------------------------------------------------
-0000            357   ; absolute internal ram data
+0000            357            rseg R_ISEG
 0000            358   ;--------------------------------------------------------
-0000            359            DSEG
+0000            359   ; absolute internal ram data
 0000            360   ;--------------------------------------------------------
-0000            361   ; bit data
+0000            361            DSEG
 0000            362   ;--------------------------------------------------------
-0000            363            rseg R_BSEG
+0000            363   ; bit data
 0000            364   ;--------------------------------------------------------
-0000            365   ; paged external ram data
+0000            365            rseg R_BSEG
 0000            366   ;--------------------------------------------------------
-0000            367            rseg R_PSEG
+0000            367   ; paged external ram data
 0000            368   ;--------------------------------------------------------
-0000            369   ; external ram data
+0000            369            rseg R_PSEG
 0000            370   ;--------------------------------------------------------
-0000            371            rseg R_XSEG
+0000            371   ; external ram data
 0000            372   ;--------------------------------------------------------
-0000            373   ; absolute external ram data
+0000            373            rseg R_XSEG
 0000            374   ;--------------------------------------------------------
-0000            375            XSEG
+0000            375   ; absolute external ram data
 0000            376   ;--------------------------------------------------------
-0000            377   ; external initialized ram data
+0000            377            XSEG
 0000            378   ;--------------------------------------------------------
-0000            379            rseg R_IXSEG
-0000            380            rseg R_HOME
-0000            381            rseg R_GSINIT
-0000            382            rseg R_CSEG
-0000            383   ;--------------------------------------------------------
-0000            384   ; Reset entry point and interrupt vectors
+0000            379   ; external initialized ram data
+0000            380   ;--------------------------------------------------------
+0000            381            rseg R_IXSEG
+0000            382            rseg R_HOME
+0000            383            rseg R_GSINIT
+0000            384            rseg R_CSEG
 0000            385   ;--------------------------------------------------------
-0000            386            CSEG at 0x0000
-0000 020100     387            ljmp    _crt0
-000B            388            CSEG at 0x000b
-000B 020100     389            ljmp    _pwmcounter
-000E            390   ;--------------------------------------------------------
-000E            391   ; global & static initialisations
+0000            386   ; Reset entry point and interrupt vectors
+0000            387   ;--------------------------------------------------------
+0000            388            CSEG at 0x0000
+0000 020100     389            ljmp    _crt0
+000B            390            CSEG at 0x000b
+000B 020100     391            ljmp    _pwmcounter
 000E            392   ;--------------------------------------------------------
-0000            393            rseg R_HOME
-0000            394            rseg R_GSINIT
-0000            395            rseg R_GSINIT
-0000            396   ;--------------------------------------------------------
-0000            397   ; data variables initialization
+000E            393   ; global & static initialisations
+000E            394   ;--------------------------------------------------------
+0000            395            rseg R_HOME
+0000            396            rseg R_GSINIT
+0000            397            rseg R_GSINIT
 0000            398   ;--------------------------------------------------------
-0000            399            rseg R_DINIT
-0000            400            ; The linker places a 'ret' at the end of segment R_DINIT.
-0000            401   ;--------------------------------------------------------
-0000            402   ; code
+0000            399   ; data variables initialization
+0000            400   ;--------------------------------------------------------
+0000            401            rseg R_DINIT
+0000            402            ; The linker places a 'ret' at the end of segment R_DINIT.
 0000            403   ;--------------------------------------------------------
-0000            404            rseg R_CSEG
-0000            405   ;------------------------------------------------------------
-0000            406   ;Allocation info for local variables in function '_c51_external_startup'
+0000            404   ; code
+0000            405   ;--------------------------------------------------------
+0000            406            rseg R_CSEG
 0000            407   ;------------------------------------------------------------
-0000            408   ;------------------------------------------------------------
-0000            409   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:72: unsigned char _c51_external_startup(void)
-0000            410   ;        -----------------------------------------
-0000            411   ;         function _c51_external_startup
+0000            408   ;Allocation info for local variables in function '_c51_external_startup'
+0000            409   ;------------------------------------------------------------
+0000            410   ;------------------------------------------------------------
+0000            411   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:72: unsigned char _c51_external_startup(void)
 0000            412   ;        -----------------------------------------
-0000            413   __c51_external_startup:
-0000            414            using   0
-0000            415   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:75: P0M0=0;  P0M1=0;
-0000 75E600     416            mov     _P0M0,#0x00
-0003 75E700     417            mov     _P0M1,#0x00
-0006            418   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:76: P1M0=0;  P1M1=0;
-0006 75D600     419            mov     _P1M0,#0x00
-0009 75D700     420            mov     _P1M1,#0x00
-000C            421   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:77: P2M0=0;  P2M1=0;
-000C 75CE00     422            mov     _P2M0,#0x00
-000F 75CF00     423            mov     _P2M1,#0x00
-0012            424   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:78: P3M0=0;  P3M1=0;
-0012 75C600     425            mov     _P3M0,#0x00
-0015 75C700     426            mov     _P3M1,#0x00
-0018            427   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:79: AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
-0018 758E11     428            mov     _AUXR,#0x11
-001B            429   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:80: P4M0=0;  P4M1=0;
-001B 75BE00     430            mov     _P4M0,#0x00
-001E 75BF00     431            mov     _P4M1,#0x00
-0021            432   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:83: PCON|=0x80;
-0021 438780     433            orl     _PCON,#0x80
-0024            434   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:84: SCON = 0x52;
-0024 759852     435            mov     _SCON,#0x52
-0027            436   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:85: BDRCON=0;
-0027 759B00     437            mov     _BDRCON,#0x00
-002A            438   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:86: BRL=BRG_VAL;
-002A 759AFA     439            mov     _BRL,#0xFA
-002D            440   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:87: BDRCON=BRR|TBCK|RBCK|SPD;
-002D 759B1E     441            mov     _BDRCON,#0x1E
-0030            442   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:90: TR0=0; // Stop timer 0
-0030 C28C       443            clr     _TR0
-0032            444   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:91: TMOD=0x01; // 16-bit timer
-0032 758901     445            mov     _TMOD,#0x01
-0035            446   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:96: TH0=RH0=TIMER0_RELOAD_VALUE/0x100;
-0035 75F4FF     447            mov     _RH0,#0xFF
-0038 758CFF     448            mov     _TH0,#0xFF
-003B            449   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:97: TL0=RL0=TIMER0_RELOAD_VALUE%0x100;
-003B 75F248     450            mov     _RL0,#0x48
-003E 758A48     451            mov     _TL0,#0x48
-0041            452   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:98: TR0=1; // Start timer 0 (bit 4 in TCON)
-0041 D28C       453            setb    _TR0
-0043            454   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:99: ET0=1; // Enable timer 0 interrupt
-0043 D2A9       455            setb    _ET0
-0045            456   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:100: EA=1;  // Enable global interrupts
-0045 D2AF       457            setb    _EA
-0047            458   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:102: left_motor_pwmcount1 = 0;    
-0047 754000     459            mov     _left_motor_pwmcount1,#0x00
-004A            460   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:103: left_motor_pwmcount2 = 0;
-004A 75F000     461            mov     _left_motor_pwmcount2,#0x00
-004D            462   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:104: right_motor_pwmcount1 = 0;
-004D 750000     463            mov     _right_motor_pwmcount1,#0x00
-0050            464   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:105: right_motor_pwmcount2 = 0;
-0050 75B000     465            mov     _right_motor_pwmcount2,#0x00
-0053            466   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:107: return 0;
-0053 758200     467            mov     dpl,#0x00
-0056 22         468            ret
-0057            469   ;------------------------------------------------------------
-0057            470   ;Allocation info for local variables in function 'pwmcounter'
+0000            413   ;         function _c51_external_startup
+0000            414   ;        -----------------------------------------
+0000            415   __c51_external_startup:
+0000            416            using   0
+0000            417   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:75: P0M0=0;  P0M1=0;
+0000 75E600     418            mov     _P0M0,#0x00
+0003 75E700     419            mov     _P0M1,#0x00
+0006            420   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:76: P1M0=0;  P1M1=0;
+0006 75D600     421            mov     _P1M0,#0x00
+0009 75D700     422            mov     _P1M1,#0x00
+000C            423   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:77: P2M0=0;  P2M1=0;
+000C 75CE00     424            mov     _P2M0,#0x00
+000F 75CF00     425            mov     _P2M1,#0x00
+0012            426   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:78: P3M0=0;  P3M1=0;
+0012 75C600     427            mov     _P3M0,#0x00
+0015 75C700     428            mov     _P3M1,#0x00
+0018            429   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:79: AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
+0018 758E11     430            mov     _AUXR,#0x11
+001B            431   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:80: P4M0=0;  P4M1=0;
+001B 75BE00     432            mov     _P4M0,#0x00
+001E 75BF00     433            mov     _P4M1,#0x00
+0021            434   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:83: PCON|=0x80;
+0021 438780     435            orl     _PCON,#0x80
+0024            436   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:84: SCON = 0x52;
+0024 759852     437            mov     _SCON,#0x52
+0027            438   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:85: BDRCON=0;
+0027 759B00     439            mov     _BDRCON,#0x00
+002A            440   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:86: BRL=BRG_VAL;
+002A 759AFA     441            mov     _BRL,#0xFA
+002D            442   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:87: BDRCON=BRR|TBCK|RBCK|SPD;
+002D 759B1E     443            mov     _BDRCON,#0x1E
+0030            444   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:90: TR0=0; // Stop timer 0
+0030 C28C       445            clr     _TR0
+0032            446   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:91: TMOD=0x01; // 16-bit timer
+0032 758901     447            mov     _TMOD,#0x01
+0035            448   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:96: TH0=RH0=TIMER0_RELOAD_VALUE/0x100;
+0035 75F4FF     449            mov     _RH0,#0xFF
+0038 758CFF     450            mov     _TH0,#0xFF
+003B            451   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:97: TL0=RL0=TIMER0_RELOAD_VALUE%0x100;
+003B 75F248     452            mov     _RL0,#0x48
+003E 758A48     453            mov     _TL0,#0x48
+0041            454   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:98: TR0=1; // Start timer 0 (bit 4 in TCON)
+0041 D28C       455            setb    _TR0
+0043            456   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:99: ET0=1; // Enable timer 0 interrupt
+0043 D2A9       457            setb    _ET0
+0045            458   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:100: EA=1;  // Enable global interrupts
+0045 D2AF       459            setb    _EA
+0047            460   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:102: left_motor_pwmcount1 = 0;    
+0047 754000     461            mov     _left_motor_pwmcount1,#0x00
+004A            462   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:103: left_motor_pwmcount2 = 0;
+004A 75F000     463            mov     _left_motor_pwmcount2,#0x00
+004D            464   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:104: right_motor_pwmcount1 = 0;
+004D 750000     465            mov     _right_motor_pwmcount1,#0x00
+0050            466   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:105: right_motor_pwmcount2 = 0;
+0050 75B000     467            mov     _right_motor_pwmcount2,#0x00
+0053            468   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:107: return 0;
+0053 758200     469            mov     dpl,#0x00
+0056 22         470            ret
 0057            471   ;------------------------------------------------------------
-0057            472   ;------------------------------------------------------------
-0057            473   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:112: void pwmcounter (void) interrupt 1
-0057            474   ;        -----------------------------------------
-0057            475   ;         function pwmcounter
+0057            472   ;Allocation info for local variables in function 'pwmcounter'
+0057            473   ;------------------------------------------------------------
+0057            474   ;------------------------------------------------------------
+0057            475   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:112: void pwmcounter (void) interrupt 1
 0057            476   ;        -----------------------------------------
-0057            477   _pwmcounter:
-0057 C0E0       478            push    acc
-0059 C0D0       479            push    psw
-005B 75D000     480            mov     psw,#0x00
-005E            481   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:114: if(++left_motor_pwmcount1>99) left_motor_pwmcount1=0;
-005E 0540       482            inc     _left_motor_pwmcount1
-0060 E540       483            mov     a,_left_motor_pwmcount1
-0062 249C       484            add     a,#0xff - 0x63
-0064 5001       485            jnc     L003002?
-0066 754000     486            mov     _left_motor_pwmcount1,#0x00
-0069            487   L003002?:
-0069            488   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:115: P1_2=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
-0069 C3         489            clr     c
-006A E540       490            mov     a,_left_motor_pwmcount1
-006C 95A0       491            subb    a,_left_motor_pwm1
-006E 9292       492            mov     _P1_2,c
-0070            493   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:117: if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
-0070 05F0       494            inc     _left_motor_pwmcount2
-0072 E5F0       495            mov     a,_left_motor_pwmcount2
-0074 249C       496            add     a,#0xff - 0x63
-0076 5001       497            jnc     L003004?
-0078 75F000     498            mov     _left_motor_pwmcount2,#0x00
-007B            499   L003004?:
-007B            500   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:118: P1_4=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
-007B C3         501            clr     c
-007C E5F0       502            mov     a,_left_motor_pwmcount2
-007E 9550       503            subb    a,_left_motor_pwm2
-0080 9294       504            mov     _P1_4,c
-0082            505   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:120: if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
-0082 0500       506            inc     _right_motor_pwmcount1
-0084 E500       507            mov     a,_right_motor_pwmcount1
-0086 249C       508            add     a,#0xff - 0x63
-0088 5001       509            jnc     L003006?
-008A 750000     510            mov     _right_motor_pwmcount1,#0x00
-008D            511   L003006?:
-008D            512   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:121: P1_0=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
-008D C3         513            clr     c
-008E E500       514            mov     a,_right_motor_pwmcount1
-0090 9560       515            subb    a,_right_motor_pwm1
-0092 9290       516            mov     _P1_0,c
-0094            517   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:123: if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
-0094 05B0       518            inc     _right_motor_pwmcount2
-0096 E5B0       519            mov     a,_right_motor_pwmcount2
-0098 249C       520            add     a,#0xff - 0x63
-009A 5001       521            jnc     L003008?
-009C 75B000     522            mov     _right_motor_pwmcount2,#0x00
-009F            523   L003008?:
-009F            524   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:124: P1_1=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
-009F C3         525            clr     c
-00A0 E5B0       526            mov     a,_right_motor_pwmcount2
-00A2 9510       527            subb    a,_right_motor_pwm2
-00A4 9291       528            mov     _P1_1,c
-00A6 D0D0       529            pop     psw
-00A8 D0E0       530            pop     acc
-00AA 32         531            reti
-00AB            532   ;        eliminated unneeded push/pop dpl
-00AB            533   ;        eliminated unneeded push/pop dph
-00AB            534   ;        eliminated unneeded push/pop b
-00AB            535   ;------------------------------------------------------------
-00AB            536   ;Allocation info for local variables in function 'Move_Right_Motor_Forwards'
+0057            477   ;         function pwmcounter
+0057            478   ;        -----------------------------------------
+0057            479   _pwmcounter:
+0057 C0E0       480            push    acc
+0059 C0D0       481            push    psw
+005B 75D000     482            mov     psw,#0x00
+005E            483   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:114: if(++left_motor_pwmcount1>99) left_motor_pwmcount1=0;
+005E 0540       484            inc     _left_motor_pwmcount1
+0060 E540       485            mov     a,_left_motor_pwmcount1
+0062 249C       486            add     a,#0xff - 0x63
+0064 5001       487            jnc     L003002?
+0066 754000     488            mov     _left_motor_pwmcount1,#0x00
+0069            489   L003002?:
+0069            490   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:115: P1_2=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
+0069 C3         491            clr     c
+006A E540       492            mov     a,_left_motor_pwmcount1
+006C 95A0       493            subb    a,_left_motor_pwm1
+006E 9292       494            mov     _P1_2,c
+0070            495   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:117: if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
+0070 05F0       496            inc     _left_motor_pwmcount2
+0072 E5F0       497            mov     a,_left_motor_pwmcount2
+0074 249C       498            add     a,#0xff - 0x63
+0076 5001       499            jnc     L003004?
+0078 75F000     500            mov     _left_motor_pwmcount2,#0x00
+007B            501   L003004?:
+007B            502   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:118: P1_4=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
+007B C3         503            clr     c
+007C E5F0       504            mov     a,_left_motor_pwmcount2
+007E 9550       505            subb    a,_left_motor_pwm2
+0080 9294       506            mov     _P1_4,c
+0082            507   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:120: if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
+0082 0500       508            inc     _right_motor_pwmcount1
+0084 E500       509            mov     a,_right_motor_pwmcount1
+0086 249C       510            add     a,#0xff - 0x63
+0088 5001       511            jnc     L003006?
+008A 750000     512            mov     _right_motor_pwmcount1,#0x00
+008D            513   L003006?:
+008D            514   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:121: P1_0=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
+008D C3         515            clr     c
+008E E500       516            mov     a,_right_motor_pwmcount1
+0090 9560       517            subb    a,_right_motor_pwm1
+0092 9290       518            mov     _P1_0,c
+0094            519   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:123: if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
+0094 05B0       520            inc     _right_motor_pwmcount2
+0096 E5B0       521            mov     a,_right_motor_pwmcount2
+0098 249C       522            add     a,#0xff - 0x63
+009A 5001       523            jnc     L003008?
+009C 75B000     524            mov     _right_motor_pwmcount2,#0x00
+009F            525   L003008?:
+009F            526   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:124: P1_1=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
+009F C3         527            clr     c
+00A0 E5B0       528            mov     a,_right_motor_pwmcount2
+00A2 9510       529            subb    a,_right_motor_pwm2
+00A4 9291       530            mov     _P1_1,c
+00A6 D0D0       531            pop     psw
+00A8 D0E0       532            pop     acc
+00AA 32         533            reti
+00AB            534   ;        eliminated unneeded push/pop dpl
+00AB            535   ;        eliminated unneeded push/pop dph
+00AB            536   ;        eliminated unneeded push/pop b
 00AB            537   ;------------------------------------------------------------
-00AB            538   ;------------------------------------------------------------
-00AB            539   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:129: void Move_Right_Motor_Forwards(){
-00AB            540   ;        -----------------------------------------
-00AB            541   ;         function Move_Right_Motor_Forwards
+00AB            538   ;Allocation info for local variables in function 'Move_Right_Motor_Backwards'
+00AB            539   ;------------------------------------------------------------
+00AB            540   ;------------------------------------------------------------
+00AB            541   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:129: void Move_Right_Motor_Backwards(){
 00AB            542   ;        -----------------------------------------
-00AB            543   _Move_Right_Motor_Forwards:
-00AB            544   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:130: right_motor_pwm1 = 75;
-00AB 75604B     545            mov     _right_motor_pwm1,#0x4B
-00AE            546   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:131: right_motor_pwm2 = 0;
-00AE 751000     547            mov     _right_motor_pwm2,#0x00
-00B1 22         548            ret
-00B2            549   ;------------------------------------------------------------
-00B2            550   ;Allocation info for local variables in function 'Move_Right_Motor_Backwards'
+00AB            543   ;         function Move_Right_Motor_Backwards
+00AB            544   ;        -----------------------------------------
+00AB            545   _Move_Right_Motor_Backwards:
+00AB            546   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:130: right_motor_pwm1 = 75;
+00AB 75604B     547            mov     _right_motor_pwm1,#0x4B
+00AE            548   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:131: right_motor_pwm2 = 0;
+00AE 751000     549            mov     _right_motor_pwm2,#0x00
+00B1 22         550            ret
 00B2            551   ;------------------------------------------------------------
-00B2            552   ;------------------------------------------------------------
-00B2            553   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:137: void Move_Right_Motor_Backwards (void){
-00B2            554   ;        -----------------------------------------
-00B2            555   ;         function Move_Right_Motor_Backwards
+00B2            552   ;Allocation info for local variables in function 'Move_Right_Motor_Forwards'
+00B2            553   ;------------------------------------------------------------
+00B2            554   ;------------------------------------------------------------
+00B2            555   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:137: void Move_Right_Motor_Forwards (void){
 00B2            556   ;        -----------------------------------------
-00B2            557   _Move_Right_Motor_Backwards:
-00B2            558   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:138: right_motor_pwm1 = 0;
-00B2 756000     559            mov     _right_motor_pwm1,#0x00
-00B5            560   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:139: right_motor_pwm2 = 90;
-00B5 75105A     561            mov     _right_motor_pwm2,#0x5A
-00B8 22         562            ret
-00B9            563   ;------------------------------------------------------------
-00B9            564   ;Allocation info for local variables in function 'Move_Left_Motor_Forwards'
+00B2            557   ;         function Move_Right_Motor_Forwards
+00B2            558   ;        -----------------------------------------
+00B2            559   _Move_Right_Motor_Forwards:
+00B2            560   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:138: right_motor_pwm1 = 0;
+00B2 756000     561            mov     _right_motor_pwm1,#0x00
+00B5            562   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:139: right_motor_pwm2 = 90;
+00B5 75105A     563            mov     _right_motor_pwm2,#0x5A
+00B8 22         564            ret
 00B9            565   ;------------------------------------------------------------
-00B9            566   ;------------------------------------------------------------
-00B9            567   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:145: void Move_Left_Motor_Forwards (void){
-00B9            568   ;        -----------------------------------------
-00B9            569   ;         function Move_Left_Motor_Forwards
+00B9            566   ;Allocation info for local variables in function 'Move_Left_Motor_Backwards'
+00B9            567   ;------------------------------------------------------------
+00B9            568   ;------------------------------------------------------------
+00B9            569   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:145: void Move_Left_Motor_Backwards (void){
 00B9            570   ;        -----------------------------------------
-00B9            571   _Move_Left_Motor_Forwards:
-00B9            572   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:146: left_motor_pwm1 = 82;
-00B9 75A052     573            mov     _left_motor_pwm1,#0x52
-00BC            574   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:147: left_motor_pwm2 = 0;
-00BC 755000     575            mov     _left_motor_pwm2,#0x00
-00BF 22         576            ret
-00C0            577   ;------------------------------------------------------------
-00C0            578   ;Allocation info for local variables in function 'Move_Left_Motor_Backwards'
+00B9            571   ;         function Move_Left_Motor_Backwards
+00B9            572   ;        -----------------------------------------
+00B9            573   _Move_Left_Motor_Backwards:
+00B9            574   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:146: left_motor_pwm1 = 82;
+00B9 75A052     575            mov     _left_motor_pwm1,#0x52
+00BC            576   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:147: left_motor_pwm2 = 0;
+00BC 755000     577            mov     _left_motor_pwm2,#0x00
+00BF 22         578            ret
 00C0            579   ;------------------------------------------------------------
-00C0            580   ;------------------------------------------------------------
-00C0            581   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:152: void Move_Left_Motor_Backwards (void){
-00C0            582   ;        -----------------------------------------
-00C0            583   ;         function Move_Left_Motor_Backwards
+00C0            580   ;Allocation info for local variables in function 'Move_Left_Motor_Forwards'
+00C0            581   ;------------------------------------------------------------
+00C0            582   ;------------------------------------------------------------
+00C0            583   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:152: void Move_Left_Motor_Forwards (void){
 00C0            584   ;        -----------------------------------------
-00C0            585   _Move_Left_Motor_Backwards:
-00C0            586   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:153: left_motor_pwm1 = 0;
-00C0 75A000     587            mov     _left_motor_pwm1,#0x00
-00C3            588   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:154: left_motor_pwm2 = 95;
-00C3 75505F     589            mov     _left_motor_pwm2,#0x5F
-00C6 22         590            ret
-00C7            591   ;------------------------------------------------------------
-00C7            592   ;Allocation info for local variables in function 'Stop_Right_Motor'
+00C0            585   ;         function Move_Left_Motor_Forwards
+00C0            586   ;        -----------------------------------------
+00C0            587   _Move_Left_Motor_Forwards:
+00C0            588   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:153: left_motor_pwm1 = 0;
+00C0 75A000     589            mov     _left_motor_pwm1,#0x00
+00C3            590   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:154: left_motor_pwm2 = 95;
+00C3 75505F     591            mov     _left_motor_pwm2,#0x5F
+00C6 22         592            ret
 00C7            593   ;------------------------------------------------------------
-00C7            594   ;------------------------------------------------------------
-00C7            595   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:158: void Stop_Right_Motor (void){
-00C7            596   ;        -----------------------------------------
-00C7            597   ;         function Stop_Right_Motor
+00C7            594   ;Allocation info for local variables in function 'Stop_Right_Motor'
+00C7            595   ;------------------------------------------------------------
+00C7            596   ;------------------------------------------------------------
+00C7            597   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:158: void Stop_Right_Motor (void){
 00C7            598   ;        -----------------------------------------
-00C7            599   _Stop_Right_Motor:
-00C7            600   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:159: right_motor_pwm1 = 0;
-00C7 756000     601            mov     _right_motor_pwm1,#0x00
-00CA            602   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:160: right_motor_pwm2 = 0;
-00CA 751000     603            mov     _right_motor_pwm2,#0x00
-00CD 22         604            ret
-00CE            605   ;------------------------------------------------------------
-00CE            606   ;Allocation info for local variables in function 'Stop_Left_Motor'
+00C7            599   ;         function Stop_Right_Motor
+00C7            600   ;        -----------------------------------------
+00C7            601   _Stop_Right_Motor:
+00C7            602   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:159: right_motor_pwm1 = 0;
+00C7 756000     603            mov     _right_motor_pwm1,#0x00
+00CA            604   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:160: right_motor_pwm2 = 0;
+00CA 751000     605            mov     _right_motor_pwm2,#0x00
+00CD 22         606            ret
 00CE            607   ;------------------------------------------------------------
-00CE            608   ;------------------------------------------------------------
-00CE            609   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:164: void Stop_Left_Motor (void){
-00CE            610   ;        -----------------------------------------
-00CE            611   ;         function Stop_Left_Motor
+00CE            608   ;Allocation info for local variables in function 'Stop_Left_Motor'
+00CE            609   ;------------------------------------------------------------
+00CE            610   ;------------------------------------------------------------
+00CE            611   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:164: void Stop_Left_Motor (void){
 00CE            612   ;        -----------------------------------------
-00CE            613   _Stop_Left_Motor:
-00CE            614   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:165: left_motor_pwm1 = 0;
-00CE 75A000     615            mov     _left_motor_pwm1,#0x00
-00D1            616   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:166: left_motor_pwm2 = 0;
-00D1 755000     617            mov     _left_motor_pwm2,#0x00
-00D4 22         618            ret
-00D5            619   ;------------------------------------------------------------
-00D5            620   ;Allocation info for local variables in function 'wait50ms'
+00CE            613   ;         function Stop_Left_Motor
+00CE            614   ;        -----------------------------------------
+00CE            615   _Stop_Left_Motor:
+00CE            616   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:165: left_motor_pwm1 = 0;
+00CE 75A000     617            mov     _left_motor_pwm1,#0x00
+00D1            618   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:166: left_motor_pwm2 = 0;
+00D1 755000     619            mov     _left_motor_pwm2,#0x00
+00D4 22         620            ret
 00D5            621   ;------------------------------------------------------------
-00D5            622   ;------------------------------------------------------------
-00D5            623   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:169: void wait50ms(){
-00D5            624   ;        -----------------------------------------
-00D5            625   ;         function wait50ms
+00D5            622   ;Allocation info for local variables in function 'wait50ms'
+00D5            623   ;------------------------------------------------------------
+00D5            624   ;------------------------------------------------------------
+00D5            625   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:169: void wait50ms(){
 00D5            626   ;        -----------------------------------------
-00D5            627   _wait50ms:
-00D5            628   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:180: _endasm;
-00D5            629            
-00D5            630      ;For a 22.1184MHz crystal one machine cycle
-00D5            631      ;takes 12/22.1184MHz=0.5425347us
-00D5 7A01       632                  mov R2, #1
-00D7            633             Lg3:
-00D7 79F8       634            mov R1, #248
-00D9            635             Lg2:
-00D9 78B8       636            mov R0, #184
-00DB            637             Lg1:
-00DB D840       638            djnz R0, Lg1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-00DD D900       639                  djnz R1, Lg2 ; 200us*250=0.05s
-00DF DAC0       640                  djnz R2, Lg3 ; 0.05s*20=50ms
-00E1 22         641                  ret
-00E2            642                
-00E2 22         643            ret
-00E3            644   ;------------------------------------------------------------
-00E3            645   ;Allocation info for local variables in function 'wait1s'
+00D5            627   ;         function wait50ms
+00D5            628   ;        -----------------------------------------
+00D5            629   _wait50ms:
+00D5            630   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:180: _endasm;
+00D5            631            
+00D5            632      ;For a 22.1184MHz crystal one machine cycle
+00D5            633      ;takes 12/22.1184MHz=0.5425347us
+00D5 7A01       634                  mov R2, #1
+00D7            635             Lg3:
+00D7 79F8       636            mov R1, #248
+00D9            637             Lg2:
+00D9 78B8       638            mov R0, #184
+00DB            639             Lg1:
+00DB D880       640            djnz R0, Lg1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+00DD D940       641                  djnz R1, Lg2 ; 200us*250=0.05s
+00DF DA00       642                  djnz R2, Lg3 ; 0.05s*20=50ms
+00E1 22         643                  ret
+00E2            644                
+00E2 22         645            ret
 00E3            646   ;------------------------------------------------------------
-00E3            647   ;i                         Allocated to registers r2 r3 
+00E3            647   ;Allocation info for local variables in function 'wait1s'
 00E3            648   ;------------------------------------------------------------
-00E3            649   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:183: void wait1s(){
-00E3            650   ;        -----------------------------------------
-00E3            651   ;         function wait1s
+00E3            649   ;i                         Allocated to registers r2 r3 
+00E3            650   ;------------------------------------------------------------
+00E3            651   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:183: void wait1s(){
 00E3            652   ;        -----------------------------------------
-00E3            653   _wait1s:
-00E3            654   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:185: for (i = 0; i < 20; ++i){
-00E3 7A14       655            mov     r2,#0x14
-00E5 7B00       656            mov     r3,#0x00
-00E7            657   L011003?:
-00E7            658   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:186: wait50ms();
-00E7 C002       659            push    ar2
-00E9 C003       660            push    ar3
-00EB 120100     661            lcall   _wait50ms
-00EE D003       662            pop     ar3
-00F0 D002       663            pop     ar2
-00F2 1A         664            dec     r2
-00F3 BAFFC0     665            cjne    r2,#0xff,L011009?
-00F6 1B         666            dec     r3
-00F7            667   L011009?:
-00F7            668   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:185: for (i = 0; i < 20; ++i){
-00F7 EA         669            mov     a,r2
-00F8 4B         670            orl     a,r3
-00F9 7001       671            jnz     L011003?
-00FB 22         672            ret
-00FC            673   ;------------------------------------------------------------
-00FC            674   ;Allocation info for local variables in function 'Get_Right_Distance'
+00E3            653   ;         function wait1s
+00E3            654   ;        -----------------------------------------
+00E3            655   _wait1s:
+00E3            656   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:185: for (i = 0; i < 20; ++i){
+00E3 7A14       657            mov     r2,#0x14
+00E5 7B00       658            mov     r3,#0x00
+00E7            659   L011003?:
+00E7            660   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:186: wait50ms();
+00E7 C002       661            push    ar2
+00E9 C003       662            push    ar3
+00EB 120100     663            lcall   _wait50ms
+00EE D003       664            pop     ar3
+00F0 D002       665            pop     ar2
+00F2 1A         666            dec     r2
+00F3 BAFF00     667            cjne    r2,#0xff,L011009?
+00F6 1B         668            dec     r3
+00F7            669   L011009?:
+00F7            670   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:185: for (i = 0; i < 20; ++i){
+00F7 EA         671            mov     a,r2
+00F8 4B         672            orl     a,r3
+00F9 7001       673            jnz     L011003?
+00FB 22         674            ret
 00FC            675   ;------------------------------------------------------------
-00FC            676   ;------------------------------------------------------------
-00FC            677   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:194: unsigned int Get_Right_Distance(void){
-00FC            678   ;        -----------------------------------------
-00FC            679   ;         function Get_Right_Distance
+00FC            676   ;Allocation info for local variables in function 'Get_Right_Distance'
+00FC            677   ;------------------------------------------------------------
+00FC            678   ;------------------------------------------------------------
+00FC            679   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:194: unsigned int Get_Right_Distance(void){
 00FC            680   ;        -----------------------------------------
-00FC            681   _Get_Right_Distance:
-00FC            682   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:197: return GetADC(1); //for now channel 1 is right motor
-00FC 758201     683            mov     dpl,#0x01
-00FF 020100     684            ljmp    _GetADC
-0102            685   ;------------------------------------------------------------
-0102            686   ;Allocation info for local variables in function 'Get_Left_Distance'
+00FC            681   ;         function Get_Right_Distance
+00FC            682   ;        -----------------------------------------
+00FC            683   _Get_Right_Distance:
+00FC            684   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:197: return GetADC(1); //for now channel 1 is right motor
+00FC 758201     685            mov     dpl,#0x01
+00FF 020100     686            ljmp    _GetADC
 0102            687   ;------------------------------------------------------------
-0102            688   ;------------------------------------------------------------
-0102            689   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:202: unsigned int Get_Left_Distance(void){
-0102            690   ;        -----------------------------------------
-0102            691   ;         function Get_Left_Distance
+0102            688   ;Allocation info for local variables in function 'Get_Left_Distance'
+0102            689   ;------------------------------------------------------------
+0102            690   ;------------------------------------------------------------
+0102            691   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:202: unsigned int Get_Left_Distance(void){
 0102            692   ;        -----------------------------------------
-0102            693   _Get_Left_Distance:
-0102            694   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:204: return GetADC(0); //for now channel 0 is left motor
-0102 758200     695            mov     dpl,#0x00
-0105 020100     696            ljmp    _GetADC
-0108            697   ;------------------------------------------------------------
-0108            698   ;Allocation info for local variables in function 'Stop_Car'
+0102            693   ;         function Get_Left_Distance
+0102            694   ;        -----------------------------------------
+0102            695   _Get_Left_Distance:
+0102            696   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:204: return GetADC(0); //for now channel 0 is left motor
+0102 758200     697            mov     dpl,#0x00
+0105 020100     698            ljmp    _GetADC
 0108            699   ;------------------------------------------------------------
-0108            700   ;------------------------------------------------------------
-0108            701   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:208: void Stop_Car (void){
-0108            702   ;        -----------------------------------------
-0108            703   ;         function Stop_Car
+0108            700   ;Allocation info for local variables in function 'Stop_Car'
+0108            701   ;------------------------------------------------------------
+0108            702   ;------------------------------------------------------------
+0108            703   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:208: void Stop_Car (void){
 0108            704   ;        -----------------------------------------
-0108            705   _Stop_Car:
-0108            706   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:209: Stop_Right_Motor();
-0108 120100     707            lcall   _Stop_Right_Motor
-010B            708   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:210: Stop_Left_Motor();
-010B 020100     709            ljmp    _Stop_Left_Motor
-010E            710   ;------------------------------------------------------------
-010E            711   ;Allocation info for local variables in function 'Face_Transmitter'
+0108            705   ;         function Stop_Car
+0108            706   ;        -----------------------------------------
+0108            707   _Stop_Car:
+0108            708   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:209: Stop_Right_Motor();
+0108 120100     709            lcall   _Stop_Right_Motor
+010B            710   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:210: Stop_Left_Motor();
+010B 020100     711            ljmp    _Stop_Left_Motor
 010E            712   ;------------------------------------------------------------
-010E            713   ;right_distance            Allocated to registers r2 r3 
-010E            714   ;left_distance             Allocated to registers r4 r5 
-010E            715   ;------------------------------------------------------------
-010E            716   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:214: void Face_Transmitter(void){
-010E            717   ;        -----------------------------------------
-010E            718   ;         function Face_Transmitter
+010E            713   ;Allocation info for local variables in function 'Face_Transmitter'
+010E            714   ;------------------------------------------------------------
+010E            715   ;right_distance            Allocated to registers r2 r3 
+010E            716   ;left_distance             Allocated to registers r4 r5 
+010E            717   ;------------------------------------------------------------
+010E            718   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:214: void Face_Transmitter(void){
 010E            719   ;        -----------------------------------------
-010E            720   _Face_Transmitter:
-010E            721   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:218: right_distance = Get_Right_Distance();
-010E 120100     722            lcall   _Get_Right_Distance
-0111 AA82       723            mov     r2,dpl
-0113 AB83       724            mov     r3,dph
-0115            725   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:219: left_distance = Get_Left_Distance();
-0115 C002       726            push    ar2
-0117 C003       727            push    ar3
-0119 120100     728            lcall   _Get_Left_Distance
-011C AC82       729            mov     r4,dpl
-011E AD83       730            mov     r5,dph
-0120 D003       731            pop     ar3
-0122 D002       732            pop     ar2
-0124            733   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:221: if(left_distance > right_distance || left_distance < right_distance) return;//find a good error bound, we dont need to be pointing 
-0124 C3         734            clr     c
-0125 EA         735            mov     a,r2
-0126 9C         736            subb    a,r4
-0127 EB         737            mov     a,r3
-0128 9D         738            subb    a,r5
-0129 E4         739            clr     a
-012A 33         740            rlc     a
-012B FE         741            mov     r6,a
-012C 7001       742            jnz     L015001?
-012E C3         743            clr     c
-012F EC         744            mov     a,r4
-0130 9A         745            subb    a,r2
-0131 ED         746            mov     a,r5
-0132 9B         747            subb    a,r3
-0133 E4         748            clr     a
-0134 33         749            rlc     a
-0135 FF         750            mov     r7,a
-0136 6001       751            jz      L015002?
-0138            752   L015001?:
-0138 22         753            ret
-0139            754   L015002?:
-0139            755   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:225: if (left_distance > right_distance){
-0139 EE         756            mov     a,r6
-013A 6001       757            jz      L015008?
-013C            758   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:226: Turn_Car_Right();
-013C C002       759            push    ar2
-013E C003       760            push    ar3
-0140 C004       761            push    ar4
-0142 C005       762            push    ar5
-0144 C007       763            push    ar7
-0146 120100     764            lcall   _Turn_Car_Right
-0149 D007       765            pop     ar7
-014B D005       766            pop     ar5
-014D D004       767            pop     ar4
-014F D003       768            pop     ar3
-0151 D002       769            pop     ar2
-0153            770   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:227: while(left_distance > right_distance ){
-0153            771   L015004?:
-0153 C3         772            clr     c
-0154 EA         773            mov     a,r2
-0155 9C         774            subb    a,r4
-0156 EB         775            mov     a,r3
-0157 9D         776            subb    a,r5
-0158 5001       777            jnc     L015006?
-015A            778   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:228: right_distance = Get_Right_Distance();
-015A C007       779            push    ar7
-015C 120100     780            lcall   _Get_Right_Distance
-015F AA82       781            mov     r2,dpl
-0161 AB83       782            mov     r3,dph
-0163 D007       783            pop     ar7
-0165            784   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:229: left_distance = Get_Left_Distance();
-0165 C002       785            push    ar2
-0167 C003       786            push    ar3
-0169 C007       787            push    ar7
-016B 120100     788            lcall   _Get_Left_Distance
-016E AC82       789            mov     r4,dpl
-0170 AD83       790            mov     r5,dph
-0172 D007       791            pop     ar7
-0174 D003       792            pop     ar3
-0176 D002       793            pop     ar2
-0178 8001       794            sjmp    L015004?
-017A            795   L015006?:
-017A            796   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:231: Stop_Car();
-017A C002       797            push    ar2
-017C C003       798            push    ar3
-017E C004       799            push    ar4
-0180 C005       800            push    ar5
-0182 C007       801            push    ar7
-0184 120100     802            lcall   _Stop_Car
-0187 D007       803            pop     ar7
-0189 D005       804            pop     ar5
-018B D004       805            pop     ar4
-018D D003       806            pop     ar3
-018F D002       807            pop     ar2
-0191            808   L015008?:
-0191            809   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:233: if (left_distance < right_distance){
-0191 EF         810            mov     a,r7
-0192 6001       811            jz      L015014?
-0194            812   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: Turn_Car_Left();
-0194 C002       813            push    ar2
-0196 C003       814            push    ar3
-0198 C004       815            push    ar4
-019A C005       816            push    ar5
-019C 120100     817            lcall   _Turn_Car_Left
-019F D005       818            pop     ar5
-01A1 D004       819            pop     ar4
-01A3 D003       820            pop     ar3
-01A5 D002       821            pop     ar2
-01A7            822   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:235: while(left_distance < right_distance ){
-01A7            823   L015009?:
-01A7 C3         824            clr     c
-01A8 EC         825            mov     a,r4
-01A9 9A         826            subb    a,r2
-01AA ED         827            mov     a,r5
-01AB 9B         828            subb    a,r3
-01AC 5001       829            jnc     L015011?
-01AE            830   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:236: right_distance = Get_Right_Distance();
-01AE 120100     831            lcall   _Get_Right_Distance
-01B1 AA82       832            mov     r2,dpl
-01B3 AB83       833            mov     r3,dph
-01B5            834   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:237: left_distance = Get_Left_Distance();
-01B5 C002       835            push    ar2
-01B7 C003       836            push    ar3
-01B9 120100     837            lcall   _Get_Left_Distance
-01BC AC82       838            mov     r4,dpl
-01BE AD83       839            mov     r5,dph
-01C0 D003       840            pop     ar3
-01C2 D002       841            pop     ar2
-01C4 8001       842            sjmp    L015009?
-01C6            843   L015011?:
-01C6            844   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:239: Stop_Car();
-01C6 020100     845            ljmp    _Stop_Car
-01C9            846   L015014?:
-01C9 22         847            ret
-01CA            848   ;------------------------------------------------------------
-01CA            849   ;Allocation info for local variables in function 'Parallel_Park_Wait_1'
+010E            720   ;         function Face_Transmitter
+010E            721   ;        -----------------------------------------
+010E            722   _Face_Transmitter:
+010E            723   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:218: right_distance = Get_Right_Distance();
+010E 120100     724            lcall   _Get_Right_Distance
+0111 AA82       725            mov     r2,dpl
+0113 AB83       726            mov     r3,dph
+0115            727   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:219: left_distance = Get_Left_Distance();
+0115 C002       728            push    ar2
+0117 C003       729            push    ar3
+0119 120100     730            lcall   _Get_Left_Distance
+011C AC82       731            mov     r4,dpl
+011E AD83       732            mov     r5,dph
+0120 D003       733            pop     ar3
+0122 D002       734            pop     ar2
+0124            735   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:221: if(left_distance > right_distance || left_distance < right_distance) return;//find a good error bound, we dont need to be pointing 
+0124 C3         736            clr     c
+0125 EA         737            mov     a,r2
+0126 9C         738            subb    a,r4
+0127 EB         739            mov     a,r3
+0128 9D         740            subb    a,r5
+0129 E4         741            clr     a
+012A 33         742            rlc     a
+012B FE         743            mov     r6,a
+012C 7001       744            jnz     L015001?
+012E C3         745            clr     c
+012F EC         746            mov     a,r4
+0130 9A         747            subb    a,r2
+0131 ED         748            mov     a,r5
+0132 9B         749            subb    a,r3
+0133 E4         750            clr     a
+0134 33         751            rlc     a
+0135 FF         752            mov     r7,a
+0136 6001       753            jz      L015002?
+0138            754   L015001?:
+0138 22         755            ret
+0139            756   L015002?:
+0139            757   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:225: if (left_distance > right_distance){
+0139 EE         758            mov     a,r6
+013A 6001       759            jz      L015008?
+013C            760   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:226: Turn_Car_Right();
+013C C002       761            push    ar2
+013E C003       762            push    ar3
+0140 C004       763            push    ar4
+0142 C005       764            push    ar5
+0144 C007       765            push    ar7
+0146 120100     766            lcall   _Turn_Car_Right
+0149 D007       767            pop     ar7
+014B D005       768            pop     ar5
+014D D004       769            pop     ar4
+014F D003       770            pop     ar3
+0151 D002       771            pop     ar2
+0153            772   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:227: while(left_distance > right_distance ){
+0153            773   L015004?:
+0153 C3         774            clr     c
+0154 EA         775            mov     a,r2
+0155 9C         776            subb    a,r4
+0156 EB         777            mov     a,r3
+0157 9D         778            subb    a,r5
+0158 5001       779            jnc     L015006?
+015A            780   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:228: right_distance = Get_Right_Distance();
+015A C007       781            push    ar7
+015C 120100     782            lcall   _Get_Right_Distance
+015F AA82       783            mov     r2,dpl
+0161 AB83       784            mov     r3,dph
+0163 D007       785            pop     ar7
+0165            786   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:229: left_distance = Get_Left_Distance();
+0165 C002       787            push    ar2
+0167 C003       788            push    ar3
+0169 C007       789            push    ar7
+016B 120100     790            lcall   _Get_Left_Distance
+016E AC82       791            mov     r4,dpl
+0170 AD83       792            mov     r5,dph
+0172 D007       793            pop     ar7
+0174 D003       794            pop     ar3
+0176 D002       795            pop     ar2
+0178 8001       796            sjmp    L015004?
+017A            797   L015006?:
+017A            798   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:231: Stop_Car();
+017A C002       799            push    ar2
+017C C003       800            push    ar3
+017E C004       801            push    ar4
+0180 C005       802            push    ar5
+0182 C007       803            push    ar7
+0184 120100     804            lcall   _Stop_Car
+0187 D007       805            pop     ar7
+0189 D005       806            pop     ar5
+018B D004       807            pop     ar4
+018D D003       808            pop     ar3
+018F D002       809            pop     ar2
+0191            810   L015008?:
+0191            811   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:233: if (left_distance < right_distance){
+0191 EF         812            mov     a,r7
+0192 6001       813            jz      L015014?
+0194            814   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: Turn_Car_Left();
+0194 C002       815            push    ar2
+0196 C003       816            push    ar3
+0198 C004       817            push    ar4
+019A C005       818            push    ar5
+019C 120100     819            lcall   _Turn_Car_Left
+019F D005       820            pop     ar5
+01A1 D004       821            pop     ar4
+01A3 D003       822            pop     ar3
+01A5 D002       823            pop     ar2
+01A7            824   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:235: while(left_distance < right_distance ){
+01A7            825   L015009?:
+01A7 C3         826            clr     c
+01A8 EC         827            mov     a,r4
+01A9 9A         828            subb    a,r2
+01AA ED         829            mov     a,r5
+01AB 9B         830            subb    a,r3
+01AC 5001       831            jnc     L015011?
+01AE            832   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:236: right_distance = Get_Right_Distance();
+01AE 120100     833            lcall   _Get_Right_Distance
+01B1 AA82       834            mov     r2,dpl
+01B3 AB83       835            mov     r3,dph
+01B5            836   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:237: left_distance = Get_Left_Distance();
+01B5 C002       837            push    ar2
+01B7 C003       838            push    ar3
+01B9 120100     839            lcall   _Get_Left_Distance
+01BC AC82       840            mov     r4,dpl
+01BE AD83       841            mov     r5,dph
+01C0 D003       842            pop     ar3
+01C2 D002       843            pop     ar2
+01C4 8001       844            sjmp    L015009?
+01C6            845   L015011?:
+01C6            846   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:239: Stop_Car();
+01C6 020100     847            ljmp    _Stop_Car
+01C9            848   L015014?:
+01C9 22         849            ret
 01CA            850   ;------------------------------------------------------------
-01CA            851   ;------------------------------------------------------------
-01CA            852   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:243: void Parallel_Park_Wait_1(void){
-01CA            853   ;        -----------------------------------------
-01CA            854   ;         function Parallel_Park_Wait_1
+01CA            851   ;Allocation info for local variables in function 'Parallel_Park_Wait_1'
+01CA            852   ;------------------------------------------------------------
+01CA            853   ;------------------------------------------------------------
+01CA            854   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:243: void Parallel_Park_Wait_1(void){
 01CA            855   ;        -----------------------------------------
-01CA            856   _Parallel_Park_Wait_1:
-01CA            857   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:254: _endasm;
-01CA            858            
-01CA            859      ;For a 22.1184MHz crystal one machine cycle
-01CA            860      ;takes 12/22.1184MHz=0.5425347us
-01CA 7A14       861                  mov R2, #20 ;25
-01CC            862             La3:
-01CC 79F8       863            mov R1, #248
-01CE            864             La2:
-01CE 78B8       865            mov R0, #184
-01D0            866             La1:
-01D0 D8C0       867            djnz R0, La1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-01D2 D980       868                  djnz R1, La2 ; 200us*250=0.05s
-01D4 DA40       869                  djnz R2, La3 ; 0.05s*20=50ms
-01D6 22         870                  ret
-01D7            871                
-01D7 22         872            ret
-01D8            873   ;------------------------------------------------------------
-01D8            874   ;Allocation info for local variables in function 'Parallel_Park_Wait_2'
+01CA            856   ;         function Parallel_Park_Wait_1
+01CA            857   ;        -----------------------------------------
+01CA            858   _Parallel_Park_Wait_1:
+01CA            859   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:254: _endasm;
+01CA            860            
+01CA            861      ;For a 22.1184MHz crystal one machine cycle
+01CA            862      ;takes 12/22.1184MHz=0.5425347us
+01CA 7A14       863                  mov R2, #20 ;25
+01CC            864             La3:
+01CC 79F8       865            mov R1, #248
+01CE            866             La2:
+01CE 78B8       867            mov R0, #184
+01D0            868             La1:
+01D0 D800       869            djnz R0, La1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+01D2 D9C0       870                  djnz R1, La2 ; 200us*250=0.05s
+01D4 DA80       871                  djnz R2, La3 ; 0.05s*20=50ms
+01D6 22         872                  ret
+01D7            873                
+01D7 22         874            ret
 01D8            875   ;------------------------------------------------------------
-01D8            876   ;------------------------------------------------------------
-01D8            877   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:258: void Parallel_Park_Wait_2(void){
-01D8            878   ;        -----------------------------------------
-01D8            879   ;         function Parallel_Park_Wait_2
+01D8            876   ;Allocation info for local variables in function 'Parallel_Park_Wait_2'
+01D8            877   ;------------------------------------------------------------
+01D8            878   ;------------------------------------------------------------
+01D8            879   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:258: void Parallel_Park_Wait_2(void){
 01D8            880   ;        -----------------------------------------
-01D8            881   _Parallel_Park_Wait_2:
-01D8            882   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:269: _endasm;
-01D8            883            
-01D8            884      ;For a 22.1184MHz crystal one machine cycle
-01D8            885      ;takes 12/22.1184MHz=0.5425347us
-01D8 7A01       886                  mov R2, #1
-01DA            887             Lb3:
-01DA 79F8       888            mov R1, #248
-01DC            889             Lb2:
-01DC 78B8       890            mov R0, #184
-01DE            891             Lb1:
-01DE D880       892            djnz R0, Lb1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-01E0 D940       893                  djnz R1, Lb2 ; 200us*250=0.05s
-01E2 DA00       894                  djnz R2, Lb3 ; 0.05s*20=50ms
-01E4 22         895                  ret
-01E5            896                
-01E5 22         897            ret
-01E6            898   ;------------------------------------------------------------
-01E6            899   ;Allocation info for local variables in function 'Parallel_Park_Wait_3'
+01D8            881   ;         function Parallel_Park_Wait_2
+01D8            882   ;        -----------------------------------------
+01D8            883   _Parallel_Park_Wait_2:
+01D8            884   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:269: _endasm;
+01D8            885            
+01D8            886      ;For a 22.1184MHz crystal one machine cycle
+01D8            887      ;takes 12/22.1184MHz=0.5425347us
+01D8 7A01       888                  mov R2, #1
+01DA            889             Lb3:
+01DA 79F8       890            mov R1, #248
+01DC            891             Lb2:
+01DC 78B8       892            mov R0, #184
+01DE            893             Lb1:
+01DE D8C0       894            djnz R0, Lb1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+01E0 D980       895                  djnz R1, Lb2 ; 200us*250=0.05s
+01E2 DA40       896                  djnz R2, Lb3 ; 0.05s*20=50ms
+01E4 22         897                  ret
+01E5            898                
+01E5 22         899            ret
 01E6            900   ;------------------------------------------------------------
-01E6            901   ;------------------------------------------------------------
-01E6            902   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:273: void Parallel_Park_Wait_3(void){
-01E6            903   ;        -----------------------------------------
-01E6            904   ;         function Parallel_Park_Wait_3
+01E6            901   ;Allocation info for local variables in function 'Parallel_Park_Wait_3'
+01E6            902   ;------------------------------------------------------------
+01E6            903   ;------------------------------------------------------------
+01E6            904   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:273: void Parallel_Park_Wait_3(void){
 01E6            905   ;        -----------------------------------------
-01E6            906   _Parallel_Park_Wait_3:
-01E6            907   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:284: _endasm;
-01E6            908            
-01E6            909      ;For a 22.1184MHz crystal one machine cycle
-01E6            910      ;takes 12/22.1184MHz=0.5425347us
-01E6 7A0C       911                  mov R2, #12
-01E8            912             Lc3:
-01E8 79F8       913            mov R1, #248
-01EA            914             Lc2:
-01EA 78B8       915            mov R0, #184
-01EC            916             Lc1:
-01EC D840       917            djnz R0, Lc1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-01EE D900       918                  djnz R1, Lc2 ; 200us*250=0.05s
-01F0 DAC0       919                  djnz R2, Lc3 ; 0.05s*20=50ms
-01F2 22         920                  ret
-01F3            921                
-01F3 22         922            ret
-01F4            923   ;------------------------------------------------------------
-01F4            924   ;Allocation info for local variables in function 'Parallel_Park_Wait_4'
+01E6            906   ;         function Parallel_Park_Wait_3
+01E6            907   ;        -----------------------------------------
+01E6            908   _Parallel_Park_Wait_3:
+01E6            909   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:284: _endasm;
+01E6            910            
+01E6            911      ;For a 22.1184MHz crystal one machine cycle
+01E6            912      ;takes 12/22.1184MHz=0.5425347us
+01E6 7A0C       913                  mov R2, #12
+01E8            914             Lc3:
+01E8 79F8       915            mov R1, #248
+01EA            916             Lc2:
+01EA 78B8       917            mov R0, #184
+01EC            918             Lc1:
+01EC D880       919            djnz R0, Lc1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+01EE D940       920                  djnz R1, Lc2 ; 200us*250=0.05s
+01F0 DA00       921                  djnz R2, Lc3 ; 0.05s*20=50ms
+01F2 22         922                  ret
+01F3            923                
+01F3 22         924            ret
 01F4            925   ;------------------------------------------------------------
-01F4            926   ;------------------------------------------------------------
-01F4            927   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:288: void Parallel_Park_Wait_4(void){
-01F4            928   ;        -----------------------------------------
-01F4            929   ;         function Parallel_Park_Wait_4
+01F4            926   ;Allocation info for local variables in function 'Parallel_Park_Wait_4'
+01F4            927   ;------------------------------------------------------------
+01F4            928   ;------------------------------------------------------------
+01F4            929   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:288: void Parallel_Park_Wait_4(void){
 01F4            930   ;        -----------------------------------------
-01F4            931   _Parallel_Park_Wait_4:
-01F4            932   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:299: _endasm;
-01F4            933            
-01F4            934      ;For a 22.1184MHz crystal one machine cycle
-01F4            935      ;takes 12/22.1184MHz=0.5425347us
-01F4 7A15       936                  mov R2, #21
-01F6            937             Ld3:
-01F6 79F8       938            mov R1, #248
-01F8            939             Ld2:
-01F8 78B8       940            mov R0, #184
-01FA            941             Ld1:
-01FA D800       942            djnz R0, Ld1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-01FC D9C0       943                  djnz R1, Ld2 ; 200us*250=0.05s
-01FE DA80       944                  djnz R2, Ld3 ; 0.05s*20=50ms
-0200 22         945                  ret
-0201            946                
-0201 22         947            ret
-0202            948   ;------------------------------------------------------------
-0202            949   ;Allocation info for local variables in function 'Parallel_Park_Wait_5'
+01F4            931   ;         function Parallel_Park_Wait_4
+01F4            932   ;        -----------------------------------------
+01F4            933   _Parallel_Park_Wait_4:
+01F4            934   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:299: _endasm;
+01F4            935            
+01F4            936      ;For a 22.1184MHz crystal one machine cycle
+01F4            937      ;takes 12/22.1184MHz=0.5425347us
+01F4 7A15       938                  mov R2, #21
+01F6            939             Ld3:
+01F6 79F8       940            mov R1, #248
+01F8            941             Ld2:
+01F8 78B8       942            mov R0, #184
+01FA            943             Ld1:
+01FA D840       944            djnz R0, Ld1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+01FC D900       945                  djnz R1, Ld2 ; 200us*250=0.05s
+01FE DAC0       946                  djnz R2, Ld3 ; 0.05s*20=50ms
+0200 22         947                  ret
+0201            948                
+0201 22         949            ret
 0202            950   ;------------------------------------------------------------
-0202            951   ;------------------------------------------------------------
-0202            952   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:303: void Parallel_Park_Wait_5(void){
-0202            953   ;        -----------------------------------------
-0202            954   ;         function Parallel_Park_Wait_5
+0202            951   ;Allocation info for local variables in function 'Parallel_Park_Wait_5'
+0202            952   ;------------------------------------------------------------
+0202            953   ;------------------------------------------------------------
+0202            954   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:303: void Parallel_Park_Wait_5(void){
 0202            955   ;        -----------------------------------------
-0202            956   _Parallel_Park_Wait_5:
-0202            957   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:314: _endasm;
-0202            958            
-0202            959      ;For a 22.1184MHz crystal one machine cycle
-0202            960      ;takes 12/22.1184MHz=0.5425347us
-0202 7A0D       961                  mov R2, #13
-0204            962             Le3:
-0204 79F8       963            mov R1, #248
-0206            964             Le2:
-0206 78B8       965            mov R0, #184
-0208            966             Le1:
-0208 D8C0       967            djnz R0, Le1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-020A D980       968                  djnz R1, Le2 ; 200us*250=0.05s
-020C DA40       969                  djnz R2, Le3 ; 0.05s*20=50ms
-020E 22         970                  ret
-020F            971                
-020F 22         972            ret
-0210            973   ;------------------------------------------------------------
-0210            974   ;Allocation info for local variables in function 'Parallel_Park_Wait_6'
+0202            956   ;         function Parallel_Park_Wait_5
+0202            957   ;        -----------------------------------------
+0202            958   _Parallel_Park_Wait_5:
+0202            959   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:314: _endasm;
+0202            960            
+0202            961      ;For a 22.1184MHz crystal one machine cycle
+0202            962      ;takes 12/22.1184MHz=0.5425347us
+0202 7A0D       963                  mov R2, #13
+0204            964             Le3:
+0204 79F8       965            mov R1, #248
+0206            966             Le2:
+0206 78B8       967            mov R0, #184
+0208            968             Le1:
+0208 D800       969            djnz R0, Le1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+020A D9C0       970                  djnz R1, Le2 ; 200us*250=0.05s
+020C DA80       971                  djnz R2, Le3 ; 0.05s*20=50ms
+020E 22         972                  ret
+020F            973                
+020F 22         974            ret
 0210            975   ;------------------------------------------------------------
-0210            976   ;------------------------------------------------------------
-0210            977   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:318: void Parallel_Park_Wait_6(void){
-0210            978   ;        -----------------------------------------
-0210            979   ;         function Parallel_Park_Wait_6
+0210            976   ;Allocation info for local variables in function 'Parallel_Park_Wait_6'
+0210            977   ;------------------------------------------------------------
+0210            978   ;------------------------------------------------------------
+0210            979   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:318: void Parallel_Park_Wait_6(void){
 0210            980   ;        -----------------------------------------
-0210            981   _Parallel_Park_Wait_6:
-0210            982   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:329: _endasm;
-0210            983            
-0210            984      ;For a 22.1184MHz crystal one machine cycle
-0210            985      ;takes 12/22.1184MHz=0.5425347us
-0210 7A01       986                  mov R2, #1
-0212            987             Lf3:
-0212 79F8       988            mov R1, #248
-0214            989             Lf2:
-0214 78B8       990            mov R0, #184
-0216            991             Lf1:
-0216 D880       992            djnz R0, Lf1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-0218 D940       993                  djnz R1, Lf2 ; 200us*250=0.05s
-021A DA00       994                  djnz R2, Lf3 ; 0.05s*20=50ms
-021C 22         995                  ret
-021D            996                
-021D 22         997            ret
-021E            998   ;------------------------------------------------------------
-021E            999   ;Allocation info for local variables in function 'Move_Backwards'
+0210            981   ;         function Parallel_Park_Wait_6
+0210            982   ;        -----------------------------------------
+0210            983   _Parallel_Park_Wait_6:
+0210            984   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:329: _endasm;
+0210            985            
+0210            986      ;For a 22.1184MHz crystal one machine cycle
+0210            987      ;takes 12/22.1184MHz=0.5425347us
+0210 7A01       988                  mov R2, #1
+0212            989             Lf3:
+0212 79F8       990            mov R1, #248
+0214            991             Lf2:
+0214 78B8       992            mov R0, #184
+0216            993             Lf1:
+0216 D8C0       994            djnz R0, Lf1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+0218 D980       995                  djnz R1, Lf2 ; 200us*250=0.05s
+021A DA40       996                  djnz R2, Lf3 ; 0.05s*20=50ms
+021C 22         997                  ret
+021D            998                
+021D 22         999            ret
 021E           1000   ;------------------------------------------------------------
-021E           1001   ;------------------------------------------------------------
-021E           1002   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:334: void Move_Backwards(void){
-021E           1003   ;        -----------------------------------------
-021E           1004   ;         function Move_Backwards
+021E           1001   ;Allocation info for local variables in function 'Move_Forwards'
+021E           1002   ;------------------------------------------------------------
+021E           1003   ;------------------------------------------------------------
+021E           1004   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:334: void Move_Forwards(void){
 021E           1005   ;        -----------------------------------------
-021E           1006   _Move_Backwards:
-021E           1007   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:335: Move_Right_Motor_Backwards();
-021E 120100    1008            lcall   _Move_Right_Motor_Backwards
-0221           1009   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:336: Move_Left_Motor_Backwards();
-0221 020100    1010            ljmp    _Move_Left_Motor_Backwards
-0224           1011   ;------------------------------------------------------------
-0224           1012   ;Allocation info for local variables in function 'Parallel_Park'
+021E           1006   ;         function Move_Forwards
+021E           1007   ;        -----------------------------------------
+021E           1008   _Move_Forwards:
+021E           1009   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:335: Move_Right_Motor_Forwards();
+021E 120100    1010            lcall   _Move_Right_Motor_Forwards
+0221           1011   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:336: Move_Left_Motor_Forwards();
+0221 020100    1012            ljmp    _Move_Left_Motor_Forwards
 0224           1013   ;------------------------------------------------------------
-0224           1014   ;------------------------------------------------------------
-0224           1015   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:340: void Parallel_Park(void){
-0224           1016   ;        -----------------------------------------
-0224           1017   ;         function Parallel_Park
+0224           1014   ;Allocation info for local variables in function 'Parallel_Park'
+0224           1015   ;------------------------------------------------------------
+0224           1016   ;------------------------------------------------------------
+0224           1017   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:340: void Parallel_Park(void){
 0224           1018   ;        -----------------------------------------
-0224           1019   _Parallel_Park:
-0224           1020   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:341: Move_Backwards();
-0224 120100    1021            lcall   _Move_Backwards
-0227           1022   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:342: Parallel_Park_Wait_1();
-0227 120100    1023            lcall   _Parallel_Park_Wait_1
-022A           1024   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:344: Stop_Car();
-022A 120100    1025            lcall   _Stop_Car
-022D           1026   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:345: Parallel_Park_Wait_2();
-022D 120100    1027            lcall   _Parallel_Park_Wait_2
-0230           1028   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:347: Turn_Car_Left();
-0230 120100    1029            lcall   _Turn_Car_Left
-0233           1030   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:348: Parallel_Park_Wait_3();
-0233 120100    1031            lcall   _Parallel_Park_Wait_3
-0236           1032   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:350: Move_Backwards();
-0236 120100    1033            lcall   _Move_Backwards
-0239           1034   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:351: Parallel_Park_Wait_4();
-0239 120100    1035            lcall   _Parallel_Park_Wait_4
-023C           1036   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:353: Stop_Car();
-023C 120100    1037            lcall   _Stop_Car
-023F           1038   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:354: Turn_Car_Right();
-023F 120100    1039            lcall   _Turn_Car_Right
-0242           1040   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:355: Parallel_Park_Wait_5();
-0242 120100    1041            lcall   _Parallel_Park_Wait_5
-0245           1042   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:357: Stop_Car();
-0245 120100    1043            lcall   _Stop_Car
-0248           1044   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:358: Parallel_Park_Wait_6();
-0248 020100    1045            ljmp    _Parallel_Park_Wait_6
-024B           1046   ;------------------------------------------------------------
-024B           1047   ;Allocation info for local variables in function 'Undo_Parallel_Park'
+0224           1019   ;         function Parallel_Park
+0224           1020   ;        -----------------------------------------
+0224           1021   _Parallel_Park:
+0224           1022   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:341: Move_Forwards();
+0224 120100    1023            lcall   _Move_Forwards
+0227           1024   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:342: Parallel_Park_Wait_1();
+0227 120100    1025            lcall   _Parallel_Park_Wait_1
+022A           1026   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:344: Stop_Car();
+022A 120100    1027            lcall   _Stop_Car
+022D           1028   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:345: Parallel_Park_Wait_2();
+022D 120100    1029            lcall   _Parallel_Park_Wait_2
+0230           1030   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:347: Turn_Car_Left();
+0230 120100    1031            lcall   _Turn_Car_Left
+0233           1032   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:348: Parallel_Park_Wait_3();
+0233 120100    1033            lcall   _Parallel_Park_Wait_3
+0236           1034   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:350: Move_Forwards();
+0236 120100    1035            lcall   _Move_Forwards
+0239           1036   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:351: Parallel_Park_Wait_4();
+0239 120100    1037            lcall   _Parallel_Park_Wait_4
+023C           1038   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:353: Stop_Car();
+023C 120100    1039            lcall   _Stop_Car
+023F           1040   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:354: Turn_Car_Right();
+023F 120100    1041            lcall   _Turn_Car_Right
+0242           1042   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:355: Parallel_Park_Wait_5();
+0242 120100    1043            lcall   _Parallel_Park_Wait_5
+0245           1044   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:357: Stop_Car();
+0245 120100    1045            lcall   _Stop_Car
+0248           1046   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:358: Parallel_Park_Wait_6();
+0248 020100    1047            ljmp    _Parallel_Park_Wait_6
 024B           1048   ;------------------------------------------------------------
-024B           1049   ;------------------------------------------------------------
-024B           1050   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:362: void Undo_Parallel_Park (void){
-024B           1051   ;        -----------------------------------------
-024B           1052   ;         function Undo_Parallel_Park
+024B           1049   ;Allocation info for local variables in function 'Undo_Parallel_Park'
+024B           1050   ;------------------------------------------------------------
+024B           1051   ;------------------------------------------------------------
+024B           1052   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:362: void Undo_Parallel_Park (void){
 024B           1053   ;        -----------------------------------------
-024B           1054   _Undo_Parallel_Park:
-024B           1055   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:363: Turn_Car_Left();
-024B 120100    1056            lcall   _Turn_Car_Left
-024E           1057   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:364: Parallel_Park_Wait_3();
-024E 120100    1058            lcall   _Parallel_Park_Wait_3
-0251           1059   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:366: Move_Forwards();
-0251 120100    1060            lcall   _Move_Forwards
-0254           1061   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:367: Parallel_Park_Wait_4();
-0254 120100    1062            lcall   _Parallel_Park_Wait_4
-0257           1063   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:369: Stop_Car();
-0257 120100    1064            lcall   _Stop_Car
-025A           1065   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:370: Turn_Car_Right();
-025A 120100    1066            lcall   _Turn_Car_Right
-025D           1067   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:371: Parallel_Park_Wait_3();
-025D 120100    1068            lcall   _Parallel_Park_Wait_3
-0260           1069   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:373: Move_Forwards();
-0260 120100    1070            lcall   _Move_Forwards
-0263           1071   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:374: Parallel_Park_Wait_1();
-0263 120100    1072            lcall   _Parallel_Park_Wait_1
-0266           1073   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:376: Stop_Car();
-0266 120100    1074            lcall   _Stop_Car
-0269           1075   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:377: Parallel_Park_Wait_5();
-0269 120100    1076            lcall   _Parallel_Park_Wait_5
-026C           1077   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:379: Stop_Car();
-026C 120100    1078            lcall   _Stop_Car
-026F           1079   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:380: Parallel_Park_Wait_6();
-026F 020100    1080            ljmp    _Parallel_Park_Wait_6
-0272           1081   ;------------------------------------------------------------
-0272           1082   ;Allocation info for local variables in function 'Turn_Car_Left'
+024B           1054   ;         function Undo_Parallel_Park
+024B           1055   ;        -----------------------------------------
+024B           1056   _Undo_Parallel_Park:
+024B           1057   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:363: Turn_Car_Left();
+024B 120100    1058            lcall   _Turn_Car_Left
+024E           1059   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:364: Parallel_Park_Wait_3();
+024E 120100    1060            lcall   _Parallel_Park_Wait_3
+0251           1061   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:366: Move_Backwards();
+0251 120100    1062            lcall   _Move_Backwards
+0254           1063   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:367: Parallel_Park_Wait_4();
+0254 120100    1064            lcall   _Parallel_Park_Wait_4
+0257           1065   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:369: Stop_Car();
+0257 120100    1066            lcall   _Stop_Car
+025A           1067   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:370: Turn_Car_Right();
+025A 120100    1068            lcall   _Turn_Car_Right
+025D           1069   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:371: Parallel_Park_Wait_3();
+025D 120100    1070            lcall   _Parallel_Park_Wait_3
+0260           1071   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:373: Move_Backwards();
+0260 120100    1072            lcall   _Move_Backwards
+0263           1073   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:374: Parallel_Park_Wait_1();
+0263 120100    1074            lcall   _Parallel_Park_Wait_1
+0266           1075   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:376: Stop_Car();
+0266 120100    1076            lcall   _Stop_Car
+0269           1077   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:377: Parallel_Park_Wait_5();
+0269 120100    1078            lcall   _Parallel_Park_Wait_5
+026C           1079   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:379: Stop_Car();
+026C 120100    1080            lcall   _Stop_Car
+026F           1081   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:380: Parallel_Park_Wait_6();
+026F 020100    1082            ljmp    _Parallel_Park_Wait_6
 0272           1083   ;------------------------------------------------------------
-0272           1084   ;------------------------------------------------------------
-0272           1085   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:386: void Turn_Car_Left(void){
-0272           1086   ;        -----------------------------------------
-0272           1087   ;         function Turn_Car_Left
+0272           1084   ;Allocation info for local variables in function 'Turn_Car_Left'
+0272           1085   ;------------------------------------------------------------
+0272           1086   ;------------------------------------------------------------
+0272           1087   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:386: void Turn_Car_Left(void){
 0272           1088   ;        -----------------------------------------
-0272           1089   _Turn_Car_Left:
-0272           1090   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:387: Move_Right_Motor_Forwards();
-0272 020100    1091            ljmp    _Move_Right_Motor_Forwards
-0275           1092   ;------------------------------------------------------------
-0275           1093   ;Allocation info for local variables in function 'Turn_Car_Right'
+0272           1089   ;         function Turn_Car_Left
+0272           1090   ;        -----------------------------------------
+0272           1091   _Turn_Car_Left:
+0272           1092   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:387: Move_Right_Motor_Backwards();
+0272 020100    1093            ljmp    _Move_Right_Motor_Backwards
 0275           1094   ;------------------------------------------------------------
-0275           1095   ;------------------------------------------------------------
-0275           1096   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:393: void Turn_Car_Right(void){
-0275           1097   ;        -----------------------------------------
-0275           1098   ;         function Turn_Car_Right
+0275           1095   ;Allocation info for local variables in function 'Turn_Car_Right'
+0275           1096   ;------------------------------------------------------------
+0275           1097   ;------------------------------------------------------------
+0275           1098   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:393: void Turn_Car_Right(void){
 0275           1099   ;        -----------------------------------------
-0275           1100   _Turn_Car_Right:
-0275           1101   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:394: Move_Left_Motor_Forwards(); //Same thoughts as above, (in Turn_Car_Left)
-0275 020100    1102            ljmp    _Move_Left_Motor_Forwards
-0278           1103   ;------------------------------------------------------------
-0278           1104   ;Allocation info for local variables in function 'Move_Forwards'
+0275           1100   ;         function Turn_Car_Right
+0275           1101   ;        -----------------------------------------
+0275           1102   _Turn_Car_Right:
+0275           1103   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:394: Move_Left_Motor_Backwards(); //Same thoughts as above, (in Turn_Car_Left)
+0275 020100    1104            ljmp    _Move_Left_Motor_Backwards
 0278           1105   ;------------------------------------------------------------
-0278           1106   ;------------------------------------------------------------
-0278           1107   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:398: void Move_Forwards(void){
-0278           1108   ;        -----------------------------------------
-0278           1109   ;         function Move_Forwards
+0278           1106   ;Allocation info for local variables in function 'Move_Backwards'
+0278           1107   ;------------------------------------------------------------
+0278           1108   ;------------------------------------------------------------
+0278           1109   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:398: void Move_Backwards(void){
 0278           1110   ;        -----------------------------------------
-0278           1111   _Move_Forwards:
-0278           1112   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:399: Move_Right_Motor_Forwards();
-0278 120100    1113            lcall   _Move_Right_Motor_Forwards
-027B           1114   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:400: Move_Left_Motor_Forwards();
-027B 020100    1115            ljmp    _Move_Left_Motor_Forwards
-027E           1116   ;------------------------------------------------------------
-027E           1117   ;Allocation info for local variables in function 'Move_Car_Closer'
+0278           1111   ;         function Move_Backwards
+0278           1112   ;        -----------------------------------------
+0278           1113   _Move_Backwards:
+0278           1114   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:399: Move_Right_Motor_Backwards();
+0278 120100    1115            lcall   _Move_Right_Motor_Backwards
+027B           1116   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:400: Move_Left_Motor_Backwards();
+027B 020100    1117            ljmp    _Move_Left_Motor_Backwards
 027E           1118   ;------------------------------------------------------------
-027E           1119   ;------------------------------------------------------------
-027E           1120   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:406: void Move_Car_Closer(void){
-027E           1121   ;        -----------------------------------------
-027E           1122   ;         function Move_Car_Closer
+027E           1119   ;Allocation info for local variables in function 'Move_Car_Closer'
+027E           1120   ;------------------------------------------------------------
+027E           1121   ;------------------------------------------------------------
+027E           1122   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:406: void Move_Car_Closer(void){
 027E           1123   ;        -----------------------------------------
-027E           1124   _Move_Car_Closer:
-027E           1125   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:409: if(dist_index > 0) dist_index--;
-027E C3        1126            clr     c
-027F E4        1127            clr     a
-0280 9580      1128            subb    a,_dist_index
-0282 E4        1129            clr     a
-0283 6480      1130            xrl     a,#0x80
-0285 8581F0    1131            mov     b,(_dist_index + 1)
-0288 63F080    1132            xrl     b,#0x80
-028B 95F0      1133            subb    a,b
-028D 5001      1134            jnc     L028003?
-028F 1580      1135            dec     _dist_index
-0291 74FF      1136            mov     a,#0xff
-0293 B58040    1137            cjne    a,_dist_index,L028007?
-0296 1581      1138            dec     (_dist_index + 1)
-0298           1139   L028007?:
-0298           1140   L028003?:
-0298 22        1141            ret
-0299           1142   ;------------------------------------------------------------
-0299           1143   ;Allocation info for local variables in function 'Move_Car_Further'
+027E           1124   ;         function Move_Car_Closer
+027E           1125   ;        -----------------------------------------
+027E           1126   _Move_Car_Closer:
+027E           1127   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:409: if(dist_index > 0) dist_index--;
+027E C3        1128            clr     c
+027F E4        1129            clr     a
+0280 9580      1130            subb    a,_dist_index
+0282 E4        1131            clr     a
+0283 6480      1132            xrl     a,#0x80
+0285 8581F0    1133            mov     b,(_dist_index + 1)
+0288 63F080    1134            xrl     b,#0x80
+028B 95F0      1135            subb    a,b
+028D 5001      1136            jnc     L028003?
+028F 1580      1137            dec     _dist_index
+0291 74FF      1138            mov     a,#0xff
+0293 B58080    1139            cjne    a,_dist_index,L028007?
+0296 1581      1140            dec     (_dist_index + 1)
+0298           1141   L028007?:
+0298           1142   L028003?:
+0298 22        1143            ret
 0299           1144   ;------------------------------------------------------------
-0299           1145   ;------------------------------------------------------------
-0299           1146   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:415: void Move_Car_Further(void){
-0299           1147   ;        -----------------------------------------
-0299           1148   ;         function Move_Car_Further
+0299           1145   ;Allocation info for local variables in function 'Move_Car_Further'
+0299           1146   ;------------------------------------------------------------
+0299           1147   ;------------------------------------------------------------
+0299           1148   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:415: void Move_Car_Further(void){
 0299           1149   ;        -----------------------------------------
-0299           1150   _Move_Car_Further:
-0299           1151   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:418: if(dist_index < 3) dist_index++;
-0299 C3        1152            clr     c
-029A E580      1153            mov     a,_dist_index
-029C 9403      1154            subb    a,#0x03
-029E E581      1155            mov     a,(_dist_index + 1)
-02A0 6480      1156            xrl     a,#0x80
-02A2 9480      1157            subb    a,#0x80
-02A4 5001      1158            jnc     L029003?
-02A6 0580      1159            inc     _dist_index
-02A8 E4        1160            clr     a
-02A9 B580C0    1161            cjne    a,_dist_index,L029007?
-02AC 0581      1162            inc     (_dist_index + 1)
-02AE           1163   L029007?:
-02AE           1164   L029003?:
-02AE 22        1165            ret
-02AF           1166   ;------------------------------------------------------------
-02AF           1167   ;Allocation info for local variables in function 'Rotate_Car_180_CW'
+0299           1150   ;         function Move_Car_Further
+0299           1151   ;        -----------------------------------------
+0299           1152   _Move_Car_Further:
+0299           1153   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:418: if(dist_index < 3) dist_index++;
+0299 C3        1154            clr     c
+029A E580      1155            mov     a,_dist_index
+029C 9403      1156            subb    a,#0x03
+029E E581      1157            mov     a,(_dist_index + 1)
+02A0 6480      1158            xrl     a,#0x80
+02A2 9480      1159            subb    a,#0x80
+02A4 5001      1160            jnc     L029003?
+02A6 0580      1161            inc     _dist_index
+02A8 E4        1162            clr     a
+02A9 B58000    1163            cjne    a,_dist_index,L029007?
+02AC 0581      1164            inc     (_dist_index + 1)
+02AE           1165   L029007?:
+02AE           1166   L029003?:
+02AE 22        1167            ret
 02AF           1168   ;------------------------------------------------------------
-02AF           1169   ;------------------------------------------------------------
-02AF           1170   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:422: void Rotate_Car_180_CW(void){
-02AF           1171   ;        -----------------------------------------
-02AF           1172   ;         function Rotate_Car_180_CW
+02AF           1169   ;Allocation info for local variables in function 'Rotate_Car_180_CW'
+02AF           1170   ;------------------------------------------------------------
+02AF           1171   ;------------------------------------------------------------
+02AF           1172   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:422: void Rotate_Car_180_CW(void){
 02AF           1173   ;        -----------------------------------------
-02AF           1174   _Rotate_Car_180_CW:
-02AF           1175   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:423: Turn_Car_Right();
-02AF 120100    1176            lcall   _Turn_Car_Right
-02B2           1177   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:424: wait1s();       //TO DO: change this to the correct time
-02B2 120100    1178            lcall   _wait1s
-02B5           1179   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:425: Stop_Car();
-02B5 020100    1180            ljmp    _Stop_Car
-02B8           1181   ;------------------------------------------------------------
-02B8           1182   ;Allocation info for local variables in function 'Rotate_Car_180_CCW'
+02AF           1174   ;         function Rotate_Car_180_CW
+02AF           1175   ;        -----------------------------------------
+02AF           1176   _Rotate_Car_180_CW:
+02AF           1177   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:423: Turn_Car_Right();
+02AF 120100    1178            lcall   _Turn_Car_Right
+02B2           1179   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:424: wait1s();       //TO DO: change this to the correct time
+02B2 120100    1180            lcall   _wait1s
+02B5           1181   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:425: Stop_Car();
+02B5 020100    1182            ljmp    _Stop_Car
 02B8           1183   ;------------------------------------------------------------
-02B8           1184   ;------------------------------------------------------------
-02B8           1185   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:430: void Rotate_Car_180_CCW(void){
-02B8           1186   ;        -----------------------------------------
-02B8           1187   ;         function Rotate_Car_180_CCW
+02B8           1184   ;Allocation info for local variables in function 'Rotate_Car_180_CCW'
+02B8           1185   ;------------------------------------------------------------
+02B8           1186   ;------------------------------------------------------------
+02B8           1187   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:430: void Rotate_Car_180_CCW(void){
 02B8           1188   ;        -----------------------------------------
-02B8           1189   _Rotate_Car_180_CCW:
-02B8           1190   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:431: Turn_Car_Left();
-02B8 120100    1191            lcall   _Turn_Car_Left
-02BB           1192   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:432: wait1s();       // TO DO: change this to the correct time
-02BB 120100    1193            lcall   _wait1s
-02BE           1194   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:433: Stop_Car();
-02BE 020100    1195            ljmp    _Stop_Car
-02C1           1196   ;------------------------------------------------------------
-02C1           1197   ;Allocation info for local variables in function 'rx_byte'
+02B8           1189   ;         function Rotate_Car_180_CCW
+02B8           1190   ;        -----------------------------------------
+02B8           1191   _Rotate_Car_180_CCW:
+02B8           1192   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:431: Turn_Car_Left();
+02B8 120100    1193            lcall   _Turn_Car_Left
+02BB           1194   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:432: wait1s();       // TO DO: change this to the correct time
+02BB 120100    1195            lcall   _wait1s
+02BE           1196   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:433: Stop_Car();
+02BE 020100    1197            ljmp    _Stop_Car
 02C1           1198   ;------------------------------------------------------------
-02C1           1199   ;min                       Allocated to registers r2 r3 
-02C1           1200   ;j                         Allocated to registers r5 
-02C1           1201   ;val                       Allocated to registers r4 
-02C1           1202   ;v                         Allocated to registers r6 r7 
-02C1           1203   ;------------------------------------------------------------
-02C1           1204   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:440: unsigned char rx_byte (int min){
-02C1           1205   ;        -----------------------------------------
-02C1           1206   ;         function rx_byte
+02C1           1199   ;Allocation info for local variables in function 'rx_byte'
+02C1           1200   ;------------------------------------------------------------
+02C1           1201   ;min                       Allocated to registers r2 r3 
+02C1           1202   ;j                         Allocated to registers r5 
+02C1           1203   ;val                       Allocated to registers r4 
+02C1           1204   ;v                         Allocated to registers r6 r7 
+02C1           1205   ;------------------------------------------------------------
+02C1           1206   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:440: unsigned char rx_byte (int min){
 02C1           1207   ;        -----------------------------------------
-02C1           1208   _rx_byte:
-02C1 AA82      1209            mov     r2,dpl
-02C3 AB83      1210            mov     r3,dph
-02C5           1211   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:445: val=0;
-02C5 7C00      1212            mov     r4,#0x00
-02C7           1213   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:446: wait_one_and_half_bit_time();
-02C7 C002      1214            push    ar2
-02C9 C003      1215            push    ar3
-02CB C004      1216            push    ar4
-02CD 120100    1217            lcall   _wait_one_and_half_bit_time
-02D0 D004      1218            pop     ar4
-02D2 D003      1219            pop     ar3
-02D4 D002      1220            pop     ar2
-02D6           1221   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:447: for(j=0; j<8; j++)
-02D6 7D00      1222            mov     r5,#0x00
-02D8           1223   L032001?:
-02D8 BD0840    1224            cjne    r5,#0x08,L032013?
-02DB           1225   L032013?:
-02DB 5001      1226            jnc     L032004?
-02DD           1227   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:449: v=GetADC(0);
-02DD 758200    1228            mov     dpl,#0x00
-02E0 C002      1229            push    ar2
-02E2 C003      1230            push    ar3
-02E4 C004      1231            push    ar4
-02E6 C005      1232            push    ar5
-02E8 120100    1233            lcall   _GetADC
-02EB AE82      1234            mov     r6,dpl
-02ED AF83      1235            mov     r7,dph
-02EF D005      1236            pop     ar5
-02F1 D004      1237            pop     ar4
-02F3 D003      1238            pop     ar3
-02F5 D002      1239            pop     ar2
-02F7           1240   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:450: val|=(v>min)?(0x01<<j):0x00;
-02F7 C3        1241            clr     c
-02F8 EA        1242            mov     a,r2
-02F9 9E        1243            subb    a,r6
-02FA EB        1244            mov     a,r3
-02FB 6480      1245            xrl     a,#0x80
-02FD 8FF0      1246            mov     b,r7
-02FF 63F080    1247            xrl     b,#0x80
-0302 95F0      1248            subb    a,b
-0304 5001      1249            jnc     L032007?
-0306 8DF0      1250            mov     b,r5
-0308 05F0      1251            inc     b
-030A 7401      1252            mov     a,#0x01
-030C 8001      1253            sjmp    L032018?
-030E           1254   L032016?:
-030E 25E0      1255            add     a,acc
-0310           1256   L032018?:
-0310 D5F040    1257            djnz    b,L032016?
-0313 FE        1258            mov     r6,a
-0314 8001      1259            sjmp    L032008?
-0316           1260   L032007?:
-0316 7E00      1261            mov     r6,#0x00
-0318           1262   L032008?:
-0318 EE        1263            mov     a,r6
-0319 4204      1264            orl     ar4,a
-031B           1265   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:451: wait_bit_time();
-031B C002      1266            push    ar2
-031D C003      1267            push    ar3
-031F C004      1268            push    ar4
-0321 C005      1269            push    ar5
-0323 120100    1270            lcall   _wait_bit_time
-0326 D005      1271            pop     ar5
-0328 D004      1272            pop     ar4
-032A D003      1273            pop     ar3
-032C D002      1274            pop     ar2
-032E           1275   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:447: for(j=0; j<8; j++)
-032E 0D        1276            inc     r5
-032F 8001      1277            sjmp    L032001?
-0331           1278   L032004?:
-0331           1279   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:454: wait_one_and_half_bit_time();
-0331 C004      1280            push    ar4
-0333 120100    1281            lcall   _wait_one_and_half_bit_time
-0336 D004      1282            pop     ar4
-0338           1283   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:455: return val;
-0338 8C82      1284            mov     dpl,r4
-033A 22        1285            ret
-033B           1286   ;------------------------------------------------------------
-033B           1287   ;Allocation info for local variables in function 'wait_bit_time'
+02C1           1208   ;         function rx_byte
+02C1           1209   ;        -----------------------------------------
+02C1           1210   _rx_byte:
+02C1 AA82      1211            mov     r2,dpl
+02C3 AB83      1212            mov     r3,dph
+02C5           1213   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:445: val=0;
+02C5 7C00      1214            mov     r4,#0x00
+02C7           1215   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:446: wait_one_and_half_bit_time();
+02C7 C002      1216            push    ar2
+02C9 C003      1217            push    ar3
+02CB C004      1218            push    ar4
+02CD 120100    1219            lcall   _wait_one_and_half_bit_time
+02D0 D004      1220            pop     ar4
+02D2 D003      1221            pop     ar3
+02D4 D002      1222            pop     ar2
+02D6           1223   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:447: for(j=0; j<8; j++)
+02D6 7D00      1224            mov     r5,#0x00
+02D8           1225   L032001?:
+02D8 BD0880    1226            cjne    r5,#0x08,L032013?
+02DB           1227   L032013?:
+02DB 5001      1228            jnc     L032004?
+02DD           1229   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:449: v=GetADC(0);
+02DD 758200    1230            mov     dpl,#0x00
+02E0 C002      1231            push    ar2
+02E2 C003      1232            push    ar3
+02E4 C004      1233            push    ar4
+02E6 C005      1234            push    ar5
+02E8 120100    1235            lcall   _GetADC
+02EB AE82      1236            mov     r6,dpl
+02ED AF83      1237            mov     r7,dph
+02EF D005      1238            pop     ar5
+02F1 D004      1239            pop     ar4
+02F3 D003      1240            pop     ar3
+02F5 D002      1241            pop     ar2
+02F7           1242   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:450: val|=(v>min)?(0x01<<j):0x00;
+02F7 C3        1243            clr     c
+02F8 EA        1244            mov     a,r2
+02F9 9E        1245            subb    a,r6
+02FA EB        1246            mov     a,r3
+02FB 6480      1247            xrl     a,#0x80
+02FD 8FF0      1248            mov     b,r7
+02FF 63F080    1249            xrl     b,#0x80
+0302 95F0      1250            subb    a,b
+0304 5001      1251            jnc     L032007?
+0306 8DF0      1252            mov     b,r5
+0308 05F0      1253            inc     b
+030A 7401      1254            mov     a,#0x01
+030C 8001      1255            sjmp    L032018?
+030E           1256   L032016?:
+030E 25E0      1257            add     a,acc
+0310           1258   L032018?:
+0310 D5F080    1259            djnz    b,L032016?
+0313 FE        1260            mov     r6,a
+0314 8001      1261            sjmp    L032008?
+0316           1262   L032007?:
+0316 7E00      1263            mov     r6,#0x00
+0318           1264   L032008?:
+0318 EE        1265            mov     a,r6
+0319 4204      1266            orl     ar4,a
+031B           1267   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:451: wait_bit_time();
+031B C002      1268            push    ar2
+031D C003      1269            push    ar3
+031F C004      1270            push    ar4
+0321 C005      1271            push    ar5
+0323 120100    1272            lcall   _wait_bit_time
+0326 D005      1273            pop     ar5
+0328 D004      1274            pop     ar4
+032A D003      1275            pop     ar3
+032C D002      1276            pop     ar2
+032E           1277   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:447: for(j=0; j<8; j++)
+032E 0D        1278            inc     r5
+032F 8001      1279            sjmp    L032001?
+0331           1280   L032004?:
+0331           1281   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:454: wait_one_and_half_bit_time();
+0331 C004      1282            push    ar4
+0333 120100    1283            lcall   _wait_one_and_half_bit_time
+0336 D004      1284            pop     ar4
+0338           1285   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:455: return val;
+0338 8C82      1286            mov     dpl,r4
+033A 22        1287            ret
 033B           1288   ;------------------------------------------------------------
-033B           1289   ;------------------------------------------------------------
-033B           1290   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:460: void wait_bit_time(void){
-033B           1291   ;        -----------------------------------------
-033B           1292   ;         function wait_bit_time
+033B           1289   ;Allocation info for local variables in function 'wait_bit_time'
+033B           1290   ;------------------------------------------------------------
+033B           1291   ;------------------------------------------------------------
+033B           1292   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:460: void wait_bit_time(void){
 033B           1293   ;        -----------------------------------------
-033B           1294   _wait_bit_time:
-033B           1295   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:471: _endasm;
-033B           1296            
-033B           1297     ;For a 22.1184MHz crystal one machine cycle
-033B           1298     ;takes 12/22.1184MHz=0.5425347us
-033B 7A02      1299                 mov R2, #2
-033D           1300             L3:
-033D 79F8      1301            mov R1, #248
-033F           1302             L2:
-033F 78B8      1303            mov R0, #184
-0341           1304             L1:
-0341 D840      1305            djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-0343 D900      1306                 djnz R1, L2 ; 200us*250=0.05s
-0345 DAC0      1307                 djnz R2, L3 ; 0.05s*2=100ms
-0347 22        1308                 ret
-0348           1309                
-0348 22        1310            ret
-0349           1311   ;------------------------------------------------------------
-0349           1312   ;Allocation info for local variables in function 'wait_one_and_half_bit_time'
+033B           1294   ;         function wait_bit_time
+033B           1295   ;        -----------------------------------------
+033B           1296   _wait_bit_time:
+033B           1297   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:471: _endasm;
+033B           1298            
+033B           1299     ;For a 22.1184MHz crystal one machine cycle
+033B           1300     ;takes 12/22.1184MHz=0.5425347us
+033B 7A02      1301                 mov R2, #2
+033D           1302             L3:
+033D 79F8      1303            mov R1, #248
+033F           1304             L2:
+033F 78B8      1305            mov R0, #184
+0341           1306             L1:
+0341 D880      1307            djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+0343 D940      1308                 djnz R1, L2 ; 200us*250=0.05s
+0345 DA00      1309                 djnz R2, L3 ; 0.05s*2=100ms
+0347 22        1310                 ret
+0348           1311                
+0348 22        1312            ret
 0349           1313   ;------------------------------------------------------------
-0349           1314   ;------------------------------------------------------------
-0349           1315   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:475: void wait_one_and_half_bit_time(void){
-0349           1316   ;        -----------------------------------------
-0349           1317   ;         function wait_one_and_half_bit_time
+0349           1314   ;Allocation info for local variables in function 'wait_one_and_half_bit_time'
+0349           1315   ;------------------------------------------------------------
+0349           1316   ;------------------------------------------------------------
+0349           1317   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:475: void wait_one_and_half_bit_time(void){
 0349           1318   ;        -----------------------------------------
-0349           1319   _wait_one_and_half_bit_time:
-0349           1320   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:486: _endasm;
-0349           1321            
-0349           1322     ;For a 22.1184MHz crystal one machine cycle
-0349           1323     ;takes 12/22.1184MHz=0.5425347us
-0349 7A03      1324                 mov R2, #3
-034B           1325             L6:
-034B 79F8      1326            mov R1, #248
-034D           1327             L5:
-034D 78B8      1328            mov R0, #184
-034F           1329             L4:
-034F D800      1330            djnz R0, L4 ; 2 machine cycles-> 2*0.5425347us*184=200us
-0351 D9C0      1331                 djnz R1, L5 ; 200us*250=0.05s
-0353 DA80      1332                 djnz R2, L6 ; 0.05s*3=150ms
-0355 22        1333                 ret
-0356           1334                
-0356 22        1335            ret
-0357           1336   ;------------------------------------------------------------
-0357           1337   ;Allocation info for local variables in function 'SPIWrite'
+0349           1319   ;         function wait_one_and_half_bit_time
+0349           1320   ;        -----------------------------------------
+0349           1321   _wait_one_and_half_bit_time:
+0349           1322   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:486: _endasm;
+0349           1323            
+0349           1324     ;For a 22.1184MHz crystal one machine cycle
+0349           1325     ;takes 12/22.1184MHz=0.5425347us
+0349 7A03      1326                 mov R2, #3
+034B           1327             L6:
+034B 79F8      1328            mov R1, #248
+034D           1329             L5:
+034D 78B8      1330            mov R0, #184
+034F           1331             L4:
+034F D840      1332            djnz R0, L4 ; 2 machine cycles-> 2*0.5425347us*184=200us
+0351 D900      1333                 djnz R1, L5 ; 200us*250=0.05s
+0353 DAC0      1334                 djnz R2, L6 ; 0.05s*3=150ms
+0355 22        1335                 ret
+0356           1336                
+0356 22        1337            ret
 0357           1338   ;------------------------------------------------------------
-0357           1339   ;value                     Allocated to registers r2 
+0357           1339   ;Allocation info for local variables in function 'SPIWrite'
 0357           1340   ;------------------------------------------------------------
-0357           1341   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:490: void SPIWrite(unsigned char value){
-0357           1342   ;        -----------------------------------------
-0357           1343   ;         function SPIWrite
+0357           1341   ;value                     Allocated to registers r2 
+0357           1342   ;------------------------------------------------------------
+0357           1343   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:490: void SPIWrite(unsigned char value){
 0357           1344   ;        -----------------------------------------
-0357           1345   _SPIWrite:
-0357 AA82      1346            mov     r2,dpl
-0359           1347   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:491: SPSTA&=(~SPIF); // Clear the SPIF flag in SPSTA
-0359 53C47F    1348            anl     _SPSTA,#0x7F
-035C           1349   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:492: SPDAT=value;
-035C 8AC5      1350            mov     _SPDAT,r2
-035E           1351   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:493: while((SPSTA & SPIF)!=SPIF); //Wait for transmission to end
-035E           1352   L035001?:
-035E 7480      1353            mov     a,#0x80
-0360 55C4      1354            anl     a,_SPSTA
-0362 FA        1355            mov     r2,a
-0363 BA8040    1356            cjne    r2,#0x80,L035001?
-0366 22        1357            ret
-0367           1358   ;------------------------------------------------------------
-0367           1359   ;Allocation info for local variables in function 'GetADC'
+0357           1345   ;         function SPIWrite
+0357           1346   ;        -----------------------------------------
+0357           1347   _SPIWrite:
+0357 AA82      1348            mov     r2,dpl
+0359           1349   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:491: SPSTA&=(~SPIF); // Clear the SPIF flag in SPSTA
+0359 53C47F    1350            anl     _SPSTA,#0x7F
+035C           1351   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:492: SPDAT=value;
+035C 8AC5      1352            mov     _SPDAT,r2
+035E           1353   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:493: while((SPSTA & SPIF)!=SPIF); //Wait for transmission to end
+035E           1354   L035001?:
+035E 7480      1355            mov     a,#0x80
+0360 55C4      1356            anl     a,_SPSTA
+0362 FA        1357            mov     r2,a
+0363 BA8080    1358            cjne    r2,#0x80,L035001?
+0366 22        1359            ret
 0367           1360   ;------------------------------------------------------------
-0367           1361   ;channel                   Allocated to registers r2 
-0367           1362   ;adc                       Allocated to registers r2 r3 
-0367           1363   ;------------------------------------------------------------
-0367           1364   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:497: unsigned int GetADC(unsigned char channel){
-0367           1365   ;        -----------------------------------------
-0367           1366   ;         function GetADC
+0367           1361   ;Allocation info for local variables in function 'GetADC'
+0367           1362   ;------------------------------------------------------------
+0367           1363   ;channel                   Allocated to registers r2 
+0367           1364   ;adc                       Allocated to registers r2 r3 
+0367           1365   ;------------------------------------------------------------
+0367           1366   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:497: unsigned int GetADC(unsigned char channel){
 0367           1367   ;        -----------------------------------------
-0367           1368   _GetADC:
-0367 AA82      1369            mov     r2,dpl
-0369           1370   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:501: SPCON&=(~SPEN); // Disable SPI
-0369 53C3BF    1371            anl     _SPCON,#0xBF
-036C           1372   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:502: SPCON=MSTR|CPOL|CPHA|SPR1|SPR0|SSDIS;
-036C 75C33F    1373            mov     _SPCON,#0x3F
-036F           1374   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:503: SPCON|=SPEN; // Enable SPI
-036F 43C340    1375            orl     _SPCON,#0x40
-0372           1376   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:505: P4_1=0; // Activate the MCP3004 ADC.
-0372 C2C1      1377            clr     _P4_1
-0374           1378   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:506: SPIWrite(channel|0x18);         // Send start bit, single/diff* bit, D2, D1, and D0 bits.
-0374 7418      1379            mov     a,#0x18
-0376 4A        1380            orl     a,r2
-0377 F582      1381            mov     dpl,a
-0379 120100    1382            lcall   _SPIWrite
-037C           1383   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:507: for(adc=0; adc<10; adc++); // Wait for S/H to setup
-037C 7A0A      1384            mov     r2,#0x0A
-037E 7B00      1385            mov     r3,#0x00
-0380           1386   L036003?:
-0380 1A        1387            dec     r2
-0381 BAFFC0    1388            cjne    r2,#0xff,L036009?
-0384 1B        1389            dec     r3
-0385           1390   L036009?:
-0385 EA        1391            mov     a,r2
-0386 4B        1392            orl     a,r3
-0387 7001      1393            jnz     L036003?
-0389           1394   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:508: SPIWrite(0x55); // Read bits 9 down to 4
-0389 758255    1395            mov     dpl,#0x55
-038C 120100    1396            lcall   _SPIWrite
-038F           1397   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:509: adc=((SPDAT&0x3f)*0x100);
-038F 743F      1398            mov     a,#0x3F
-0391 55C5      1399            anl     a,_SPDAT
-0393 FB        1400            mov     r3,a
-0394 7A00      1401            mov     r2,#0x00
-0396           1402   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:510: SPIWrite(0x55);// Read bits 3 down to 0
-0396 758255    1403            mov     dpl,#0x55
-0399 C002      1404            push    ar2
-039B C003      1405            push    ar3
-039D 120100    1406            lcall   _SPIWrite
-03A0 D003      1407            pop     ar3
-03A2 D002      1408            pop     ar2
-03A4           1409   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:511: P4_1=1; // Deactivate the MCP3004 ADC.
-03A4 D2C1      1410            setb    _P4_1
-03A6           1411   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:512: adc+=(SPDAT&0xf0); // SPDR contains the low part of the result. 
-03A6 74F0      1412            mov     a,#0xF0
-03A8 55C5      1413            anl     a,_SPDAT
-03AA FC        1414            mov     r4,a
-03AB 7D00      1415            mov     r5,#0x00
-03AD EC        1416            mov     a,r4
-03AE 2A        1417            add     a,r2
-03AF FA        1418            mov     r2,a
-03B0 ED        1419            mov     a,r5
-03B1 3B        1420            addc    a,r3
-03B2           1421   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:513: adc>>=4;
-03B2 C4        1422            swap    a
-03B3 CA        1423            xch     a,r2
-03B4 C4        1424            swap    a
-03B5 540F      1425            anl     a,#0x0f
-03B7 6A        1426            xrl     a,r2
-03B8 CA        1427            xch     a,r2
-03B9 540F      1428            anl     a,#0x0f
-03BB CA        1429            xch     a,r2
-03BC 6A        1430            xrl     a,r2
-03BD CA        1431            xch     a,r2
-03BE           1432   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:515: return adc;
-03BE 8A82      1433            mov     dpl,r2
-03C0 F583      1434            mov     dph,a
-03C2 22        1435            ret
-03C3           1436   ;------------------------------------------------------------
-03C3           1437   ;Allocation info for local variables in function 'voltage'
+0367           1368   ;         function GetADC
+0367           1369   ;        -----------------------------------------
+0367           1370   _GetADC:
+0367 AA82      1371            mov     r2,dpl
+0369           1372   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:501: SPCON&=(~SPEN); // Disable SPI
+0369 53C3BF    1373            anl     _SPCON,#0xBF
+036C           1374   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:502: SPCON=MSTR|CPOL|CPHA|SPR1|SPR0|SSDIS;
+036C 75C33F    1375            mov     _SPCON,#0x3F
+036F           1376   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:503: SPCON|=SPEN; // Enable SPI
+036F 43C340    1377            orl     _SPCON,#0x40
+0372           1378   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:505: P4_1=0; // Activate the MCP3004 ADC.
+0372 C2C1      1379            clr     _P4_1
+0374           1380   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:506: SPIWrite(channel|0x18);         // Send start bit, single/diff* bit, D2, D1, and D0 bits.
+0374 7418      1381            mov     a,#0x18
+0376 4A        1382            orl     a,r2
+0377 F582      1383            mov     dpl,a
+0379 120100    1384            lcall   _SPIWrite
+037C           1385   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:507: for(adc=0; adc<10; adc++); // Wait for S/H to setup
+037C 7A0A      1386            mov     r2,#0x0A
+037E 7B00      1387            mov     r3,#0x00
+0380           1388   L036003?:
+0380 1A        1389            dec     r2
+0381 BAFF00    1390            cjne    r2,#0xff,L036009?
+0384 1B        1391            dec     r3
+0385           1392   L036009?:
+0385 EA        1393            mov     a,r2
+0386 4B        1394            orl     a,r3
+0387 7001      1395            jnz     L036003?
+0389           1396   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:508: SPIWrite(0x55); // Read bits 9 down to 4
+0389 758255    1397            mov     dpl,#0x55
+038C 120100    1398            lcall   _SPIWrite
+038F           1399   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:509: adc=((SPDAT&0x3f)*0x100);
+038F 743F      1400            mov     a,#0x3F
+0391 55C5      1401            anl     a,_SPDAT
+0393 FB        1402            mov     r3,a
+0394 7A00      1403            mov     r2,#0x00
+0396           1404   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:510: SPIWrite(0x55);// Read bits 3 down to 0
+0396 758255    1405            mov     dpl,#0x55
+0399 C002      1406            push    ar2
+039B C003      1407            push    ar3
+039D 120100    1408            lcall   _SPIWrite
+03A0 D003      1409            pop     ar3
+03A2 D002      1410            pop     ar2
+03A4           1411   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:511: P4_1=1; // Deactivate the MCP3004 ADC.
+03A4 D2C1      1412            setb    _P4_1
+03A6           1413   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:512: adc+=(SPDAT&0xf0); // SPDR contains the low part of the result. 
+03A6 74F0      1414            mov     a,#0xF0
+03A8 55C5      1415            anl     a,_SPDAT
+03AA FC        1416            mov     r4,a
+03AB 7D00      1417            mov     r5,#0x00
+03AD EC        1418            mov     a,r4
+03AE 2A        1419            add     a,r2
+03AF FA        1420            mov     r2,a
+03B0 ED        1421            mov     a,r5
+03B1 3B        1422            addc    a,r3
+03B2           1423   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:513: adc>>=4;
+03B2 C4        1424            swap    a
+03B3 CA        1425            xch     a,r2
+03B4 C4        1426            swap    a
+03B5 540F      1427            anl     a,#0x0f
+03B7 6A        1428            xrl     a,r2
+03B8 CA        1429            xch     a,r2
+03B9 540F      1430            anl     a,#0x0f
+03BB CA        1431            xch     a,r2
+03BC 6A        1432            xrl     a,r2
+03BD CA        1433            xch     a,r2
+03BE           1434   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:515: return adc;
+03BE 8A82      1435            mov     dpl,r2
+03C0 F583      1436            mov     dph,a
+03C2 22        1437            ret
 03C3           1438   ;------------------------------------------------------------
-03C3           1439   ;channel                   Allocated to registers 
+03C3           1439   ;Allocation info for local variables in function 'voltage'
 03C3           1440   ;------------------------------------------------------------
-03C3           1441   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:532: float voltage (unsigned char channel){
-03C3           1442   ;        -----------------------------------------
-03C3           1443   ;         function voltage
+03C3           1441   ;channel                   Allocated to registers 
+03C3           1442   ;------------------------------------------------------------
+03C3           1443   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:532: float voltage (unsigned char channel){
 03C3           1444   ;        -----------------------------------------
-03C3           1445   _voltage:
-03C3           1446   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:533: return ( (GetADC(channel)*5.02)/1023.0 ); // VCC=5.02V (measured)
-03C3 120100    1447            lcall   _GetADC
-03C6 120100    1448            lcall   ___uint2fs
-03C9 AA82      1449            mov     r2,dpl
-03CB AB83      1450            mov     r3,dph
-03CD ACF0      1451            mov     r4,b
-03CF FD        1452            mov     r5,a
-03D0 C002      1453            push    ar2
-03D2 C003      1454            push    ar3
-03D4 C004      1455            push    ar4
-03D6 C005      1456            push    ar5
-03D8 90A3D7    1457            mov     dptr,#0xA3D7
-03DB 75F0A0    1458            mov     b,#0xA0
-03DE 7440      1459            mov     a,#0x40
-03E0 120100    1460            lcall   ___fsmul
-03E3 AA82      1461            mov     r2,dpl
-03E5 AB83      1462            mov     r3,dph
-03E7 ACF0      1463            mov     r4,b
-03E9 FD        1464            mov     r5,a
-03EA E581      1465            mov     a,sp
-03EC 24FC      1466            add     a,#0xfc
-03EE F581      1467            mov     sp,a
-03F0 E4        1468            clr     a
-03F1 C0E0      1469            push    acc
-03F3 74C0      1470            mov     a,#0xC0
-03F5 C0E0      1471            push    acc
-03F7 747F      1472            mov     a,#0x7F
-03F9 C0E0      1473            push    acc
-03FB 7444      1474            mov     a,#0x44
-03FD C0E0      1475            push    acc
-03FF 8A82      1476            mov     dpl,r2
-0401 8B83      1477            mov     dph,r3
-0403 8CF0      1478            mov     b,r4
-0405 ED        1479            mov     a,r5
-0406 120100    1480            lcall   ___fsdiv
-0409 AA82      1481            mov     r2,dpl
-040B AB83      1482            mov     r3,dph
-040D ACF0      1483            mov     r4,b
-040F FD        1484            mov     r5,a
-0410 E581      1485            mov     a,sp
-0412 24FC      1486            add     a,#0xfc
-0414 F581      1487            mov     sp,a
-0416 8A82      1488            mov     dpl,r2
-0418 8B83      1489            mov     dph,r3
-041A 8CF0      1490            mov     b,r4
-041C ED        1491            mov     a,r5
-041D 22        1492            ret
-041E           1493   ;------------------------------------------------------------
-041E           1494   ;Allocation info for local variables in function 'Testing_Code'
+03C3           1445   ;         function voltage
+03C3           1446   ;        -----------------------------------------
+03C3           1447   _voltage:
+03C3           1448   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:533: return ( (GetADC(channel)*5.02)/1023.0 ); // VCC=5.02V (measured)
+03C3 120100    1449            lcall   _GetADC
+03C6 120100    1450            lcall   ___uint2fs
+03C9 AA82      1451            mov     r2,dpl
+03CB AB83      1452            mov     r3,dph
+03CD ACF0      1453            mov     r4,b
+03CF FD        1454            mov     r5,a
+03D0 C002      1455            push    ar2
+03D2 C003      1456            push    ar3
+03D4 C004      1457            push    ar4
+03D6 C005      1458            push    ar5
+03D8 90A3D7    1459            mov     dptr,#0xA3D7
+03DB 75F0A0    1460            mov     b,#0xA0
+03DE 7440      1461            mov     a,#0x40
+03E0 120100    1462            lcall   ___fsmul
+03E3 AA82      1463            mov     r2,dpl
+03E5 AB83      1464            mov     r3,dph
+03E7 ACF0      1465            mov     r4,b
+03E9 FD        1466            mov     r5,a
+03EA E581      1467            mov     a,sp
+03EC 24FC      1468            add     a,#0xfc
+03EE F581      1469            mov     sp,a
+03F0 E4        1470            clr     a
+03F1 C0E0      1471            push    acc
+03F3 74C0      1472            mov     a,#0xC0
+03F5 C0E0      1473            push    acc
+03F7 747F      1474            mov     a,#0x7F
+03F9 C0E0      1475            push    acc
+03FB 7444      1476            mov     a,#0x44
+03FD C0E0      1477            push    acc
+03FF 8A82      1478            mov     dpl,r2
+0401 8B83      1479            mov     dph,r3
+0403 8CF0      1480            mov     b,r4
+0405 ED        1481            mov     a,r5
+0406 120100    1482            lcall   ___fsdiv
+0409 AA82      1483            mov     r2,dpl
+040B AB83      1484            mov     r3,dph
+040D ACF0      1485            mov     r4,b
+040F FD        1486            mov     r5,a
+0410 E581      1487            mov     a,sp
+0412 24FC      1488            add     a,#0xfc
+0414 F581      1489            mov     sp,a
+0416 8A82      1490            mov     dpl,r2
+0418 8B83      1491            mov     dph,r3
+041A 8CF0      1492            mov     b,r4
+041C ED        1493            mov     a,r5
+041D 22        1494            ret
 041E           1495   ;------------------------------------------------------------
-041E           1496   ;------------------------------------------------------------
-041E           1497   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:541: void Testing_Code(void){
-041E           1498   ;        -----------------------------------------
-041E           1499   ;         function Testing_Code
+041E           1496   ;Allocation info for local variables in function 'Testing_Code'
+041E           1497   ;------------------------------------------------------------
+041E           1498   ;------------------------------------------------------------
+041E           1499   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:541: void Testing_Code(void){
 041E           1500   ;        -----------------------------------------
-041E           1501   _Testing_Code:
-041E           1502   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:542: while(1){       
-041E           1503   L038002?:
-041E           1504   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:543: Parallel_Park();
-041E 120100    1505            lcall   _Parallel_Park
-0421           1506   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:544: wait1s();
-0421 120100    1507            lcall   _wait1s
-0424           1508   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:545: Undo_Parallel_Park();
-0424 120100    1509            lcall   _Undo_Parallel_Park
-0427           1510   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:546: wait1s();       
-0427 120100    1511            lcall   _wait1s
-042A 8001      1512            sjmp    L038002?
-042C           1513   ;------------------------------------------------------------
-042C           1514   ;Allocation info for local variables in function 'run'
-042C           1515   ;------------------------------------------------------------
-042C           1516   ;dist_index                Allocated to registers r2 r3 
-042C           1517   ;dist                      Allocated to registers r4 r5 
-042C           1518   ;------------------------------------------------------------
-042C           1519   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:550: void run (int dist_index){
-042C           1520   ;        -----------------------------------------
-042C           1521   ;         function run
-042C           1522   ;        -----------------------------------------
-042C           1523   _run:
-042C AA82      1524            mov     r2,dpl
-042E AB83      1525            mov     r3,dph
-0430           1526   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:556: dist = Get_Right_Distance();
-0430 C002      1527            push    ar2
-0432 C003      1528            push    ar3
-0434 120100    1529            lcall   _Get_Right_Distance
-0437 AC82      1530            mov     r4,dpl
-0439 AD83      1531            mov     r5,dph
-043B D003      1532            pop     ar3
-043D D002      1533            pop     ar2
-043F           1534   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:558: printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
-043F EB        1535            mov     a,r3
-0440 CA        1536            xch     a,r2
-0441 25E0      1537            add     a,acc
-0443 CA        1538            xch     a,r2
-0444 33        1539            rlc     a
-0445 FB        1540            mov     r3,a
-0446 EA        1541            mov     a,r2
-0447 24C0      1542            add     a,#_dist_table
-0449 F8        1543            mov     r0,a
-044A 8606      1544            mov     ar6,@r0
-044C 08        1545            inc     r0
-044D 8607      1546            mov     ar7,@r0
-044F C002      1547            push    ar2
-0451 C003      1548            push    ar3
-0453 C004      1549            push    ar4
-0455 C005      1550            push    ar5
-0457 C006      1551            push    ar6
-0459 C007      1552            push    ar7
-045B C004      1553            push    ar4
-045D C005      1554            push    ar5
-045F 7440      1555            mov     a,#__str_0
-0461 C0E0      1556            push    acc
-0463 749D      1557            mov     a,#(__str_0 >> 8)
-0465 C0E0      1558            push    acc
-0467 7480      1559            mov     a,#0x80
-0469 C0E0      1560            push    acc
-046B 120100    1561            lcall   _printf
-046E E581      1562            mov     a,sp
-0470 24F9      1563            add     a,#0xf9
-0472 F581      1564            mov     sp,a
-0474 D005      1565            pop     ar5
-0476 D004      1566            pop     ar4
-0478 D003      1567            pop     ar3
-047A D002      1568            pop     ar2
-047C           1569   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:559: while(dist < dist_table[dist_index]) {
-047C EA        1570            mov     a,r2
-047D 24C0      1571            add     a,#_dist_table
-047F F8        1572            mov     r0,a
-0480           1573   L039001?:
-0480 8606      1574            mov     ar6,@r0
-0482 08        1575            inc     r0
-0483 8607      1576            mov     ar7,@r0
-0485 18        1577            dec     r0
-0486 C3        1578            clr     c
-0487 EC        1579            mov     a,r4
-0488 9E        1580            subb    a,r6
-0489 ED        1581            mov     a,r5
-048A 9F        1582            subb    a,r7
-048B 5001      1583            jnc     L039003?
-048D           1584   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:560: Move_Forwards();
-048D C002      1585            push    ar2
-048F C003      1586            push    ar3
-0491 C000      1587            push    ar0
-0493 120100    1588            lcall   _Move_Forwards
-0496           1589   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:561: dist = Get_Right_Distance();
-0496 120100    1590            lcall   _Get_Right_Distance
-0499 AC82      1591            mov     r4,dpl
-049B AD83      1592            mov     r5,dph
-049D D000      1593            pop     ar0
-049F D003      1594            pop     ar3
-04A1 D002      1595            pop     ar2
-04A3 8001      1596            sjmp    L039001?
-04A5           1597   L039003?:
-04A5           1598   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:563: Stop_Car();
-04A5 C002      1599            push    ar2
-04A7 C003      1600            push    ar3
-04A9 C004      1601            push    ar4
-04AB C005      1602            push    ar5
-04AD 120100    1603            lcall   _Stop_Car
-04B0 D005      1604            pop     ar5
-04B2 D004      1605            pop     ar4
-04B4 D003      1606            pop     ar3
-04B6 D002      1607            pop     ar2
-04B8           1608   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:565: while(dist > dist_table[dist_index]) {
-04B8 EA        1609            mov     a,r2
-04B9 24C0      1610            add     a,#_dist_table
-04BB F8        1611            mov     r0,a
-04BC           1612   L039004?:
-04BC 8602      1613            mov     ar2,@r0
-04BE 08        1614            inc     r0
-04BF 8603      1615            mov     ar3,@r0
-04C1 18        1616            dec     r0
-04C2 C3        1617            clr     c
-04C3 EA        1618            mov     a,r2
-04C4 9C        1619            subb    a,r4
-04C5 EB        1620            mov     a,r3
-04C6 9D        1621            subb    a,r5
-04C7 5001      1622            jnc     L039006?
-04C9           1623   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:566: Move_Backwards();
-04C9 C000      1624            push    ar0
-04CB 120100    1625            lcall   _Move_Backwards
-04CE           1626   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:567: dist = Get_Right_Distance();
-04CE 120100    1627            lcall   _Get_Right_Distance
-04D1 AC82      1628            mov     r4,dpl
-04D3 AD83      1629            mov     r5,dph
-04D5 D000      1630            pop     ar0
-04D7 8001      1631            sjmp    L039004?
-04D9           1632   L039006?:
-04D9           1633   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:569: Stop_Car();
-04D9 020100    1634            ljmp    _Stop_Car
-04DC           1635   ;------------------------------------------------------------
-04DC           1636   ;Allocation info for local variables in function 'main'
-04DC           1637   ;------------------------------------------------------------
-04DC           1638   ;v_min                     Allocated to registers 
-04DC           1639   ;cmd                       Allocated with name '_main_cmd_1_153'
-04DC           1640   ;------------------------------------------------------------
-04DC           1641   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:571: void main (void)
-04DC           1642   ;        -----------------------------------------
-04DC           1643   ;         function main
-04DC           1644   ;        -----------------------------------------
-04DC           1645   _main:
-04DC           1646   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:579: dist_table[1] = 150;
-04DC 75C296    1647            mov     (_dist_table + 0x0002),#0x96
-04DF 75C300    1648            mov     ((_dist_table + 0x0002) + 1),#0x00
-04E2           1649   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:580: dist_index = 1;
-04E2 758001    1650            mov     _dist_index,#0x01
-04E5 E4        1651            clr     a
-04E6 F581      1652            mov     (_dist_index + 1),a
-04E8           1653   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:582: printf("\n");
-04E8 74C0      1654            mov     a,#__str_1
-04EA C0E0      1655            push    acc
-04EC 749E      1656            mov     a,#(__str_1 >> 8)
-04EE C0E0      1657            push    acc
-04F0 7480      1658            mov     a,#0x80
-04F2 C0E0      1659            push    acc
-04F4 120100    1660            lcall   _printf
-04F7 1581      1661            dec     sp
-04F9 1581      1662            dec     sp
-04FB 1581      1663            dec     sp
-04FD           1664   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:585: while(1){
-04FD           1665   L040002?:
-04FD           1666   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:587: run(dist_index);
-04FD 858082    1667            mov     dpl,_dist_index
-0500 858183    1668            mov     dph,(_dist_index + 1)
-0503 120100    1669            lcall   _run
-0506 8001      1670            sjmp    L040002?
-0508           1671            rseg R_CSEG
-0508           1672   
-0000           1673            rseg R_XINIT
-0000           1674   
-0000           1675            rseg R_CONST
-0000           1676   __str_0:
-0000 52696768  1677            db 'Right Distance: %u Set Dist: %u'
+041E           1501   ;         function Testing_Code
+041E           1502   ;        -----------------------------------------
+041E           1503   _Testing_Code:
+041E           1504   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:542: while(1){
+041E           1505   L038002?:
+041E           1506   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:543: Move_Left_Motor_Backwards(); //fwds and Forwards go opposite directions!
+041E 120100    1507            lcall   _Move_Left_Motor_Backwards
+0421           1508   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:544: wait1s();       
+0421 120100    1509            lcall   _wait1s
+0424           1510   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:545: Stop_Car();
+0424 120100    1511            lcall   _Stop_Car
+0427           1512   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:546: wait1s();       
+0427 120100    1513            lcall   _wait1s
+042A           1514   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:547: Move_Left_Motor_Forwards();
+042A 120100    1515            lcall   _Move_Left_Motor_Forwards
+042D           1516   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:548: wait1s();
+042D 120100    1517            lcall   _wait1s
+0430           1518   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:549: Stop_Car();
+0430 120100    1519            lcall   _Stop_Car
+0433           1520   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:550: wait1s();       
+0433 120100    1521            lcall   _wait1s
+0436           1522   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:551: Move_Right_Motor_Backwards();
+0436 120100    1523            lcall   _Move_Right_Motor_Backwards
+0439           1524   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:552: wait1s();       
+0439 120100    1525            lcall   _wait1s
+043C           1526   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:553: Stop_Car();
+043C 120100    1527            lcall   _Stop_Car
+043F           1528   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:554: wait1s();       
+043F 120100    1529            lcall   _wait1s
+0442           1530   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:555: Move_Right_Motor_Forwards();
+0442 120100    1531            lcall   _Move_Right_Motor_Forwards
+0445           1532   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:556: wait1s();       
+0445 120100    1533            lcall   _wait1s
+0448           1534   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:557: Stop_Car();
+0448 120100    1535            lcall   _Stop_Car
+044B           1536   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:558: wait1s();       
+044B 120100    1537            lcall   _wait1s
+044E 8001      1538            sjmp    L038002?
+0450           1539   ;------------------------------------------------------------
+0450           1540   ;Allocation info for local variables in function 'run'
+0450           1541   ;------------------------------------------------------------
+0450           1542   ;dist_index                Allocated to registers r2 r3 
+0450           1543   ;dist                      Allocated with name '_run_dist_1_149'
+0450           1544   ;------------------------------------------------------------
+0450           1545   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:562: void run (int dist_index){
+0450           1546   ;        -----------------------------------------
+0450           1547   ;         function run
+0450           1548   ;        -----------------------------------------
+0450           1549   _run:
+0450 AA82      1550            mov     r2,dpl
+0452 AB83      1551            mov     r3,dph
+0454           1552   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:568: dist = Get_Right_Distance();
+0454 C002      1553            push    ar2
+0456 C003      1554            push    ar3
+0458 120100    1555            lcall   _Get_Right_Distance
+045B 8582C0    1556            mov     _run_dist_1_149,dpl
+045E 8583C1    1557            mov     (_run_dist_1_149 + 1),dph
+0461 D003      1558            pop     ar3
+0463 D002      1559            pop     ar2
+0465           1560   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:569: if (dist - dist_table[dist_index] <= 80 || dist_table[dist_index] - dist <= 80)
+0465 EB        1561            mov     a,r3
+0466 CA        1562            xch     a,r2
+0467 25E0      1563            add     a,acc
+0469 CA        1564            xch     a,r2
+046A 33        1565            rlc     a
+046B FB        1566            mov     r3,a
+046C EA        1567            mov     a,r2
+046D 24C0      1568            add     a,#_dist_table
+046F F8        1569            mov     r0,a
+0470 8606      1570            mov     ar6,@r0
+0472 08        1571            inc     r0
+0473 8607      1572            mov     ar7,@r0
+0475 E5C0      1573            mov     a,_run_dist_1_149
+0477 C3        1574            clr     c
+0478 9E        1575            subb    a,r6
+0479 FC        1576            mov     r4,a
+047A E5C1      1577            mov     a,(_run_dist_1_149 + 1)
+047C 9F        1578            subb    a,r7
+047D FD        1579            mov     r5,a
+047E C3        1580            clr     c
+047F 7450      1581            mov     a,#0x50
+0481 9C        1582            subb    a,r4
+0482 E4        1583            clr     a
+0483 9D        1584            subb    a,r5
+0484 5001      1585            jnc     L039001?
+0486 EE        1586            mov     a,r6
+0487 C3        1587            clr     c
+0488 95C0      1588            subb    a,_run_dist_1_149
+048A FC        1589            mov     r4,a
+048B EF        1590            mov     a,r7
+048C 95C1      1591            subb    a,(_run_dist_1_149 + 1)
+048E FD        1592            mov     r5,a
+048F C3        1593            clr     c
+0490 7450      1594            mov     a,#0x50
+0492 9C        1595            subb    a,r4
+0493 E4        1596            clr     a
+0494 9D        1597            subb    a,r5
+0495 4001      1598            jc      L039002?
+0497           1599   L039001?:
+0497           1600   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:570: return;
+0497 22        1601            ret
+0498           1602   L039002?:
+0498           1603   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:571: printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
+0498 C002      1604            push    ar2
+049A C003      1605            push    ar3
+049C C006      1606            push    ar6
+049E C007      1607            push    ar7
+04A0 C0C0      1608            push    _run_dist_1_149
+04A2 C0C1      1609            push    (_run_dist_1_149 + 1)
+04A4 7400      1610            mov     a,#__str_0
+04A6 C0E0      1611            push    acc
+04A8 749E      1612            mov     a,#(__str_0 >> 8)
+04AA C0E0      1613            push    acc
+04AC 7480      1614            mov     a,#0x80
+04AE C0E0      1615            push    acc
+04B0 120100    1616            lcall   _printf
+04B3 E581      1617            mov     a,sp
+04B5 24F9      1618            add     a,#0xf9
+04B7 F581      1619            mov     sp,a
+04B9 D003      1620            pop     ar3
+04BB D002      1621            pop     ar2
+04BD           1622   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:572: if(dist < dist_table[dist_index]){
+04BD EA        1623            mov     a,r2
+04BE 24C0      1624            add     a,#_dist_table
+04C0 F8        1625            mov     r0,a
+04C1 8604      1626            mov     ar4,@r0
+04C3 08        1627            inc     r0
+04C4 8605      1628            mov     ar5,@r0
+04C6 18        1629            dec     r0
+04C7 C3        1630            clr     c
+04C8 E5C0      1631            mov     a,_run_dist_1_149
+04CA 9C        1632            subb    a,r4
+04CB E5C1      1633            mov     a,(_run_dist_1_149 + 1)
+04CD 9D        1634            subb    a,r5
+04CE 5001      1635            jnc     L039008?
+04D0           1636   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:573: while(dist - dist_table[dist_index] >= 80) {
+04D0 8801      1637            mov     ar1,r0
+04D2           1638   L039004?:
+04D2 8706      1639            mov     ar6,@r1
+04D4 09        1640            inc     r1
+04D5 8707      1641            mov     ar7,@r1
+04D7 19        1642            dec     r1
+04D8 E5C0      1643            mov     a,_run_dist_1_149
+04DA C3        1644            clr     c
+04DB 9E        1645            subb    a,r6
+04DC FE        1646            mov     r6,a
+04DD E5C1      1647            mov     a,(_run_dist_1_149 + 1)
+04DF 9F        1648            subb    a,r7
+04E0 FF        1649            mov     r7,a
+04E1 C3        1650            clr     c
+04E2 EE        1651            mov     a,r6
+04E3 9450      1652            subb    a,#0x50
+04E5 EF        1653            mov     a,r7
+04E6 9400      1654            subb    a,#0x00
+04E8 4001      1655            jc      L039006?
+04EA           1656   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:574: Move_Backwards();
+04EA C002      1657            push    ar2
+04EC C003      1658            push    ar3
+04EE C001      1659            push    ar1
+04F0 120100    1660            lcall   _Move_Backwards
+04F3           1661   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:575: dist = Get_Right_Distance();
+04F3 120100    1662            lcall   _Get_Right_Distance
+04F6 8582C0    1663            mov     _run_dist_1_149,dpl
+04F9 8583C1    1664            mov     (_run_dist_1_149 + 1),dph
+04FC D001      1665            pop     ar1
+04FE D003      1666            pop     ar3
+0500 D002      1667            pop     ar2
+0502           1668   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:576: printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
+0502 EA        1669            mov     a,r2
+0503 24C0      1670            add     a,#_dist_table
+0505 F8        1671            mov     r0,a
+0506 8606      1672            mov     ar6,@r0
+0508 08        1673            inc     r0
+0509 8607      1674            mov     ar7,@r0
+050B C002      1675            push    ar2
+050D C003      1676            push    ar3
+050F C001      1677            push    ar1
+0511 C006      1678            push    ar6
+0513 C007      1679            push    ar7
+0515 C0C0      1680            push    _run_dist_1_149
+0517 C0C1      1681            push    (_run_dist_1_149 + 1)
+0519 7400      1682            mov     a,#__str_0
+051B C0E0      1683            push    acc
+051D 749E      1684            mov     a,#(__str_0 >> 8)
+051F C0E0      1685            push    acc
+0521 7480      1686            mov     a,#0x80
+0523 C0E0      1687            push    acc
+0525 120100    1688            lcall   _printf
+0528 E581      1689            mov     a,sp
+052A 24F9      1690            add     a,#0xf9
+052C F581      1691            mov     sp,a
+052E D001      1692            pop     ar1
+0530 D003      1693            pop     ar3
+0532 D002      1694            pop     ar2
+0534 8001      1695            sjmp    L039004?
+0536           1696   L039006?:
+0536           1697   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:578: Stop_Car();
+0536           1698   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:579: return;
+0536 020100    1699            ljmp    _Stop_Car
+0539           1700   L039008?:
+0539           1701   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:581: if(dist > dist_table[dist_index]){
+0539 C3        1702            clr     c
+053A EC        1703            mov     a,r4
+053B 95C0      1704            subb    a,_run_dist_1_149
+053D ED        1705            mov     a,r5
+053E 95C1      1706            subb    a,(_run_dist_1_149 + 1)
+0540 5001      1707            jnc     L039014?
+0542           1708   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:582: while(dist_table[dist_index]-dist > 80) {
+0542           1709   L039009?:
+0542 8604      1710            mov     ar4,@r0
+0544 08        1711            inc     r0
+0545 8605      1712            mov     ar5,@r0
+0547 18        1713            dec     r0
+0548 EC        1714            mov     a,r4
+0549 C3        1715            clr     c
+054A 95C0      1716            subb    a,_run_dist_1_149
+054C FC        1717            mov     r4,a
+054D ED        1718            mov     a,r5
+054E 95C1      1719            subb    a,(_run_dist_1_149 + 1)
+0550 FD        1720            mov     r5,a
+0551 C3        1721            clr     c
+0552 7450      1722            mov     a,#0x50
+0554 9C        1723            subb    a,r4
+0555 E4        1724            clr     a
+0556 9D        1725            subb    a,r5
+0557 5001      1726            jnc     L039011?
+0559           1727   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:583: Move_Forwards();
+0559 C002      1728            push    ar2
+055B C003      1729            push    ar3
+055D C000      1730            push    ar0
+055F 120100    1731            lcall   _Move_Forwards
+0562           1732   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:584: dist = Get_Right_Distance();
+0562 120100    1733            lcall   _Get_Right_Distance
+0565 8582C0    1734            mov     _run_dist_1_149,dpl
+0568 8583C1    1735            mov     (_run_dist_1_149 + 1),dph
+056B D000      1736            pop     ar0
+056D D003      1737            pop     ar3
+056F D002      1738            pop     ar2
+0571           1739   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:585: printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
+0571 EA        1740            mov     a,r2
+0572 24C0      1741            add     a,#_dist_table
+0574 F9        1742            mov     r1,a
+0575 8704      1743            mov     ar4,@r1
+0577 09        1744            inc     r1
+0578 8705      1745            mov     ar5,@r1
+057A 19        1746            dec     r1
+057B C002      1747            push    ar2
+057D C003      1748            push    ar3
+057F C000      1749            push    ar0
+0581 C004      1750            push    ar4
+0583 C005      1751            push    ar5
+0585 C0C0      1752            push    _run_dist_1_149
+0587 C0C1      1753            push    (_run_dist_1_149 + 1)
+0589 7400      1754            mov     a,#__str_0
+058B C0E0      1755            push    acc
+058D 749E      1756            mov     a,#(__str_0 >> 8)
+058F C0E0      1757            push    acc
+0591 7480      1758            mov     a,#0x80
+0593 C0E0      1759            push    acc
+0595 120100    1760            lcall   _printf
+0598 E581      1761            mov     a,sp
+059A 24F9      1762            add     a,#0xf9
+059C F581      1763            mov     sp,a
+059E D000      1764            pop     ar0
+05A0 D003      1765            pop     ar3
+05A2 D002      1766            pop     ar2
+05A4 8001      1767            sjmp    L039009?
+05A6           1768   L039011?:
+05A6           1769   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:587: Stop_Car();
+05A6           1770   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:588: return;
+05A6 020100    1771            ljmp    _Stop_Car
+05A9           1772   L039014?:
+05A9 22        1773            ret
+05AA           1774   ;------------------------------------------------------------
+05AA           1775   ;Allocation info for local variables in function 'main'
+05AA           1776   ;------------------------------------------------------------
+05AA           1777   ;v_min                     Allocated to registers 
+05AA           1778   ;cmd                       Allocated with name '_main_cmd_1_155'
+05AA           1779   ;------------------------------------------------------------
+05AA           1780   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:591: void main (void)
+05AA           1781   ;        -----------------------------------------
+05AA           1782   ;         function main
+05AA           1783   ;        -----------------------------------------
+05AA           1784   _main:
+05AA           1785   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:599: dist_table[1] = 150;
+05AA 75C296    1786            mov     (_dist_table + 0x0002),#0x96
+05AD 75C300    1787            mov     ((_dist_table + 0x0002) + 1),#0x00
+05B0           1788   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:600: dist_index = 1;
+05B0 758001    1789            mov     _dist_index,#0x01
+05B3 E4        1790            clr     a
+05B4 F581      1791            mov     (_dist_index + 1),a
+05B6           1792   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:602: printf("\n");
+05B6 7400      1793            mov     a,#__str_1
+05B8 C0E0      1794            push    acc
+05BA 74A0      1795            mov     a,#(__str_1 >> 8)
+05BC C0E0      1796            push    acc
+05BE 7480      1797            mov     a,#0x80
+05C0 C0E0      1798            push    acc
+05C2 120100    1799            lcall   _printf
+05C5 1581      1800            dec     sp
+05C7 1581      1801            dec     sp
+05C9 1581      1802            dec     sp
+05CB           1803   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:605: while(1){
+05CB           1804   L040002?:
+05CB           1805   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:607: run(dist_index);
+05CB 858082    1806            mov     dpl,_dist_index
+05CE 858183    1807            mov     dph,(_dist_index + 1)
+05D1 120100    1808            lcall   _run
+05D4 8001      1809            sjmp    L040002?
+05D6           1810            rseg R_CSEG
+05D6           1811   
+0000           1812            rseg R_XINIT
+0000           1813   
+0000           1814            rseg R_CONST
+0000           1815   __str_0:
+0000 52696768  1816            db 'Right Distance: %u Set Dist: %u'
      74204469
      7374616E
      63653A20
@@ -1682,12 +1821,12 @@
      65742044
      6973743A
      202575
-001F 0D        1678            db 0x0D
-0020 00        1679            db 0x00
-0021           1680   __str_1:
-0021 0A        1681            db 0x0A
-0022 00        1682            db 0x00
-0023           1683   
-000E           1684            CSEG
-000E           1685   
-000E           1686   end
+001F 0D        1817            db 0x0D
+0020 00        1818            db 0x00
+0021           1819   __str_1:
+0021 0A        1820            db 0x0A
+0022 00        1821            db 0x00
+0023           1822   
+000E           1823            CSEG
+000E           1824   
+000E           1825   end
