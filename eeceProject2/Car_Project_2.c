@@ -559,12 +559,14 @@ void run (int dist_index){
 	while(dist < dist_table[dist_index]) {
 		Move_Forwards();
 		dist = Get_Right_Distance();
+		printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
 	}
 	Stop_Car();
 
 	while(dist > dist_table[dist_index]) {
 		Move_Backwards();
 		dist = Get_Right_Distance();
+		printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
 	}
 	Stop_Car();
 }
