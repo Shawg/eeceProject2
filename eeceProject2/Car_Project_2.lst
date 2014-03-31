@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Sun Mar 30 17:40:59 2014
+0000              4   ; This file was generated Sun Mar 30 17:46:57 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Car_Project_2
                   6   $optc51 --model-small
@@ -760,12 +760,12 @@
 0143            760   L015001?:
 0143 22         761            ret
 0144            762   L015002?:
-0144            763   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:226: if (left_distance > right_distance){
+0144            763   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:226: if (left_distance < right_distance){
 0144 C3         764            clr     c
-0145 EA         765            mov     a,r2
-0146 9C         766            subb    a,r4
-0147 EB         767            mov     a,r3
-0148 9D         768            subb    a,r5
+0145 EC         765            mov     a,r4
+0146 9A         766            subb    a,r2
+0147 ED         767            mov     a,r5
+0148 9B         768            subb    a,r3
 0149 5001       769            jnc     L015008?
 014B            770   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:227: Turn_Car_Right();
 014B C002       771            push    ar2
@@ -810,12 +810,12 @@
 018C D003       810            pop     ar3
 018E D002       811            pop     ar2
 0190            812   L015008?:
-0190            813   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: if (left_distance < right_distance){
+0190            813   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: if (left_distance > right_distance){
 0190 C3         814            clr     c
-0191 EC         815            mov     a,r4
-0192 9A         816            subb    a,r2
-0193 ED         817            mov     a,r5
-0194 9B         818            subb    a,r3
+0191 EA         815            mov     a,r2
+0192 9C         816            subb    a,r4
+0193 EB         817            mov     a,r3
+0194 9D         818            subb    a,r5
 0195 5001       819            jnc     L015014?
 0197            820   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:235: Turn_Car_Left();
 0197 C002       821            push    ar2

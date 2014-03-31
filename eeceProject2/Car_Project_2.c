@@ -223,7 +223,7 @@ void Face_Transmitter(void){
 																				//EXACTLY at the transmitter at all times while moving 
 																				//to or from it 
 
-	if (left_distance > right_distance){
+	if (left_distance < right_distance){
 		Turn_Car_Right();
 		while(left_distance > right_distance ){
 			right_distance = Get_Right_Distance();
@@ -231,7 +231,7 @@ void Face_Transmitter(void){
 		}
 		Stop_Car();
 	}
-	if (left_distance < right_distance){
+	if (left_distance > right_distance){
 		Turn_Car_Left();
 		while(left_distance < right_distance ){
 			right_distance = Get_Right_Distance();

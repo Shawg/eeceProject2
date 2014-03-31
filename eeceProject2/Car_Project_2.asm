@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Sun Mar 30 17:40:59 2014
+; This file was generated Sun Mar 30 17:46:57 2014
 ;--------------------------------------------------------
 $name Car_Project_2
 $optc51 --model-small
@@ -760,12 +760,12 @@ _Face_Transmitter:
 L015001?:
 	ret
 L015002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:226: if (left_distance > right_distance){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:226: if (left_distance < right_distance){
 	clr	c
-	mov	a,r2
-	subb	a,r4
-	mov	a,r3
-	subb	a,r5
+	mov	a,r4
+	subb	a,r2
+	mov	a,r5
+	subb	a,r3
 	jnc	L015008?
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:227: Turn_Car_Right();
 	push	ar2
@@ -810,12 +810,12 @@ L015006?:
 	pop	ar3
 	pop	ar2
 L015008?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: if (left_distance < right_distance){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: if (left_distance > right_distance){
 	clr	c
-	mov	a,r4
-	subb	a,r2
-	mov	a,r5
-	subb	a,r3
+	mov	a,r2
+	subb	a,r4
+	mov	a,r3
+	subb	a,r5
 	jnc	L015014?
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:235: Turn_Car_Left();
 	push	ar2
