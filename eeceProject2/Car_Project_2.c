@@ -13,8 +13,8 @@
 #define TIMER0_RELOAD_VALUE (65536L-(CLK/(12L*FREQ)))
 
 //Reciever commands
-#define MOVE_Backwards 0xfd
-#define MOVE_Forwards 0xf5
+#define MOVE_FORWARDS 0xfd
+#define MOVE_BACKWARDS 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x55
 #define ERROR_BOUND 80
@@ -618,16 +618,21 @@ void main (void)
 	//the main running loop
 	while(1){
 		
-		run();
+		if(Get_Right_Distance() == 0 || Get_Left_Distance() == 0) {
+			Stop_Car();
+		}
+		else
+			run();
+
 		//Testing_Code();
 
-		//Check for start bit to indicate a command from transmitter
-		//if(Get_Right_Distance() <= v_min){
-        //	cmd = rx_byte (v_min);
-        //	if(cmd == MOVE_Forwards) Move_Forwards();
-        //	if(cmd == MOVE_Backwards) Move_Backwards();
-        //	if(cmd == ROTATE_180) Rotate_Car_180_CW();
-        //	if(cmd == PRL_PARK) Parallel_Park();
-        //}
+		Check for start bit to indicate a command from transmitter
+		if(Get_Right_Distance() <= v_min){
+        	cmd = rx_byte (v_min);
+        	if(cmd == MOVE_FORWARDS) Move_Forwards();
+        	if(cmd == MOVE_BACKWARDS) Move_Backwards();
+        	if(cmd == ROTATE_180) Rotate_Car_180_CW();
+        	if(cmd == PRL_PARK) Parallel_Park();
+        }
     }
 }

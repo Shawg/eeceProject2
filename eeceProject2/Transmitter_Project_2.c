@@ -107,13 +107,13 @@ void prlPark(void)
 void main (void)
 {
 	while(1) {
-		// if button 1, moveCloser
-		//if(P2_2 != 0) moveCloser();
-		// if button 2, moveFarther
-		//if(P2_3 != 0) moveFarther();
-		// if button 3, rotate 180
-		//if(P4_3 != 0) rotate180();
-		// if button 4, parallel park
-		//if(P3_7 != 0) prlPark();
+		if button 1, moveCloser
+		if(P2_2 != 0) moveCloser();
+		if button 2, moveFarther
+		if(P2_3 != 0) moveFarther();
+		if button 3, rotate 180
+		if(P4_3 != 0) rotate180();
+		if button 4, parallel park
+		if(P3_7 != 0) prlPark();
 	}
 }
