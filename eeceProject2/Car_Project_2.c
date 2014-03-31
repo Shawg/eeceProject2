@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <at89lp51rd2.h>
+#include <math.h>
 // ~C51~ 
  
 #define CLK 22118400L
@@ -219,21 +220,24 @@ void Face_Transmitter(void){
 	right_distance = Get_Right_Distance();
 	left_distance = Get_Left_Distance();
 
-	if(left_distance - right_distance > ERROR_BOUND || left_distance - right_distance < ERROR_BOUND) return;//find a good error bound, we dont need to be pointing 
-																				//EXACTLY at the transmitter at all times while moving 
-																				//to or from it 
-
-	if (left_distance < right_distance){
-		Turn_Car_Right();
-		while(left_distance > right_distance ){
+	//if(left_distance - right_distance > ERROR_BOUND || left_distance - right_distance < ERROR_BOUND) return;//find a good error bound, we dont need to be pointing 
+	//																			//EXACTLY at the transmitter at all times while moving 
+	//																			//to or from it 
+	printf(" \n Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
+	printf("\r");
+	if (right_distance - left_distance > 50){
+		
+		while(right_distance > left_distance ){
+			Turn_Car_Right();
 			right_distance = Get_Right_Distance();
 			left_distance = Get_Left_Distance();
 		}
 		Stop_Car();
 	}
-	if (left_distance > right_distance){
-		Turn_Car_Left();
-		while(left_distance < right_distance ){
+	else if (left_distance - right_distance > 50){
+		printf("Loops good");
+		while(left_distance > right_distance ){
+			Turn_Car_Left();
 			right_distance = Get_Right_Distance();
 			left_distance = Get_Left_Distance();
 		}
@@ -571,6 +575,7 @@ void run (void){
 		return;
 	printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
 	if(dist < dist_table[dist_index]){
+
 		while(dist - dist_table[dist_index] >= ERROR_BOUND) {
 			Move_Backwards();
 			dist = Get_Right_Distance();
