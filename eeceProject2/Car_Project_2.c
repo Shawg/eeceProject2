@@ -223,26 +223,33 @@ void Face_Transmitter(void){
 	//if(left_distance - right_distance > ERROR_BOUND || left_distance - right_distance < ERROR_BOUND) return;//find a good error bound, we dont need to be pointing 
 	//																			//EXACTLY at the transmitter at all times while moving 
 	//																			//to or from it 
-	printf(" \n Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
-	printf("\r");
+	printf(" \n Before Turning!!!!!!!!! Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
 	if (right_distance - left_distance > 50){
 		
 		while(right_distance > left_distance ){
 			Turn_Car_Right();
 			right_distance = Get_Right_Distance();
 			left_distance = Get_Left_Distance();
+			printf(" \n First Loop Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
+			printf("\r");
 		}
 		Stop_Car();
 	}
-	else if (left_distance - right_distance > 50){
-		printf("Loops good");
+	else if (left_distance - right_distance > 30){
+
 		while(left_distance > right_distance ){
 			Turn_Car_Left();
 			right_distance = Get_Right_Distance();
 			left_distance = Get_Left_Distance();
+			printf(" \n Second Loop Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
+			printf("\r");
 		}
 		Stop_Car();
 	}
+	printf("made through both loops");
+
+		return;
+
 }
 
 void Parallel_Park_Wait_1(void){
@@ -400,6 +407,7 @@ void Turn_Car_Right(void){
 }
 
 // This causes the car to move Backwards in a straight line
+
 void Move_Backwards(void){
 	Move_Right_Motor_Backwards();
 	Move_Left_Motor_Backwards();
