@@ -16,6 +16,7 @@
 #define MOVE_Forwards 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x55
+#define ERROR_BOUND 80
 
 //These variables are used in the ISR
 volatile unsigned char left_motor_pwmcount1;
@@ -67,7 +68,7 @@ float voltage (unsigned char channel);
 void Testing_Code(void);
 void wait50ms(void);
 void wait1s(void);
-void run (int dist_index);
+void run (void);
 
 unsigned char _c51_external_startup(void)
 {
@@ -218,7 +219,7 @@ void Face_Transmitter(void){
 	right_distance = Get_Right_Distance();
 	left_distance = Get_Left_Distance();
 
-	if(left_distance > right_distance || left_distance < right_distance) return;//find a good error bound, we dont need to be pointing 
+	if(left_distance - right_distance > ERROR_BOUND || left_distance - right_distance < ERROR_BOUND) return;//find a good error bound, we dont need to be pointing 
 																				//EXACTLY at the transmitter at all times while moving 
 																				//to or from it 
 
@@ -559,18 +560,18 @@ void Testing_Code(void){
 	}
 }
 
-void run (int dist_index){
+void run (void){
 
 	unsigned int dist;
 
-	//Face_Transmitter();
+	Face_Transmitter();
 
 	dist = Get_Right_Distance();
-	if (dist - dist_table[dist_index] <= 80 || dist_table[dist_index] - dist <= 80)
+	if (dist - dist_table[dist_index] <= ERROR_BOUND || dist_table[dist_index] - dist <= ERROR_BOUND)
 		return;
 	printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
 	if(dist < dist_table[dist_index]){
-		while(dist - dist_table[dist_index] >= 80) {
+		while(dist - dist_table[dist_index] >= ERROR_BOUND) {
 			Move_Backwards();
 			dist = Get_Right_Distance();
 			printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
@@ -579,7 +580,7 @@ void run (int dist_index){
 		return;
 	}
 	if(dist > dist_table[dist_index]){
-		while(dist_table[dist_index]-dist > 80) {
+		while(dist_table[dist_index]-dist > ERROR_BOUND) {
 			Move_Forwards();
 			dist = Get_Right_Distance();
 			printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
@@ -604,7 +605,7 @@ void main (void)
 	//the main running loop
 	while(1){
 		
-		run(dist_index);
+		run();
 		//Testing_Code();
 
 		//Check for start bit to indicate a command from transmitter
