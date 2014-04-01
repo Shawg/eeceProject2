@@ -570,7 +570,7 @@ unsigned int GetADC(unsigned char channel){
 // MISO  -  P1.5  - pin 10
 // SCK   -  P1.6  - pin 11
 // MOSI  -  P1.7  - pin 9
-// CE*   -  P1.3  - pin 8
+// CE*   -  P4.1  - pin 8
 // 4.8V  -  VCC   - pins 13, 14
 // 0V    -  GND   - pins 7, 12
 // CH0   -        - pin 1
@@ -584,23 +584,27 @@ unsigned int GetADC(unsigned char channel){
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
 void Testing_Code(void){
+	unsigned int right;
+	unsigned int left;
+	
 	while(1){
-		Move_Left_Motor_Backwards(); //fwds and Forwards go opposite directions!
-		wait1s();	
-		Stop_Car();
-		wait1s();	
-		Move_Left_Motor_Forwards();
-		wait1s();
-		Stop_Car();
-		wait1s();	
-		Move_Right_Motor_Backwards();
-		wait1s();	
-		Stop_Car();
-		wait1s();	
-		Move_Right_Motor_Forwards();
-		wait1s();	
-		Stop_Car();
-		wait1s();	
+		// Move_Right_Motor_Forwards();
+		// wait1s();
+		// Stop_Car();
+		// Move_Left_Motor_Forwards();
+		// wait1s();
+		// Stop_Car();
+		// Move_Right_Motor_Backwards();
+		// wait1s();
+		// Stop_Car();
+		// Move_Left_Motor_Backwards();
+		// wait1s();
+		// Stop_Car();
+		run();
+		right = Get_Right_Distance();
+		left = Get_Left_Distance();
+
+		printf("right = %u, left = %u \n", right, left);	
 	}
 }
 
@@ -675,7 +679,7 @@ void main (void)
 	reverse = 0;	
 	
 	printf("\n");
-
+	Testing_Code();
 	while(1){
 		
 		run();
