@@ -669,7 +669,7 @@ void main (void)
 
 		//Testing_Code();
 
-		Check for start bit to indicate a command from transmitter
+		//Check for start bit to indicate a command from transmitter
 		if(Get_Right_Distance() <= v_min){
         	cmd = rx_byte (v_min);
         	if(cmd == MOVE_FORWARDS) Move_Forwards();
