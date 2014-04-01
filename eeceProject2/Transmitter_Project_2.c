@@ -16,8 +16,8 @@ unsigned char _c51_external_startup(void)
 {
 	// Configure ports as a bidirectional with internal pull-ups.
 	P0M0=0;	P0M1=0;
-	P1M0=0;	P1M1=0x07; //push-pull
-	P2M0=0;	P2M1=0x08; //input
+	P1M0=0;	P1M1=0x03; //ports 0 and 1 are push-pull 00000011 = 0x03
+	P2M0=0x7E;	P2M1=0; //ports 2.1-2.6 input  01111110 = 0x7E
 	P3M0=0;	P3M1=0;
 	AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
 	P4M0=0;	P4M1=0;
