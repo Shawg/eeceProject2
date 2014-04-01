@@ -17,7 +17,7 @@
 #define MOVE_BACKWARDS 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x55
-#define ERROR_BOUND 80
+#define ERROR_BOUND 10
 
 //These variables are used in the ISR
 volatile unsigned char left_motor_pwmcount1;
@@ -255,7 +255,8 @@ void Face_Transmitter(void){
 }
 
 void Wait_X_Time(int time){
-	for (int i = 0; i < time; ++i){
+	int i;
+	for (i = 0; i < time; ++i){
 		Wait_1ms();
 	}
 }
@@ -599,17 +600,22 @@ void Fake_run(void){
 	unsigned int right_distance = Get_Right_Distance();
 	unsigned int left_distance = Get_Left_Distance();
 
-	if (right_distance > dist_table[dist_index]){
-		Move_Right_Motor_Forwards();
+	if (abs(right_distance - dist_table[dist_index]) <= ERROR_BOUND){
+		if (right_distance > dist_table[dist_index]){
+			Move_Right_Motor_Forwards();
+		}
+		if (right_distance < dist_table[dist_index]){
+			Move_Right_Motor_Backwards();
+		}
 	}
-	if (left_distance > dist_table[dist_index]){
-		Move_Left_Motor_Forwards();
-	}
-	if (right_distance < dist_table[dist_index]){
-		Move_Right_Motor_Backwards();
-	}
-	if (left_distance < dist_table[dist_index]){
-		Move_Left_Motor_Backwards();
+		
+	if (abs(left_distance - dist_table[dist_index] <= ERROR_BOUND)){
+		if (left_distance > dist_table[dist_index]){
+			Move_Left_Motor_Forwards();
+		}
+		if (left_distance < dist_table[dist_index]){
+			Move_Left_Motor_Backwards();
+		}
 	}
 }
 void run (void){
