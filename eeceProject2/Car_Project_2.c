@@ -460,8 +460,13 @@ void Rotate_Car_180_CW(void){
 	Turn_Car_Right();
 	Wait_X_Time(2000); //wait 2000 ms
 	Stop_Car();
-	if(reverse == 0) reverse = 1;
-	if(reverse == 1) reverse = 0;
+	
+	if(reverse == 0){
+		reverse = 1;
+	}else{
+		reverse = 0;
+	}	
+
 }
 
 
@@ -470,8 +475,12 @@ void Rotate_Car_180_CCW(void){
  	Turn_Car_Left(); // changed turn left logic make rotate car easily reverseable
  	Wait_X_Time(2000); //wait 2000 ms
  	Stop_Car();
- 	if(reverse == 0) reverse = 1;
- 	if(reverse == 1) reverse = 0;
+
+	if(reverse == 0){
+		reverse = 1;
+	}else{
+		reverse = 0;
+	}	
 }
 
 // Recieves a command byte from the transmitter, call this function
@@ -561,7 +570,7 @@ unsigned int GetADC(unsigned char channel){
 // MISO  -  P1.5  - pin 10
 // SCK   -  P1.6  - pin 11
 // MOSI  -  P1.7  - pin 9
-// CE*   -  P4.1  - pin 8
+// CE*   -  P1.3  - pin 8
 // 4.8V  -  VCC   - pins 13, 14
 // 0V    -  GND   - pins 7, 12
 // CH0   -        - pin 1
