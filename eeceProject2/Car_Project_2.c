@@ -70,6 +70,8 @@ void Testing_Code(void);
 void wait50ms(void);
 void wait1s(void);
 void run (void);
+void Wait_1ms (void);
+void Wait_X_Time (void);
 
 unsigned char _c51_external_startup(void)
 {
@@ -249,6 +251,27 @@ void Face_Transmitter(void){
 	printf("made through both loops");
 
 		return;
+
+}
+
+void Wait_X_Time(int time){
+	for (int i = 0; i < time; ++i){
+		Wait_1ms();
+	}
+}
+
+void Wait_1ms(void){
+			_asm	
+			;For a 22.1184MHz crystal one machine cycle 
+			;takes 12/22.1184MHz=0.5425347us
+		    mov R2, #2  
+	Lz3:	mov R1, #5
+	Lz2:	mov R0, #92
+	Lz1:	djnz R0, Lz1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+	    	djnz R1, Lz2 ; 200us*250=0.05s
+	    	djnz R2, Lz3 ; 0.05s*20=50ms
+	    	ret
+    _endasm;
 
 }
 
@@ -572,6 +595,23 @@ void Testing_Code(void){
 	}
 }
 
+void Fake_run(void){
+	unsigned int right_distance = Get_Right_Distance();
+	unsigned int left_distance = Get_Left_Distance();
+
+	if (right_distance > dist_table[dist_index]){
+		Move_Right_Motor_Forwards();
+	}
+	if (left_distance > dist_table[dist_index]){
+		Move_Left_Motor_Forwards();
+	}
+	if (right_distance < dist_table[dist_index]){
+		Move_Right_Motor_Backwards();
+	}
+	if (left_distance < dist_table[dist_index]){
+		Move_Left_Motor_Backwards();
+	}
+}
 void run (void){
 
 	unsigned int dist;
@@ -615,6 +655,9 @@ void main (void)
 	
 	printf("\n");
 
+	while(1){
+		Fake_run();
+	}
 	//the main running loop
 	while(1){
 		
