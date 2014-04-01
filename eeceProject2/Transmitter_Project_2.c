@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <at89lp51rd2.h>
 
-#define MOVE_FORWARDS 0xfd
-#define MOVE_BACKWARDS 0xf5
+#define MOVE_FURTHER 0xfd
+#define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x55
 
+#define BAUD 115200L
+#define BRG_VAL (0x100-(CLK/(32L*BAUD)))
+#define CLK 22118400L
 #define FREQ (15105.6463263*2.0)
 #define TIMER0_RELOAD_VALUE (long int) (65536.0-(CLK/(12.0*FREQ)))
 
@@ -14,7 +17,7 @@ unsigned char _c51_external_startup(void)
 	// Configure ports as a bidirectional with internal pull-ups.
 	P0M0=0;	P0M1=0;
 	P1M0=0;	P1M1=0x07; //push-pull
-	P2M0=0;	P2M1=0;
+	P2M0=0;	P2M1=0x08; //input
 	P3M0=0;	P3M1=0;
 	AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
 	P4M0=0;	P4M1=0;
@@ -71,14 +74,14 @@ void tx_byte(unsigned char val)
 {
 	unsigned char j;
 	//Send the start bit
-	//txon=0; make the circuit turn off
+	EA=0;
 	wait_bit_time();
 	for (j=0; j<8; j++)
 	{
-		//txon=val&(0x01<<j)?1:0; make tx control the circuit
+		EA=val&(0x01<<j)?1:0; 
 		wait_bit_time();
 	}
-	//txon=1; make the ciruit turn on
+	EA=1;
 	//Send the stop bits
 	wait_bit_time();
 	wait_bit_time();
@@ -86,12 +89,12 @@ void tx_byte(unsigned char val)
 
 void moveCloser(void) 
 {
-	tx_byte(MOVE_BACKWARDS); // move closer is 11111101
+	tx_byte(MOVE_CLOSER); // move closer is 11111101
 }
 
-void moveFarther(void)
+void moveFurther(void)
 {
-	tx_byte(MOVE_FORWARDS); // move farther is 11110101
+	tx_byte(MOVE_FURTHER); // move farther is 11110101
 }
 
 void rotate180(void)
@@ -107,13 +110,13 @@ void prlPark(void)
 void main (void)
 {
 	while(1) {
-		if button 1, moveCloser
-		if(P2_2 != 0) moveCloser();
-		if button 2, moveFarther
-		if(P2_3 != 0) moveFarther();
-		if button 3, rotate 180
-		if(P4_3 != 0) rotate180();
-		if button 4, parallel park
-		if(P3_7 != 0) prlPark();
+		//if button 1, moveCloser
+		if(P2_1 == 1) moveCloser();
+		//if button 2, moveFarther
+		if(P2_2 == 1) moveFurther();
+		//if button 3, rotate 180
+		if(P2_3 == 1) rotate180();
+		//if button 4, parallel park
+		if(P2_4 == 1) prlPark();
 	}
 }

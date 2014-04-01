@@ -21,29 +21,34 @@ R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,0079,NO
+R_CSEG,code,00DF,NO
 </SEGMENTS>
 
 <LOCALS>
-L004003?,R_CSEG,0038,0000
-L1,R_CSEG,002B,0000
-L2,R_CSEG,0029,0000
-L3,R_CSEG,0027,0000
-L009010?,R_CSEG,005F,0000
-L009006?,R_CSEG,0071,0000
-L009004?,R_CSEG,006B,0000
-L009002?,R_CSEG,0065,0000
+L010010?,R_CSEG,00C5,0000
+L1,R_CSEG,005A,0000
+L2,R_CSEG,0058,0000
+L3,R_CSEG,0056,0000
+L005004?,R_CSEG,00A5,0000
+L005001?,R_CSEG,006F,0000
+L010006?,R_CSEG,00D7,0000
+L010004?,R_CSEG,00D1,0000
+L010002?,R_CSEG,00CB,0000
+L005013?,R_CSEG,0084,0000
+L005012?,R_CSEG,007E,0000
+L005010?,R_CSEG,0072,0000
 </LOCALS>
 
 <PUBLICS>
-_main,R_CSEG,005F,0000
-_moveCloser,R_CSEG,0047,0000
-_moveFarther,R_CSEG,004D,0000
+_main,R_CSEG,00C5,0000
+_moveCloser,R_CSEG,00AD,0000
+_moveFurther,R_CSEG,00B3,0000
 __c51_external_startup,R_CSEG,0000,0000
-_wait_bit_time,R_CSEG,0025,0000
-_prlPark,R_CSEG,0059,0000
-_rotate180,R_CSEG,0053,0000
-_tx_byte,R_CSEG,0033,0000
+_wait_bit_time,R_CSEG,0054,0000
+_prlPark,R_CSEG,00BF,0000
+_pwmcounter,R_CSEG,004F,0000
+_rotate180,R_CSEG,00B9,0000
+_tx_byte,R_CSEG,0062,0000
 </PUBLICS>
 
 <EXTERNALS>
@@ -66,6 +71,10 @@ _crt0,any,0000,0000
 02 addr16(_crt0;)  
 </CODE>
 
+<CODE AT 000B>
+02 addr16(_pwmcounter;)  
+</CODE>
+
 <CODE R_HOME>
 </CODE>
 
@@ -82,17 +91,36 @@ _crt0,any,0000,0000
 75 E6 00
 75 E7 00
 75 D6 00
-75 D7 00
+75 D7 07
 75 CE 00
-75 CF 00
+75 CF 08
 75 C6 00
 75 C7 00
 75 8E 11
 75 BE 00
 75 BF 00
+43 87 80
+75 98 52
+75 9B 00
+75 9A FA
+75 9B 1E
+C2 8C
+75 89 01
+75 F4 FF
+75 8C FF
+75 F2 C2
+75 8A C2
+D2 8C
+D2 A9
+D2 AF
+C2 90
+D2 91
 75 82 00
 22
-7A 0A
+B2 90
+B2 91
+32
+7A 02
 79 F8
 78 B8
 D8 rel2(L1;)
@@ -100,31 +128,63 @@ D9 rel2(L2;)
 DA rel2(L3;)
 22
 22
-12 addr16(_wait_bit_time;)  
-7A 08
+AA 82
+C2 AF
 C0 02
 12 addr16(_wait_bit_time;)  
 D0 02
-DA rel2(L004003?;)
+7B 00
+BB 08 rel3(L005010?;)
+50 rel2(L005004?;)
+8B F0
+05 F0
+7C 01
+7D 00
+80 rel2(L005013?;)
+EC
+2C
+FC
+ED
+33
+FD
+D5 F0 rel3(L005012?;)
+8A 06
+7F 00
+EE
+52 04
+EF
+52 05
+EC
+4D
+24 FF
+92 AF
+C0 02
+C0 03
+12 addr16(_wait_bit_time;)  
+D0 03
+D0 02
+0B
+80 rel2(L005001?;)
+D2 AF
 12 addr16(_wait_bit_time;)  
 02 addr16(_wait_bit_time;)  
-75 82 FD
-02 addr16(_tx_byte;)  
 75 82 F5
+02 addr16(_tx_byte;)  
+75 82 FD
 02 addr16(_tx_byte;)  
 75 82 D5
 02 addr16(_tx_byte;)  
 75 82 55
 02 addr16(_tx_byte;)  
-30 A2 rel3(L009002?;)
+30 A1 rel3(L010002?;)
 12 addr16(_moveCloser;)  
-30 A3 rel3(L009004?;)
-12 addr16(_moveFarther;)  
-30 C3 rel3(L009006?;)
+30 A2 rel3(L010004?;)
+12 addr16(_moveFurther;)  
+30 A3 rel3(L010006?;)
 12 addr16(_rotate180;)  
-20 B7 rel3(L009010?;)
+30 A4 rel3(L010010?;)
 12 addr16(_prlPark;)  
-80 rel2(L009010?;)
+80 rel2(L010010?;)
 </CODE>
 
 <CODE R_CSEG>
@@ -136,5 +196,5 @@ DA rel2(L004003?;)
 <CODE R_CONST>
 </CODE>
 
-<CODE AT 0003>
+<CODE AT 000E>
 </CODE>

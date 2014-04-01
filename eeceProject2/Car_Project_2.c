@@ -13,8 +13,8 @@
 #define TIMER0_RELOAD_VALUE (65536L-(CLK/(12L*FREQ)))
 
 //Reciever commands
-#define MOVE_FORWARDS 0xfd
-#define MOVE_BACKWARDS 0xf5
+#define MOVE_FURTHER 0xfd
+#define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x55
 #define ERROR_BOUND 20
@@ -30,9 +30,10 @@ volatile unsigned char right_motor_pwmcount2;
 volatile unsigned char right_motor_pwm1;
 volatile unsigned char right_motor_pwm2;
 
-//Distances
-unsigned int dist_table[4]; // = {array of distance values}
+//Global Variables
+unsigned int dist_table[4] = {350, 150, 75, 30};
 int dist_index; //number from 0-3 that determines distance
+unsigned char reverse;
 
 	//Motor Control
 void Move_Left_Motor_Backwards(void);
@@ -63,7 +64,6 @@ void wait_bit_time(void);
 void wait_one_and_half_bit_time(void);
 void SPIWrite(unsigned char value);
 unsigned int GetADC(unsigned char channel);
-float voltage (unsigned char channel);
 
 	//Misc Functions
 void Testing_Code(void);
@@ -458,16 +458,20 @@ void Move_Car_Further(void){
 //This causes the car to rotate 180 degrees clockwise
 void Rotate_Car_180_CW(void){
 	Turn_Car_Right();
-	wait1s();	//TO DO: change this to the correct time
+	Wait_X_Time(2000); //wait 2000 ms
 	Stop_Car();
+	if(reverse == 0) reverse = 1;
+	if(reverse == 1) reverse = 0;
 }
 
 
 //This causes the car to rotate 180 degrees counter clockwise
 void Rotate_Car_180_CCW(void){
- 	Turn_Car_Left();
- 	wait1s(); 	// TO DO: change this to the correct time
+ 	Turn_Car_Left(); // changed turn left logic make rotate car easily reverseable
+ 	Wait_X_Time(2000); //wait 2000 ms
  	Stop_Car();
+ 	if(reverse == 0) reverse = 1;
+ 	if(reverse == 1) reverse = 0;
 }
 
 // Recieves a command byte from the transmitter, call this function
@@ -483,8 +487,8 @@ unsigned char rx_byte (int min){
 	wait_one_and_half_bit_time();
 	for(j=0; j<8; j++)
 	{
-	v=GetADC(0);
-	val|=(v>min)?(0x01<<j):0x00;
+	v=GetADC(2);
+	val|=(v<min)?(0x01<<j):0x00; // min is threshold voltage but in our case it is 1023
 	wait_bit_time();
 	}
 	//Wait for stop bits
@@ -565,11 +569,6 @@ unsigned int GetADC(unsigned char channel){
 // CH2   -        - pin 3
 // CH3   -        - pin 4
 
-// Returns the voltage of the channel that you input into the function
-float voltage (unsigned char channel){
-	return ( (GetADC(channel)*5.02)/1023.0 ); // VCC=5.02V (measured)
-}
-
 // The purpose of this function is to contain the code you
 // wish to test, then to put the Testing_Code() function in
 // a while(1) loop in the main function. This insures that
@@ -596,94 +595,88 @@ void Testing_Code(void){
 	}
 }
 
-void Fake_run(void){
+void run(void){
 	unsigned int right_distance = Get_Right_Distance();
 	unsigned int left_distance = Get_Left_Distance();
 
-	if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
-		if (right_distance > dist_table[dist_index]){
-			Move_Right_Motor_Forwards();
+	if(!reverse) {
+		if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
+			if (right_distance > dist_table[dist_index]){
+				Move_Right_Motor_Forwards();
+			}
+			if (right_distance < dist_table[dist_index]){
+				Move_Right_Motor_Backwards();
+			}
 		}
-		if (right_distance < dist_table[dist_index]){
-			Move_Right_Motor_Backwards();
+		else
+			Stop_Car();
+			
+		if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
+			if (left_distance > dist_table[dist_index]){
+				Move_Left_Motor_Forwards();
+			}
+			if (left_distance < dist_table[dist_index]){
+				Move_Left_Motor_Backwards();
+			}
 		}
+		else
+			Stop_Car();
 	}
-	else
-		Stop_Car();
-		
-	if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
-		if (left_distance > dist_table[dist_index]){
-			Move_Left_Motor_Forwards();
+	else {
+		if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
+			if (right_distance < dist_table[dist_index]){
+				Move_Right_Motor_Forwards();
+			}
+			if (right_distance > dist_table[dist_index]){
+				Move_Right_Motor_Backwards();
+			}
 		}
-		if (left_distance < dist_table[dist_index]){
-			Move_Left_Motor_Backwards();
+		else
+			Stop_Car();
+			
+		if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
+			if (left_distance < dist_table[dist_index]){
+				Move_Left_Motor_Forwards();
+			}
+			if (left_distance > dist_table[dist_index]){
+				Move_Left_Motor_Backwards();
+			}
 		}
-	}
-	else
-		Stop_Car();
-}
-void run (void){
-
-	unsigned int dist;
-
-	Face_Transmitter();
-
-	dist = Get_Right_Distance();
-	if (dist - dist_table[dist_index] <= ERROR_BOUND || dist_table[dist_index] - dist <= ERROR_BOUND)
-		return;
-	printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
-	if(dist < dist_table[dist_index]){
-
-		while(dist - dist_table[dist_index] >= ERROR_BOUND) {
-			Move_Backwards();
-			dist = Get_Right_Distance();
-			printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
-		}
-		Stop_Car();
-		return;
-	}
-	if(dist > dist_table[dist_index]){
-		while(dist_table[dist_index]-dist > ERROR_BOUND) {
-			Move_Forwards();
-			dist = Get_Right_Distance();
-			printf("Right Distance: %u Set Dist: %u\r", dist, dist_table[dist_index]);
-		}
-	Stop_Car();
-	return;
+		else
+			Stop_Car();
 	}
 }
+
+void Fake_run(void) {
+	Rotate_Car_180_CW();
+	wait1s();
+	wait1s();
+	wait1s();
+	Rotate_Car_180_CCW();
+	wait1s();
+	wait1s();
+	wait1s();
+}
+
 void main (void)
 {	
-	//Testing_Code();
-	//Parallel_Park();
-	
-	//TODO: put any initialization stuff here
-    const unsigned int v_min = 0;
+    const unsigned int logic_0_thresh = 900;
 	unsigned char cmd;
-	dist_table[1] = 150;
 	dist_index = 1;
+	reverse = 0;	
 	
 	printf("\n");
 
 	while(1){
-		Fake_run();
-	}
-	//the main running loop
-	while(1){
 		
-		if(Get_Right_Distance() == 0 || Get_Left_Distance() == 0) {
-			Stop_Car();
-		}
-		else
-			run();
-
-		//Testing_Code();
+		run();
 
 		//Check for start bit to indicate a command from transmitter
-		if(Get_Right_Distance() <= v_min){
-        	cmd = rx_byte (v_min);
-        	if(cmd == MOVE_FORWARDS) Move_Forwards();
-        	if(cmd == MOVE_BACKWARDS) Move_Backwards();
+		if(Get_Right_Distance() >= logic_0_thresh){
+			Stop_Car();
+        	cmd = rx_byte (logic_0_thresh);     	
+        	if(cmd == MOVE_FURTHER) Move_Car_Further();
+        	if(cmd == MOVE_CLOSER) Move_Car_Closer();
         	if(cmd == ROTATE_180) Rotate_Car_180_CW();
         	if(cmd == PRL_PARK) Parallel_Park();
         }

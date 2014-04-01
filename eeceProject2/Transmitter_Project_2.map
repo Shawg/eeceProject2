@@ -3,11 +3,11 @@ Modules linked:
    'crt0' from 'C:\Program Files (x86)\CrossIDE\Call51\Bin\..\lib\small\libc51.lib'
 
 Memory use per module linked:
-Transmitter_Project_2: C:00121 D:000 I:000 B:000 X:00000
+Transmitter_Project_2: C:00223 D:000 I:000 B:000 X:00000
                crt0: C:00113 D:000 I:000 B:000 X:00000
-           ABSOLUTE: C:00004 D:000 I:000 B:000 X:00000
+           ABSOLUTE: C:00007 D:000 I:000 B:000 X:00000
 ------------------------------------------------------
-             Totals: C:00238 D:000 I:000 B:000 X:00000
+             Totals: C:00343 D:000 I:000 B:000 X:00000
 
 INTERMAL RAM map (see legend below):
 00: 0 0 0 0 0 0 0 0 . . . . . . . . 
@@ -45,7 +45,7 @@ BIT map:
 70: . . . . . . . . . . . . . . . . 
 
 CODE usage map:
-0000: 238 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
+0000: 249 094 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 1000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 2000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 3000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -61,7 +61,7 @@ C000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000
 D000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 E000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
 F000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
-Total: 238 bytes
+Total: 343 bytes
 
 XDATA usage map:
 0000: 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 
@@ -86,10 +86,10 @@ Base Segments:
    BIT_BANK=D:0000, size=0000
    R_BSEG=B:0000, size=0000
    R_CONST=C:0000, size=0000
-   R_CSEG=C:0075, size=0079
-   R_DINIT=C:0074, size=0000
+   R_CSEG=C:007F, size=00DF
+   R_DINIT=C:0003, size=0000
    R_DSEG=D:0000, size=0000
-   R_GSINIT=C:0003, size=0071
+   R_GSINIT=C:000E, size=0071
    R_HOME=C:0000, size=0000
    R_ISEG=I:0000, size=0000
    R_IXSEG=X:0000, size=0000
@@ -100,21 +100,21 @@ Base Segments:
    rbank0=D:0000, size=0008
 
 Module Segments:
-   CSEG=C:0000, size=0004
-   Transmitter_Project_2:R_CSEG=C:0075, size=0079
-   crt0:R_GSINIT=C:0003, size=0071
+   CSEG=C:0000, size=0007
+   Transmitter_Project_2:R_CSEG=C:007F, size=00DF
+   crt0:R_GSINIT=C:000E, size=0071
 
 Public symbols:
    _R_BSEG_size=L:0000
    _R_BSEG_start=L:0000
    _R_CONST_size=L:0000
    _R_CONST_start=L:0000
-   _R_CSEG_size=L:0079
-   _R_CSEG_start=L:0075
+   _R_CSEG_size=L:00DF
+   _R_CSEG_start=L:007F
    _R_DINIT_size=L:0000
-   _R_DINIT_start=L:0074
+   _R_DINIT_start=L:0003
    _R_GSINIT_size=L:0071
-   _R_GSINIT_start=L:0003
+   _R_GSINIT_start=L:000E
    _R_HOME_size=L:0000
    _R_HOME_start=L:0000
    _R_ISEG_size=L:0000
@@ -129,33 +129,38 @@ Public symbols:
    _R_XINIT_start=L:0000
    _R_XSEG_size=L:0000
    _R_XSEG_start=L:0000
-   __c51_external_startup=C:0075
-   _crt0=C:0003
-   _dummy_name_crt0=C:00EE
-   _main=C:00D4
-   _moveCloser=C:00BC
-   _moveFarther=C:00C2
-   _prlPark=C:00CE
-   _rotate180=C:00C8
+   __c51_external_startup=C:007F
+   _crt0=C:000E
+   _dummy_name_crt0=C:015E
+   _main=C:0144
+   _moveCloser=C:012C
+   _moveFurther=C:0132
+   _prlPark=C:013E
+   _pwmcounter=C:00CE
+   _rotate180=C:0138
    _stack_start=L:0008
-   _tx_byte=C:00A8
-   _wait_bit_time=C:009A
+   _tx_byte=C:00E1
+   _wait_bit_time=C:00D3
 
 Local symbols:
-   Transmitter_Project_2:L004003?=C:00AD
-   Transmitter_Project_2:L009002?=C:00DA
-   Transmitter_Project_2:L009004?=C:00E0
-   Transmitter_Project_2:L009006?=C:00E6
-   Transmitter_Project_2:L009010?=C:00D4
-   Transmitter_Project_2:L1=C:00A0
-   Transmitter_Project_2:L2=C:009E
-   Transmitter_Project_2:L3=C:009C
-   crt0:PClearLoop?done?=C:006C
-   crt0:PClearLoop?repeat?=C:005E
-   crt0:XClearLoop?done?=C:0054
-   crt0:XClearLoop?repeat?=C:0046
-   crt0:XInitLoop?done?=C:003C
-   crt0:XInitLoop?repeat?=C:001C
-   crt0:__c51_init_data=C:0010
-   crt0:__c51_program_startup=C:006F
-   crt0:forever?home?=C:0072
+   Transmitter_Project_2:L005001?=C:00EE
+   Transmitter_Project_2:L005004?=C:0124
+   Transmitter_Project_2:L005010?=C:00F1
+   Transmitter_Project_2:L005012?=C:00FD
+   Transmitter_Project_2:L005013?=C:0103
+   Transmitter_Project_2:L010002?=C:014A
+   Transmitter_Project_2:L010004?=C:0150
+   Transmitter_Project_2:L010006?=C:0156
+   Transmitter_Project_2:L010010?=C:0144
+   Transmitter_Project_2:L1=C:00D9
+   Transmitter_Project_2:L2=C:00D7
+   Transmitter_Project_2:L3=C:00D5
+   crt0:PClearLoop?done?=C:0077
+   crt0:PClearLoop?repeat?=C:0069
+   crt0:XClearLoop?done?=C:005F
+   crt0:XClearLoop?repeat?=C:0051
+   crt0:XInitLoop?done?=C:0047
+   crt0:XInitLoop?repeat?=C:0027
+   crt0:__c51_init_data=C:001B
+   crt0:__c51_program_startup=C:007A
+   crt0:forever?home?=C:007D
