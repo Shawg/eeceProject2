@@ -131,7 +131,7 @@ void pwmcounter (void) interrupt 1
 // This causes the motor on the right side of the
 // car to move Backwards emmett
 void Move_Right_Motor_Backwards(){
-	right_motor_pwm1 = 75;
+	right_motor_pwm1 = 37;
 	right_motor_pwm2 = 0;
 	
 }
@@ -140,14 +140,14 @@ void Move_Right_Motor_Backwards(){
 // car to move Forwards
 void Move_Right_Motor_Forwards (void){
 	right_motor_pwm1 = 0;
-	right_motor_pwm2 = 90;
+	right_motor_pwm2 = 45;
 
 }
 
 // This causes the motor on the left side of the
 // car to move Backwards
 void Move_Left_Motor_Backwards (void){
-	left_motor_pwm1 = 82;
+	left_motor_pwm1 = 41;
 	left_motor_pwm2 = 0;
 }
 
@@ -155,7 +155,7 @@ void Move_Left_Motor_Backwards (void){
 // car to move Forwards
 void Move_Left_Motor_Forwards (void){
 	left_motor_pwm1 = 0;
-	left_motor_pwm2 = 95;
+	left_motor_pwm2 = 47;
 }
 
 //This stops the right motor
@@ -608,6 +608,8 @@ void Fake_run(void){
 			Move_Right_Motor_Backwards();
 		}
 	}
+	else
+		Stop_Car();
 		
 	if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
 		if (left_distance > dist_table[dist_index]){
@@ -617,6 +619,8 @@ void Fake_run(void){
 			Move_Left_Motor_Backwards();
 		}
 	}
+	else
+		Stop_Car();
 }
 void run (void){
 
