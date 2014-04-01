@@ -71,7 +71,7 @@ void wait50ms(void);
 void wait1s(void);
 void run (void);
 void Wait_1ms (void);
-void Wait_X_Time (void);
+void Wait_X_Time (int time);
 
 unsigned char _c51_external_startup(void)
 {
