@@ -198,14 +198,14 @@ void wait1s(){
 unsigned int Get_Right_Distance(void){
 	//In here use the ADC from lab...(capacitor one)
 	//and have the value be the peak detector voltage over the right distance
-	return GetADC(1); //for now channel 1 is right motor
+	return GetADC(2); //for now channel 1 is right motor
 }
 
 // Finds and returns the distance between the left
 // receiver and the transmitter  
 unsigned int Get_Left_Distance(void){
 	//same as Get_right_distance
-	return GetADC(0); //for now channel 0 is left motor
+	return GetADC(3); //for now channel 0 is left motor
 }
 
 //This causes the care to stop moving
