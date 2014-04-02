@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Tue Apr 01 00:30:16 2014
+; This file was generated Tue Apr 01 16:15:16 2014
 ;--------------------------------------------------------
 $name Transmitter_Project_2
 $optc51 --model-small
@@ -355,12 +355,12 @@ __c51_external_startup:
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:18: P0M0=0;	P0M1=0;
 	mov	_P0M0,#0x00
 	mov	_P0M1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:19: P1M0=0;	P1M1=0x07; //push-pull
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:19: P1M0=0;	P1M1=0x03; //ports 0 and 1 are push-pull 00000011 = 0x03
 	mov	_P1M0,#0x00
-	mov	_P1M1,#0x07
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:20: P2M0=0;	P2M1=0x08; //input
-	mov	_P2M0,#0x00
-	mov	_P2M1,#0x08
+	mov	_P1M1,#0x03
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:20: P2M0=0x7E;	P2M1=0; //ports 2.1-2.6 input  01111110 = 0x7E
+	mov	_P2M0,#0x7E
+	mov	_P2M1,#0x00
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:21: P3M0=0;	P3M1=0;
 	mov	_P3M0,#0x00
 	mov	_P3M1,#0x00

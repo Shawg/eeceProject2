@@ -604,7 +604,18 @@ void Testing_Code(void){
 		right = Get_Right_Distance();
 		left = Get_Left_Distance();
 
-		printf("right = %u, left = %u \n", right, left);	
+		unsigned char cmd = 0; 
+
+		if(Get_Right_Distance() >= 900){
+			Stop_Car();
+        	cmd = rx_byte (900);     	
+        	if(cmd == MOVE_FURTHER) Move_Car_Further();
+        	if(cmd == MOVE_CLOSER) Move_Car_Closer();
+        	if(cmd == ROTATE_180) Rotate_Car_180_CW();
+        	if(cmd == PRL_PARK) Parallel_Park();
+        }
+
+		printf("right = %u, left = %u, cmd = %u \n", right, left, cmd);	
 	}
 }
 

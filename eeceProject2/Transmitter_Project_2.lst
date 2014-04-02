@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Tue Apr 01 00:30:16 2014
+0000              4   ; This file was generated Tue Apr 01 16:15:16 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Transmitter_Project_2
                   6   $optc51 --model-small
@@ -355,12 +355,12 @@
 0000            355   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:18: P0M0=0;  P0M1=0;
 0000 75E600     356            mov     _P0M0,#0x00
 0003 75E700     357            mov     _P0M1,#0x00
-0006            358   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:19: P1M0=0;  P1M1=0x07; //push-pull
+0006            358   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:19: P1M0=0;  P1M1=0x03; //ports 0 and 1 are push-pull 00000011 = 0x03
 0006 75D600     359            mov     _P1M0,#0x00
-0009 75D707     360            mov     _P1M1,#0x07
-000C            361   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:20: P2M0=0;  P2M1=0x08; //input
-000C 75CE00     362            mov     _P2M0,#0x00
-000F 75CF08     363            mov     _P2M1,#0x08
+0009 75D703     360            mov     _P1M1,#0x03
+000C            361   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:20: P2M0=0x7E;       P2M1=0; //ports 2.1-2.6 input  01111110 = 0x7E
+000C 75CE7E     362            mov     _P2M0,#0x7E
+000F 75CF00     363            mov     _P2M1,#0x00
 0012            364   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:21: P3M0=0;  P3M1=0;
 0012 75C600     365            mov     _P3M0,#0x00
 0015 75C700     366            mov     _P3M1,#0x00
