@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Tue Apr 01 20:06:44 2014
+; This file was generated Tue Apr 01 20:35:54 2014
 ;--------------------------------------------------------
 $name Transmitter_Project_2
 $optc51 --model-small
@@ -436,13 +436,13 @@ _wait_bit_time:
   ;takes 12/22.1184MHz=0.5425347us
 	     mov R2, #2
 	 L3:
-	mov R1, #124
+	mov R1, #120
 	 L2:
-	mov R0, #184
+	mov R0, #150
 	 L1:
-	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	     djnz R1, L2 ; 200us*250=0.05s
-	     djnz R2, L3 ; 0.05s*2=100ms
+	djnz R0, L1
+	     djnz R1, L2
+	     djnz R2, L3
 	     ret
 	    
 	ret

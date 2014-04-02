@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Tue Apr 01 20:06:44 2014
+0000              4   ; This file was generated Tue Apr 01 20:35:54 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Transmitter_Project_2
                   6   $optc51 --model-small
@@ -436,13 +436,13 @@
 0054            436     ;takes 12/22.1184MHz=0.5425347us
 0054 7A02       437                 mov R2, #2
 0056            438             L3:
-0056 797C       439            mov R1, #124
+0056 7978       439            mov R1, #120
 0058            440             L2:
-0058 78B8       441            mov R0, #184
+0058 7896       441            mov R0, #150
 005A            442             L1:
-005A D8E8       443            djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-005C D9A8       444                 djnz R1, L2 ; 200us*250=0.05s
-005E DA68       445                 djnz R2, L3 ; 0.05s*2=100ms
+005A D8E8       443            djnz R0, L1
+005C D9A8       444                 djnz R1, L2
+005E DA68       445                 djnz R2, L3
 0060 22         446                 ret
 0061            447                
 0061 22         448            ret

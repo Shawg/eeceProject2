@@ -520,11 +520,11 @@ void wait_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #2
-	L3:	mov R1, #124
-	L2:	mov R0, #184
-	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	    djnz R1, L2 ; 200us*250=0.05s
-	    djnz R2, L3 ; 0.05s*2=100ms
+	L3:	mov R1, #120
+	L2:	mov R0, #150
+	L1:	djnz R0, L1 
+	    djnz R1, L2
+	    djnz R2, L3 
 	    ret
     _endasm;
 }
@@ -535,11 +535,11 @@ void wait_one_and_half_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #3
-	L6:	mov R1, #124
-	L5:	mov R0, #184
-	L4:	djnz R0, L4 ; 2 machine cycles-> 2*0.5425347us*184=200us
-	    djnz R1, L5 ; 200us*250=0.05s
-	    djnz R2, L6 ; 0.05s*3=150ms
+	L6:	mov R1, #120
+	L5:	mov R0, #150
+	L4:	djnz R0, L4
+	    djnz R1, L5
+	    djnz R2, L6 
 	    ret
     _endasm;
 }
