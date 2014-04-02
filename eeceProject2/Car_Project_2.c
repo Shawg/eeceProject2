@@ -16,7 +16,7 @@
 #define MOVE_FURTHER 0xfd
 #define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
-#define PRL_PARK 0x80
+#define PRL_PARK 0x84
 #define ERROR_BOUND 20
 
 //These variables are used in the ISR
@@ -534,7 +534,7 @@ void wait_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #2
-	L3:	mov R1, #120
+	L3:	mov R1, #150
 	L2:	mov R0, #150
 	L1:	djnz R0, L1 
 	    djnz R1, L2
@@ -549,7 +549,7 @@ void wait_one_and_half_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #3
-	L6:	mov R1, #120
+	L6:	mov R1, #150
 	L5:	mov R0, #150
 	L4:	djnz R0, L4
 	    djnz R1, L5
@@ -606,7 +606,9 @@ unsigned int GetADC(unsigned char channel){
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
 void Testing_Code(void){
-	
+	wait1s();
+	wait1s();
+		
 	
 	while(1){
 		Parallel_Park();
@@ -686,9 +688,7 @@ void main (void)
 	reverse = 0;	
 	
 	printf("\n");
-	wait1s();
-	wait1s();
-	Testing_Code();
+	//Testing_Code();
 	while(1){
 		
 		run();

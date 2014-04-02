@@ -4,7 +4,7 @@
 #define MOVE_FURTHER 0xfd
 #define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
-#define PRL_PARK 0x80
+#define PRL_PARK 0x84
 
 #define BAUD 115200L
 #define BRG_VAL (0x100-(CLK/(32L*BAUD)))
@@ -61,7 +61,7 @@ void wait_bit_time(void)
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #2
-	L3:	mov R1, #120
+	L3:	mov R1, #150
 	L2:	mov R0, #150
 	L1:	djnz R0, L1
 	    djnz R1, L2 
