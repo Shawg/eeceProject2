@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Tue Apr 01 20:35:54 2014
+0000              4   ; This file was generated Tue Apr 01 22:43:56 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Transmitter_Project_2
                   6   $optc51 --model-small
@@ -436,7 +436,7 @@
 0054            436     ;takes 12/22.1184MHz=0.5425347us
 0054 7A02       437                 mov R2, #2
 0056            438             L3:
-0056 7978       439            mov R1, #120
+0056 7996       439            mov R1, #150
 0058            440             L2:
 0058 7896       441            mov R0, #150
 005A            442             L1:
@@ -557,7 +557,7 @@
 00BF            557   ;        -----------------------------------------
 00BF            558   _prlPark:
 00BF            559   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:107: tx_byte(PRL_PARK); // parallel park is 10000000
-00BF 758280     560            mov     dpl,#0x80
+00BF 758284     560            mov     dpl,#0x84
 00C2 020100     561            ljmp    _tx_byte
 00C5            562   ;------------------------------------------------------------
 00C5            563   ;Allocation info for local variables in function 'main'

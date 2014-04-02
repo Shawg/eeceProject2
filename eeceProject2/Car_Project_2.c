@@ -17,7 +17,6 @@
 #define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
 #define PRL_PARK 0x84
-#define ERROR_BOUND 20
 
 //These variables are used in the ISR
 volatile unsigned char left_motor_pwmcount1;
@@ -31,7 +30,8 @@ volatile unsigned char right_motor_pwm1;
 volatile unsigned char right_motor_pwm2;
 
 //Global Variables
-unsigned int dist_table[4] = {350, 150, 75, 30};
+unsigned int dist_table[4] = {150, 75, 30, 20};
+unsigned int dist_error[4] = {30, 20, 10, 5};
 int dist_index; //number from 0-3 that determines distance
 unsigned char reverse;
 
@@ -222,7 +222,7 @@ void Face_Transmitter(void){
 	right_distance = Get_Right_Distance();
 	left_distance = Get_Left_Distance();
 
-	//if(left_distance - right_distance > ERROR_BOUND || left_distance - right_distance < ERROR_BOUND) return;//find a good error bound, we dont need to be pointing 
+	//if(left_distance - right_distance > dist_error[dist_index] || left_distance - right_distance < dist_error[dist_index]) return;//find a good error bound, we dont need to be pointing 
 	//																			//EXACTLY at the transmitter at all times while moving 
 	//																			//to or from it 
 	printf(" \n Before Turning!!!!!!!!! Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
@@ -622,7 +622,7 @@ void run(void){
 	unsigned int left_distance = Get_Left_Distance();
 
 	if(!reverse) {
-		if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
+		if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 			if (right_distance > dist_table[dist_index]){
 				Move_Right_Motor_Forwards();
 			}
@@ -633,7 +633,7 @@ void run(void){
 		else
 			Stop_Car();
 			
-		if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
+		if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 			if (left_distance > dist_table[dist_index]){
 				Move_Left_Motor_Forwards();
 			}
@@ -645,7 +645,7 @@ void run(void){
 			Stop_Car();
 	}
 	else {
-		if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
+		if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 			if (right_distance < dist_table[dist_index]){
 				Move_Right_Motor_Forwards();
 			}
@@ -656,7 +656,7 @@ void run(void){
 		else
 			Stop_Car();
 			
-		if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
+		if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 			if (left_distance < dist_table[dist_index]){
 				Move_Left_Motor_Forwards();
 			}

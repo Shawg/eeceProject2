@@ -121,7 +121,7 @@ B2 90
 B2 91
 32
 7A 02
-79 78
+79 96
 78 96
 D8 rel2(L1;)
 D9 rel2(L2;)
@@ -174,7 +174,7 @@ D2 AF
 02 addr16(_tx_byte;)  
 75 82 D5
 02 addr16(_tx_byte;)  
-75 82 80
+75 82 84
 02 addr16(_tx_byte;)  
 30 A1 rel3(L010002?;)
 12 addr16(_moveCloser;)  
