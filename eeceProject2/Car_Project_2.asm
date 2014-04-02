@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Tue Apr 01 20:36:22 2014
+; This file was generated Tue Apr 01 20:44:18 2014
 ;--------------------------------------------------------
 $name Car_Project_2
 $optc51 --model-small
@@ -571,8 +571,8 @@ _Move_Right_Motor_Backwards:
 _Move_Right_Motor_Forwards:
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:142: right_motor_pwm1 = 0;
 	mov	_right_motor_pwm1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:143: right_motor_pwm2 = 45;
-	mov	_right_motor_pwm2,#0x2D
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:143: right_motor_pwm2 = 48;
+	mov	_right_motor_pwm2,#0x30
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Left_Motor_Backwards'
@@ -583,8 +583,8 @@ _Move_Right_Motor_Forwards:
 ;	 function Move_Left_Motor_Backwards
 ;	-----------------------------------------
 _Move_Left_Motor_Backwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:150: left_motor_pwm1 = 41;
-	mov	_left_motor_pwm1,#0x29
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:150: left_motor_pwm1 = 43;
+	mov	_left_motor_pwm1,#0x2B
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:151: left_motor_pwm2 = 0;
 	mov	_left_motor_pwm2,#0x00
 	ret

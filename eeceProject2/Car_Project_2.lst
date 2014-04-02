@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Tue Apr 01 20:36:22 2014
+0000              4   ; This file was generated Tue Apr 01 20:44:18 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Car_Project_2
                   6   $optc51 --model-small
@@ -571,8 +571,8 @@
 00B2            571   _Move_Right_Motor_Forwards:
 00B2            572   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:142: right_motor_pwm1 = 0;
 00B2 75E000     573            mov     _right_motor_pwm1,#0x00
-00B5            574   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:143: right_motor_pwm2 = 45;
-00B5 75902D     575            mov     _right_motor_pwm2,#0x2D
+00B5            574   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:143: right_motor_pwm2 = 48;
+00B5 759030     575            mov     _right_motor_pwm2,#0x30
 00B8 22         576            ret
 00B9            577   ;------------------------------------------------------------
 00B9            578   ;Allocation info for local variables in function 'Move_Left_Motor_Backwards'
@@ -583,8 +583,8 @@
 00B9            583   ;         function Move_Left_Motor_Backwards
 00B9            584   ;        -----------------------------------------
 00B9            585   _Move_Left_Motor_Backwards:
-00B9            586   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:150: left_motor_pwm1 = 41;
-00B9 752029     587            mov     _left_motor_pwm1,#0x29
+00B9            586   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:150: left_motor_pwm1 = 43;
+00B9 75202B     587            mov     _left_motor_pwm1,#0x2B
 00BC            588   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:151: left_motor_pwm2 = 0;
 00BC 75D000     589            mov     _left_motor_pwm2,#0x00
 00BF 22         590            ret

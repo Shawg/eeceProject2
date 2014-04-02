@@ -297,9 +297,9 @@ D0 E0
 75 data8(_right_motor_pwm2;) 00
 22
 75 data8(_right_motor_pwm1;) 00
-75 data8(_right_motor_pwm2;) 2D
+75 data8(_right_motor_pwm2;) 30
 22
-75 data8(_left_motor_pwm1;) 29
+75 data8(_left_motor_pwm1;) 2B
 75 data8(_left_motor_pwm2;) 00
 22
 75 data8(_left_motor_pwm1;) 00

@@ -140,14 +140,14 @@ void Move_Right_Motor_Backwards(){
 // car to move Forwards
 void Move_Right_Motor_Forwards (void){
 	right_motor_pwm1 = 0;
-	right_motor_pwm2 = 45;
+	right_motor_pwm2 = 48;
 
 }
 
 // This causes the motor on the left side of the
 // car to move Backwards
 void Move_Left_Motor_Backwards (void){
-	left_motor_pwm1 = 41;
+	left_motor_pwm1 = 43;
 	left_motor_pwm2 = 0;
 }
 
