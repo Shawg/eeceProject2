@@ -131,7 +131,7 @@ void pwmcounter (void) interrupt 1
 // This causes the motor on the right side of the
 // car to move Backwards emmett
 void Move_Right_Motor_Backwards(){
-	right_motor_pwm1 = 37;
+	right_motor_pwm1 = 51;
 	right_motor_pwm2 = 0;
 	
 }
@@ -140,14 +140,14 @@ void Move_Right_Motor_Backwards(){
 // car to move Forwards
 void Move_Right_Motor_Forwards (void){
 	right_motor_pwm1 = 0;
-	right_motor_pwm2 = 48;
+	right_motor_pwm2 = 51;
 
 }
 
 // This causes the motor on the left side of the
 // car to move Backwards
 void Move_Left_Motor_Backwards (void){
-	left_motor_pwm1 = 43;
+	left_motor_pwm1 = 47;
 	left_motor_pwm2 = 0;
 }
 
@@ -374,25 +374,34 @@ void Move_Forwards(void){
 }
 //This causes the car to parallel park in a length that is 1.5*(length of car)
 void Parallel_Park(void){
-	Move_Forwards();
-	Parallel_Park_Wait_1();
+	Move_Backwards();
+	Wait_X_Time(1300);
 	
 	Stop_Car();
-	Parallel_Park_Wait_2();
-	
-	Turn_Car_Left();
-	Parallel_Park_Wait_3();
-	
-	Move_Forwards();
-	Parallel_Park_Wait_4();
-	
+	Move_Left_Motor_Backwards();
+	Wait_X_Time(1000);
+	Move_Right_Motor_Backwards();
+	Wait_X_Time(500);
 	Stop_Car();
-	Turn_Car_Right();
-	Parallel_Park_Wait_5();
-	
+	Move_Right_Motor_Backwards();
+	Wait_X_Time(985);
 	Stop_Car();
-	Parallel_Park_Wait_6();
 	
+	wait1s(); //replace with while(1) loop to tell the robot to unParallel park
+	wait1s();
+	wait1s();
+	wait1s();
+
+	Move_Right_Motor_Forwards();
+	Wait_X_Time(985);
+	Move_Left_Motor_Forwards();
+	Wait_X_Time(600);
+	Stop_Car();
+	Move_Left_Motor_Forwards();
+	Wait_X_Time(1000);
+	Move_Right_Motor_Forwards();
+	Wait_X_Time(1300);
+	Stop_Car();
 }
 
 void Undo_Parallel_Park (void){
@@ -457,9 +466,12 @@ void Move_Car_Further(void){
 
 //This causes the car to rotate 180 degrees clockwise
 void Rotate_Car_180_CW(void){
-	Turn_Car_Right();
-	Wait_X_Time(2000); //wait 2000 ms
 	Stop_Car();
+	Move_Left_Motor_Forwards();
+	Move_Right_Motor_Backwards();
+	Wait_X_Time(1277); //wait 2000 ms
+ 	Stop_Car();
+	
 	
 	if(reverse == 0){
 		reverse = 1;
@@ -472,8 +484,10 @@ void Rotate_Car_180_CW(void){
 
 //This causes the car to rotate 180 degrees counter clockwise
 void Rotate_Car_180_CCW(void){
- 	Turn_Car_Left(); // changed turn left logic make rotate car easily reverseable
- 	Wait_X_Time(2000); //wait 2000 ms
+ 	Stop_Car();
+	Move_Right_Motor_Forwards();
+	Move_Left_Motor_Backwards();
+	Wait_X_Time(1277); //wait 2000 ms
  	Stop_Car();
 
 	if(reverse == 0){
@@ -592,37 +606,12 @@ unsigned int GetADC(unsigned char channel){
 // the code you're testing doesn't interfere with correct code
 // in the main body of the program 
 void Testing_Code(void){
-	unsigned int right;
-	unsigned int left;
-		unsigned char cmd = 0;
+	
 	
 	while(1){
-		// Move_Right_Motor_Forwards();
-		// wait1s();
-		// Stop_Car();
-		// Move_Left_Motor_Forwards();
-		// wait1s();
-		// Stop_Car();
-		// Move_Right_Motor_Backwards();
-		// wait1s();
-		// Stop_Car();
-		// Move_Left_Motor_Backwards();
-		// wait1s();
-		// Stop_Car();
-		
-		run();
-		right = Get_Right_Distance();
-		left = Get_Left_Distance();
-
-		if(left < 20){
-        	cmd = rx_byte (20);     	
-        	if(cmd == MOVE_FURTHER) Move_Car_Further();
-        	if(cmd == MOVE_CLOSER) Move_Car_Closer();
-        	if(cmd == ROTATE_180) Rotate_Car_180_CW();
-        	if(cmd == PRL_PARK) Parallel_Park();
-        }
-
-		printf("right = %u, left = %u, cmd = %u \n", right, left, cmd);	
+		Parallel_Park();
+		wait1s();
+		wait1s();
 	}
 }
 
@@ -697,6 +686,8 @@ void main (void)
 	reverse = 0;	
 	
 	printf("\n");
+	wait1s();
+	wait1s();
 	Testing_Code();
 	while(1){
 		
