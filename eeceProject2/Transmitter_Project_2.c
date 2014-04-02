@@ -4,7 +4,7 @@
 #define MOVE_FURTHER 0xfd
 #define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
-#define PRL_PARK 0x55
+#define PRL_PARK 0x80
 
 #define BAUD 115200L
 #define BRG_VAL (0x100-(CLK/(32L*BAUD)))
@@ -61,7 +61,7 @@ void wait_bit_time(void)
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #2
-	L3:	mov R1, #248
+	L3:	mov R1, #124
 	L2:	mov R0, #184
 	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
 	    djnz R1, L2 ; 200us*250=0.05s
@@ -104,7 +104,7 @@ void rotate180(void)
 
 void prlPark(void)
 {
-	tx_byte(PRL_PARK); // parallel park is 01010101
+	tx_byte(PRL_PARK); // parallel park is 10000000
 }
 
 void main (void)

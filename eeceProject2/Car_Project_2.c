@@ -16,7 +16,7 @@
 #define MOVE_FURTHER 0xfd
 #define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
-#define PRL_PARK 0x55
+#define PRL_PARK 0x80
 #define ERROR_BOUND 20
 
 //These variables are used in the ISR
@@ -488,8 +488,15 @@ void Rotate_Car_180_CCW(void){
 // that is considered to be zero as an input and returns the recieved
 // byte
 unsigned char rx_byte (int min){
+
 	unsigned char j, val;
 	int v;
+	
+	EA = 0;
+	P1_0 = 0;
+	P1_1 = 0;
+	P1_2 = 0;
+	P1_4 = 0;
 
 	//Skip the start bit
 	val=0;
@@ -497,11 +504,12 @@ unsigned char rx_byte (int min){
 	for(j=0; j<8; j++)
 	{
 	v=GetADC(2);
-	val|=(v<min)?(0x01<<j):0x00; // min is threshold voltage but in our case it is 1023
+	val|=(v>min)?(0x01<<j):0x00; // min is threshold voltage but in our case it is 1023
 	wait_bit_time();
 	}
 	//Wait for stop bits
 	wait_one_and_half_bit_time();
+	EA = 1;
 	return val;
 }
 
@@ -512,7 +520,7 @@ void wait_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #2
-	L3:	mov R1, #248
+	L3:	mov R1, #124
 	L2:	mov R0, #184
 	L1:	djnz R0, L1 ; 2 machine cycles-> 2*0.5425347us*184=200us
 	    djnz R1, L2 ; 200us*250=0.05s
@@ -527,7 +535,7 @@ void wait_one_and_half_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #3
-	L6:	mov R1, #248
+	L6:	mov R1, #124
 	L5:	mov R0, #184
 	L4:	djnz R0, L4 ; 2 machine cycles-> 2*0.5425347us*184=200us
 	    djnz R1, L5 ; 200us*250=0.05s
@@ -586,6 +594,7 @@ unsigned int GetADC(unsigned char channel){
 void Testing_Code(void){
 	unsigned int right;
 	unsigned int left;
+		unsigned char cmd = 0;
 	
 	while(1){
 		// Move_Right_Motor_Forwards();
@@ -600,15 +609,13 @@ void Testing_Code(void){
 		// Move_Left_Motor_Backwards();
 		// wait1s();
 		// Stop_Car();
+		
 		run();
 		right = Get_Right_Distance();
 		left = Get_Left_Distance();
 
-		unsigned char cmd = 0; 
-
-		if(Get_Right_Distance() >= 900){
-			Stop_Car();
-        	cmd = rx_byte (900);     	
+		if(left < 20){
+        	cmd = rx_byte (20);     	
         	if(cmd == MOVE_FURTHER) Move_Car_Further();
         	if(cmd == MOVE_CLOSER) Move_Car_Closer();
         	if(cmd == ROTATE_180) Rotate_Car_180_CW();
@@ -684,7 +691,7 @@ void Fake_run(void) {
 
 void main (void)
 {	
-    const unsigned int logic_0_thresh = 900;
+    const unsigned int logic_0_thresh = 10;
 	unsigned char cmd;
 	dist_index = 1;
 	reverse = 0;	
@@ -696,7 +703,7 @@ void main (void)
 		run();
 
 		//Check for start bit to indicate a command from transmitter
-		if(Get_Right_Distance() >= logic_0_thresh){
+		if(Get_Right_Distance() < logic_0_thresh){
 			Stop_Car();
         	cmd = rx_byte (logic_0_thresh);     	
         	if(cmd == MOVE_FURTHER) Move_Car_Further();
