@@ -16,7 +16,7 @@
 #define MOVE_FURTHER 0xfd
 #define MOVE_CLOSER 0xf5
 #define ROTATE_180 0xd5
-#define PRL_PARK 0x84
+#define PRL_PARK 0x86
 
 //These variables are used in the ISR
 volatile unsigned char left_motor_pwmcount1;
@@ -30,8 +30,8 @@ volatile unsigned char right_motor_pwm1;
 volatile unsigned char right_motor_pwm2;
 
 //Global Variables
-unsigned int dist_table[4] = {150, 75, 30, 20};
-unsigned int dist_error[4] = {30, 20, 10, 5};
+unsigned int dist_table[4] = {260, 150, 90, 27};
+unsigned int dist_error[4] = {32, 19, 13, 8};
 int dist_index; //number from 0-3 that determines distance
 unsigned char reverse;
 
@@ -469,9 +469,8 @@ void Rotate_Car_180_CW(void){
 	Stop_Car();
 	Move_Left_Motor_Forwards();
 	Move_Right_Motor_Backwards();
-	Wait_X_Time(1277); //wait 2000 ms
+	Wait_X_Time(1277);
  	Stop_Car();
-	
 	
 	if(reverse == 0){
 		reverse = 1;
@@ -534,8 +533,8 @@ void wait_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #2
-	L3:	mov R1, #150
-	L2:	mov R0, #150
+	L3:	mov R1, #200
+	L2:	mov R0, #200
 	L1:	djnz R0, L1 
 	    djnz R1, L2
 	    djnz R2, L3 
@@ -549,8 +548,8 @@ void wait_one_and_half_bit_time(void){
 		;For a 22.1184MHz crystal one machine cycle 
 		;takes 12/22.1184MHz=0.5425347us
 	    mov R2, #3
-	L6:	mov R1, #150
-	L5:	mov R0, #150
+	L6:	mov R1, #200
+	L5:	mov R0, #200
 	L4:	djnz R0, L4
 	    djnz R1, L5
 	    djnz R2, L6 
@@ -621,8 +620,6 @@ void run(void){
 	unsigned int right_distance = Get_Right_Distance();
 	unsigned int left_distance = Get_Left_Distance();
 
-	printf("Right: %u  Left: %u\n", right_distance, left_distance);
-
 	if(!reverse) {
 		if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 			if (right_distance > dist_table[dist_index]){
@@ -685,14 +682,15 @@ void Fake_run(void) {
 void main (void)
 {	
     const unsigned int logic_0_thresh = 10;
-	unsigned char cmd;
+	unsigned char cmd = 0;
 	dist_index = 1;
-	reverse = 0;	
+	reverse = 1;	
 	
 	printf("\n");
 	//Testing_Code();
 	while(1){
 		
+		printf("Right: %u  Left: %u Cmd: %u\n", Get_Right_Distance(), Get_Left_Distance(), cmd);
 		run();
 
 		//Check for start bit to indicate a command from transmitter

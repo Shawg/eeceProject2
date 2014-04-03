@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Tue Apr 01 22:43:56 2014
+0000              4   ; This file was generated Thu Apr 03 03:36:12 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Transmitter_Project_2
                   6   $optc51 --model-small
@@ -29,569 +29,688 @@
 0000             29            public _moveFurther
 0000             30            public _moveCloser
 0000             31            public _tx_byte
-0000             32            public _wait_bit_time
-0000             33            public _pwmcounter
-0000             34            public __c51_external_startup
-0000             35   ;--------------------------------------------------------
-0000             36   ; Special Function Registers
+0000             32            public _Wait_X_Time
+0000             33            public _Wait_1ms
+0000             34            public _wait_bit_time
+0000             35            public _pwmcounter
+0000             36            public __c51_external_startup
 0000             37   ;--------------------------------------------------------
-0000             38   _ACC            DATA 0xe0
-0000             39   _B              DATA 0xf0
-0000             40   _PSW            DATA 0xd0
-0000             41   _SP             DATA 0x81
-0000             42   _SPX            DATA 0xef
-0000             43   _DPL            DATA 0x82
-0000             44   _DPH            DATA 0x83
-0000             45   _DPLB           DATA 0xd4
-0000             46   _DPHB           DATA 0xd5
-0000             47   _PAGE           DATA 0xf6
-0000             48   _AX             DATA 0xe1
-0000             49   _BX             DATA 0xf7
-0000             50   _DSPR           DATA 0xe2
-0000             51   _FIRD           DATA 0xe3
-0000             52   _MACL           DATA 0xe4
-0000             53   _MACH           DATA 0xe5
-0000             54   _PCON           DATA 0x87
-0000             55   _AUXR           DATA 0x8e
-0000             56   _AUXR1          DATA 0xa2
-0000             57   _DPCF           DATA 0xa1
-0000             58   _CKRL           DATA 0x97
-0000             59   _CKCKON0        DATA 0x8f
-0000             60   _CKCKON1        DATA 0xaf
-0000             61   _CKSEL          DATA 0x85
-0000             62   _CLKREG         DATA 0xae
-0000             63   _OSCCON         DATA 0x85
-0000             64   _IE             DATA 0xa8
-0000             65   _IEN0           DATA 0xa8
-0000             66   _IEN1           DATA 0xb1
-0000             67   _IPH0           DATA 0xb7
-0000             68   _IP             DATA 0xb8
-0000             69   _IPL0           DATA 0xb8
-0000             70   _IPH1           DATA 0xb3
-0000             71   _IPL1           DATA 0xb2
-0000             72   _P0             DATA 0x80
-0000             73   _P1             DATA 0x90
-0000             74   _P2             DATA 0xa0
-0000             75   _P3             DATA 0xb0
-0000             76   _P4             DATA 0xc0
-0000             77   _P0M0           DATA 0xe6
-0000             78   _P0M1           DATA 0xe7
-0000             79   _P1M0           DATA 0xd6
-0000             80   _P1M1           DATA 0xd7
-0000             81   _P2M0           DATA 0xce
-0000             82   _P2M1           DATA 0xcf
-0000             83   _P3M0           DATA 0xc6
-0000             84   _P3M1           DATA 0xc7
-0000             85   _P4M0           DATA 0xbe
-0000             86   _P4M1           DATA 0xbf
-0000             87   _SCON           DATA 0x98
-0000             88   _SBUF           DATA 0x99
-0000             89   _SADEN          DATA 0xb9
-0000             90   _SADDR          DATA 0xa9
-0000             91   _BDRCON         DATA 0x9b
-0000             92   _BRL            DATA 0x9a
-0000             93   _TCON           DATA 0x88
-0000             94   _TMOD           DATA 0x89
-0000             95   _TCONB          DATA 0x91
-0000             96   _TL0            DATA 0x8a
-0000             97   _TH0            DATA 0x8c
-0000             98   _TL1            DATA 0x8b
-0000             99   _TH1            DATA 0x8d
-0000            100   _RL0            DATA 0xf2
-0000            101   _RH0            DATA 0xf4
-0000            102   _RL1            DATA 0xf3
-0000            103   _RH1            DATA 0xf5
-0000            104   _WDTRST         DATA 0xa6
-0000            105   _WDTPRG         DATA 0xa7
-0000            106   _T2CON          DATA 0xc8
-0000            107   _T2MOD          DATA 0xc9
-0000            108   _RCAP2H         DATA 0xcb
-0000            109   _RCAP2L         DATA 0xca
-0000            110   _TH2            DATA 0xcd
-0000            111   _TL2            DATA 0xcc
-0000            112   _SPCON          DATA 0xc3
-0000            113   _SPSTA          DATA 0xc4
-0000            114   _SPDAT          DATA 0xc5
-0000            115   _SSCON          DATA 0x93
-0000            116   _SSCS           DATA 0x94
-0000            117   _SSDAT          DATA 0x95
-0000            118   _SSADR          DATA 0x96
-0000            119   _KBLS           DATA 0x9c
-0000            120   _KBE            DATA 0x9d
-0000            121   _KBF            DATA 0x9e
-0000            122   _KBMOD          DATA 0x9f
-0000            123   _BMSEL          DATA 0x92
-0000            124   _FCON           DATA 0xd2
-0000            125   _EECON          DATA 0xd2
-0000            126   _ACSRA          DATA 0xa3
-0000            127   _ACSRB          DATA 0xab
-0000            128   _AREF           DATA 0xbd
-0000            129   _DADC           DATA 0xa4
-0000            130   _DADI           DATA 0xa5
-0000            131   _DADL           DATA 0xac
-0000            132   _DADH           DATA 0xad
-0000            133   _CCON           DATA 0xd8
-0000            134   _CMOD           DATA 0xd9
-0000            135   _CL             DATA 0xe9
-0000            136   _CH             DATA 0xf9
-0000            137   _CCAPM0         DATA 0xda
-0000            138   _CCAPM1         DATA 0xdb
-0000            139   _CCAPM2         DATA 0xdc
-0000            140   _CCAPM3         DATA 0xdd
-0000            141   _CCAPM4         DATA 0xde
-0000            142   _CCAP0H         DATA 0xfa
-0000            143   _CCAP1H         DATA 0xfb
-0000            144   _CCAP2H         DATA 0xfc
-0000            145   _CCAP3H         DATA 0xfd
-0000            146   _CCAP4H         DATA 0xfe
-0000            147   _CCAP0L         DATA 0xea
-0000            148   _CCAP1L         DATA 0xeb
-0000            149   _CCAP2L         DATA 0xec
-0000            150   _CCAP3L         DATA 0xed
-0000            151   _CCAP4L         DATA 0xee
-0000            152   ;--------------------------------------------------------
-0000            153   ; special function bits
+0000             38   ; Special Function Registers
+0000             39   ;--------------------------------------------------------
+0000             40   _ACC            DATA 0xe0
+0000             41   _B              DATA 0xf0
+0000             42   _PSW            DATA 0xd0
+0000             43   _SP             DATA 0x81
+0000             44   _SPX            DATA 0xef
+0000             45   _DPL            DATA 0x82
+0000             46   _DPH            DATA 0x83
+0000             47   _DPLB           DATA 0xd4
+0000             48   _DPHB           DATA 0xd5
+0000             49   _PAGE           DATA 0xf6
+0000             50   _AX             DATA 0xe1
+0000             51   _BX             DATA 0xf7
+0000             52   _DSPR           DATA 0xe2
+0000             53   _FIRD           DATA 0xe3
+0000             54   _MACL           DATA 0xe4
+0000             55   _MACH           DATA 0xe5
+0000             56   _PCON           DATA 0x87
+0000             57   _AUXR           DATA 0x8e
+0000             58   _AUXR1          DATA 0xa2
+0000             59   _DPCF           DATA 0xa1
+0000             60   _CKRL           DATA 0x97
+0000             61   _CKCKON0        DATA 0x8f
+0000             62   _CKCKON1        DATA 0xaf
+0000             63   _CKSEL          DATA 0x85
+0000             64   _CLKREG         DATA 0xae
+0000             65   _OSCCON         DATA 0x85
+0000             66   _IE             DATA 0xa8
+0000             67   _IEN0           DATA 0xa8
+0000             68   _IEN1           DATA 0xb1
+0000             69   _IPH0           DATA 0xb7
+0000             70   _IP             DATA 0xb8
+0000             71   _IPL0           DATA 0xb8
+0000             72   _IPH1           DATA 0xb3
+0000             73   _IPL1           DATA 0xb2
+0000             74   _P0             DATA 0x80
+0000             75   _P1             DATA 0x90
+0000             76   _P2             DATA 0xa0
+0000             77   _P3             DATA 0xb0
+0000             78   _P4             DATA 0xc0
+0000             79   _P0M0           DATA 0xe6
+0000             80   _P0M1           DATA 0xe7
+0000             81   _P1M0           DATA 0xd6
+0000             82   _P1M1           DATA 0xd7
+0000             83   _P2M0           DATA 0xce
+0000             84   _P2M1           DATA 0xcf
+0000             85   _P3M0           DATA 0xc6
+0000             86   _P3M1           DATA 0xc7
+0000             87   _P4M0           DATA 0xbe
+0000             88   _P4M1           DATA 0xbf
+0000             89   _SCON           DATA 0x98
+0000             90   _SBUF           DATA 0x99
+0000             91   _SADEN          DATA 0xb9
+0000             92   _SADDR          DATA 0xa9
+0000             93   _BDRCON         DATA 0x9b
+0000             94   _BRL            DATA 0x9a
+0000             95   _TCON           DATA 0x88
+0000             96   _TMOD           DATA 0x89
+0000             97   _TCONB          DATA 0x91
+0000             98   _TL0            DATA 0x8a
+0000             99   _TH0            DATA 0x8c
+0000            100   _TL1            DATA 0x8b
+0000            101   _TH1            DATA 0x8d
+0000            102   _RL0            DATA 0xf2
+0000            103   _RH0            DATA 0xf4
+0000            104   _RL1            DATA 0xf3
+0000            105   _RH1            DATA 0xf5
+0000            106   _WDTRST         DATA 0xa6
+0000            107   _WDTPRG         DATA 0xa7
+0000            108   _T2CON          DATA 0xc8
+0000            109   _T2MOD          DATA 0xc9
+0000            110   _RCAP2H         DATA 0xcb
+0000            111   _RCAP2L         DATA 0xca
+0000            112   _TH2            DATA 0xcd
+0000            113   _TL2            DATA 0xcc
+0000            114   _SPCON          DATA 0xc3
+0000            115   _SPSTA          DATA 0xc4
+0000            116   _SPDAT          DATA 0xc5
+0000            117   _SSCON          DATA 0x93
+0000            118   _SSCS           DATA 0x94
+0000            119   _SSDAT          DATA 0x95
+0000            120   _SSADR          DATA 0x96
+0000            121   _KBLS           DATA 0x9c
+0000            122   _KBE            DATA 0x9d
+0000            123   _KBF            DATA 0x9e
+0000            124   _KBMOD          DATA 0x9f
+0000            125   _BMSEL          DATA 0x92
+0000            126   _FCON           DATA 0xd2
+0000            127   _EECON          DATA 0xd2
+0000            128   _ACSRA          DATA 0xa3
+0000            129   _ACSRB          DATA 0xab
+0000            130   _AREF           DATA 0xbd
+0000            131   _DADC           DATA 0xa4
+0000            132   _DADI           DATA 0xa5
+0000            133   _DADL           DATA 0xac
+0000            134   _DADH           DATA 0xad
+0000            135   _CCON           DATA 0xd8
+0000            136   _CMOD           DATA 0xd9
+0000            137   _CL             DATA 0xe9
+0000            138   _CH             DATA 0xf9
+0000            139   _CCAPM0         DATA 0xda
+0000            140   _CCAPM1         DATA 0xdb
+0000            141   _CCAPM2         DATA 0xdc
+0000            142   _CCAPM3         DATA 0xdd
+0000            143   _CCAPM4         DATA 0xde
+0000            144   _CCAP0H         DATA 0xfa
+0000            145   _CCAP1H         DATA 0xfb
+0000            146   _CCAP2H         DATA 0xfc
+0000            147   _CCAP3H         DATA 0xfd
+0000            148   _CCAP4H         DATA 0xfe
+0000            149   _CCAP0L         DATA 0xea
+0000            150   _CCAP1L         DATA 0xeb
+0000            151   _CCAP2L         DATA 0xec
+0000            152   _CCAP3L         DATA 0xed
+0000            153   _CCAP4L         DATA 0xee
 0000            154   ;--------------------------------------------------------
-0000            155   _ACC_0          BIT 0xe0
-0000            156   _ACC_1          BIT 0xe1
-0000            157   _ACC_2          BIT 0xe2
-0000            158   _ACC_3          BIT 0xe3
-0000            159   _ACC_4          BIT 0xe4
-0000            160   _ACC_5          BIT 0xe5
-0000            161   _ACC_6          BIT 0xe6
-0000            162   _ACC_7          BIT 0xe7
-0000            163   _B_0            BIT 0xf0
-0000            164   _B_1            BIT 0xf1
-0000            165   _B_2            BIT 0xf2
-0000            166   _B_3            BIT 0xf3
-0000            167   _B_4            BIT 0xf4
-0000            168   _B_5            BIT 0xf5
-0000            169   _B_6            BIT 0xf6
-0000            170   _B_7            BIT 0xf7
-0000            171   _P              BIT 0xd0
-0000            172   _F1             BIT 0xd1
-0000            173   _OV             BIT 0xd2
-0000            174   _RS0            BIT 0xd3
-0000            175   _RS1            BIT 0xd4
-0000            176   _F0             BIT 0xd5
-0000            177   _AC             BIT 0xd6
-0000            178   _CY             BIT 0xd7
-0000            179   _EX0            BIT 0xa8
-0000            180   _ET0            BIT 0xa9
-0000            181   _EX1            BIT 0xaa
-0000            182   _ET1            BIT 0xab
-0000            183   _ES             BIT 0xac
-0000            184   _ET2            BIT 0xad
-0000            185   _EC             BIT 0xae
-0000            186   _EA             BIT 0xaf
-0000            187   _PX0            BIT 0xb8
-0000            188   _PT0            BIT 0xb9
-0000            189   _PX1            BIT 0xba
-0000            190   _PT1            BIT 0xbb
-0000            191   _PS             BIT 0xbc
-0000            192   _PT2            BIT 0xbd
-0000            193   _IP0D           BIT 0xbf
-0000            194   _PPCL           BIT 0xbe
-0000            195   _PT2L           BIT 0xbd
-0000            196   _PLS            BIT 0xbc
-0000            197   _PT1L           BIT 0xbb
-0000            198   _PX1L           BIT 0xba
-0000            199   _PT0L           BIT 0xb9
-0000            200   _PX0L           BIT 0xb8
-0000            201   _P0_0           BIT 0x80
-0000            202   _P0_1           BIT 0x81
-0000            203   _P0_2           BIT 0x82
-0000            204   _P0_3           BIT 0x83
-0000            205   _P0_4           BIT 0x84
-0000            206   _P0_5           BIT 0x85
-0000            207   _P0_6           BIT 0x86
-0000            208   _P0_7           BIT 0x87
-0000            209   _P1_0           BIT 0x90
-0000            210   _P1_1           BIT 0x91
-0000            211   _P1_2           BIT 0x92
-0000            212   _P1_3           BIT 0x93
-0000            213   _P1_4           BIT 0x94
-0000            214   _P1_5           BIT 0x95
-0000            215   _P1_6           BIT 0x96
-0000            216   _P1_7           BIT 0x97
-0000            217   _P2_0           BIT 0xa0
-0000            218   _P2_1           BIT 0xa1
-0000            219   _P2_2           BIT 0xa2
-0000            220   _P2_3           BIT 0xa3
-0000            221   _P2_4           BIT 0xa4
-0000            222   _P2_5           BIT 0xa5
-0000            223   _P2_6           BIT 0xa6
-0000            224   _P2_7           BIT 0xa7
-0000            225   _P3_0           BIT 0xb0
-0000            226   _P3_1           BIT 0xb1
-0000            227   _P3_2           BIT 0xb2
-0000            228   _P3_3           BIT 0xb3
-0000            229   _P3_4           BIT 0xb4
-0000            230   _P3_5           BIT 0xb5
-0000            231   _P3_6           BIT 0xb6
-0000            232   _P3_7           BIT 0xb7
-0000            233   _RXD            BIT 0xb0
-0000            234   _TXD            BIT 0xb1
-0000            235   _INT0           BIT 0xb2
-0000            236   _INT1           BIT 0xb3
-0000            237   _T0             BIT 0xb4
-0000            238   _T1             BIT 0xb5
-0000            239   _WR             BIT 0xb6
-0000            240   _RD             BIT 0xb7
-0000            241   _P4_0           BIT 0xc0
-0000            242   _P4_1           BIT 0xc1
-0000            243   _P4_2           BIT 0xc2
-0000            244   _P4_3           BIT 0xc3
-0000            245   _P4_4           BIT 0xc4
-0000            246   _P4_5           BIT 0xc5
-0000            247   _P4_6           BIT 0xc6
-0000            248   _P4_7           BIT 0xc7
-0000            249   _RI             BIT 0x98
-0000            250   _TI             BIT 0x99
-0000            251   _RB8            BIT 0x9a
-0000            252   _TB8            BIT 0x9b
-0000            253   _REN            BIT 0x9c
-0000            254   _SM2            BIT 0x9d
-0000            255   _SM1            BIT 0x9e
-0000            256   _SM0            BIT 0x9f
-0000            257   _IT0            BIT 0x88
-0000            258   _IE0            BIT 0x89
-0000            259   _IT1            BIT 0x8a
-0000            260   _IE1            BIT 0x8b
-0000            261   _TR0            BIT 0x8c
-0000            262   _TF0            BIT 0x8d
-0000            263   _TR1            BIT 0x8e
-0000            264   _TF1            BIT 0x8f
-0000            265   _CP_RL2         BIT 0xc8
-0000            266   _C_T2           BIT 0xc9
-0000            267   _TR2            BIT 0xca
-0000            268   _EXEN2          BIT 0xcb
-0000            269   _TCLK           BIT 0xcc
-0000            270   _RCLK           BIT 0xcd
-0000            271   _EXF2           BIT 0xce
-0000            272   _TF2            BIT 0xcf
-0000            273   _CF             BIT 0xdf
-0000            274   _CR             BIT 0xde
-0000            275   _CCF4           BIT 0xdc
-0000            276   _CCF3           BIT 0xdb
-0000            277   _CCF2           BIT 0xda
-0000            278   _CCF1           BIT 0xd9
-0000            279   _CCF0           BIT 0xd8
-0000            280   ;--------------------------------------------------------
-0000            281   ; overlayable register banks
+0000            155   ; special function bits
+0000            156   ;--------------------------------------------------------
+0000            157   _ACC_0          BIT 0xe0
+0000            158   _ACC_1          BIT 0xe1
+0000            159   _ACC_2          BIT 0xe2
+0000            160   _ACC_3          BIT 0xe3
+0000            161   _ACC_4          BIT 0xe4
+0000            162   _ACC_5          BIT 0xe5
+0000            163   _ACC_6          BIT 0xe6
+0000            164   _ACC_7          BIT 0xe7
+0000            165   _B_0            BIT 0xf0
+0000            166   _B_1            BIT 0xf1
+0000            167   _B_2            BIT 0xf2
+0000            168   _B_3            BIT 0xf3
+0000            169   _B_4            BIT 0xf4
+0000            170   _B_5            BIT 0xf5
+0000            171   _B_6            BIT 0xf6
+0000            172   _B_7            BIT 0xf7
+0000            173   _P              BIT 0xd0
+0000            174   _F1             BIT 0xd1
+0000            175   _OV             BIT 0xd2
+0000            176   _RS0            BIT 0xd3
+0000            177   _RS1            BIT 0xd4
+0000            178   _F0             BIT 0xd5
+0000            179   _AC             BIT 0xd6
+0000            180   _CY             BIT 0xd7
+0000            181   _EX0            BIT 0xa8
+0000            182   _ET0            BIT 0xa9
+0000            183   _EX1            BIT 0xaa
+0000            184   _ET1            BIT 0xab
+0000            185   _ES             BIT 0xac
+0000            186   _ET2            BIT 0xad
+0000            187   _EC             BIT 0xae
+0000            188   _EA             BIT 0xaf
+0000            189   _PX0            BIT 0xb8
+0000            190   _PT0            BIT 0xb9
+0000            191   _PX1            BIT 0xba
+0000            192   _PT1            BIT 0xbb
+0000            193   _PS             BIT 0xbc
+0000            194   _PT2            BIT 0xbd
+0000            195   _IP0D           BIT 0xbf
+0000            196   _PPCL           BIT 0xbe
+0000            197   _PT2L           BIT 0xbd
+0000            198   _PLS            BIT 0xbc
+0000            199   _PT1L           BIT 0xbb
+0000            200   _PX1L           BIT 0xba
+0000            201   _PT0L           BIT 0xb9
+0000            202   _PX0L           BIT 0xb8
+0000            203   _P0_0           BIT 0x80
+0000            204   _P0_1           BIT 0x81
+0000            205   _P0_2           BIT 0x82
+0000            206   _P0_3           BIT 0x83
+0000            207   _P0_4           BIT 0x84
+0000            208   _P0_5           BIT 0x85
+0000            209   _P0_6           BIT 0x86
+0000            210   _P0_7           BIT 0x87
+0000            211   _P1_0           BIT 0x90
+0000            212   _P1_1           BIT 0x91
+0000            213   _P1_2           BIT 0x92
+0000            214   _P1_3           BIT 0x93
+0000            215   _P1_4           BIT 0x94
+0000            216   _P1_5           BIT 0x95
+0000            217   _P1_6           BIT 0x96
+0000            218   _P1_7           BIT 0x97
+0000            219   _P2_0           BIT 0xa0
+0000            220   _P2_1           BIT 0xa1
+0000            221   _P2_2           BIT 0xa2
+0000            222   _P2_3           BIT 0xa3
+0000            223   _P2_4           BIT 0xa4
+0000            224   _P2_5           BIT 0xa5
+0000            225   _P2_6           BIT 0xa6
+0000            226   _P2_7           BIT 0xa7
+0000            227   _P3_0           BIT 0xb0
+0000            228   _P3_1           BIT 0xb1
+0000            229   _P3_2           BIT 0xb2
+0000            230   _P3_3           BIT 0xb3
+0000            231   _P3_4           BIT 0xb4
+0000            232   _P3_5           BIT 0xb5
+0000            233   _P3_6           BIT 0xb6
+0000            234   _P3_7           BIT 0xb7
+0000            235   _RXD            BIT 0xb0
+0000            236   _TXD            BIT 0xb1
+0000            237   _INT0           BIT 0xb2
+0000            238   _INT1           BIT 0xb3
+0000            239   _T0             BIT 0xb4
+0000            240   _T1             BIT 0xb5
+0000            241   _WR             BIT 0xb6
+0000            242   _RD             BIT 0xb7
+0000            243   _P4_0           BIT 0xc0
+0000            244   _P4_1           BIT 0xc1
+0000            245   _P4_2           BIT 0xc2
+0000            246   _P4_3           BIT 0xc3
+0000            247   _P4_4           BIT 0xc4
+0000            248   _P4_5           BIT 0xc5
+0000            249   _P4_6           BIT 0xc6
+0000            250   _P4_7           BIT 0xc7
+0000            251   _RI             BIT 0x98
+0000            252   _TI             BIT 0x99
+0000            253   _RB8            BIT 0x9a
+0000            254   _TB8            BIT 0x9b
+0000            255   _REN            BIT 0x9c
+0000            256   _SM2            BIT 0x9d
+0000            257   _SM1            BIT 0x9e
+0000            258   _SM0            BIT 0x9f
+0000            259   _IT0            BIT 0x88
+0000            260   _IE0            BIT 0x89
+0000            261   _IT1            BIT 0x8a
+0000            262   _IE1            BIT 0x8b
+0000            263   _TR0            BIT 0x8c
+0000            264   _TF0            BIT 0x8d
+0000            265   _TR1            BIT 0x8e
+0000            266   _TF1            BIT 0x8f
+0000            267   _CP_RL2         BIT 0xc8
+0000            268   _C_T2           BIT 0xc9
+0000            269   _TR2            BIT 0xca
+0000            270   _EXEN2          BIT 0xcb
+0000            271   _TCLK           BIT 0xcc
+0000            272   _RCLK           BIT 0xcd
+0000            273   _EXF2           BIT 0xce
+0000            274   _TF2            BIT 0xcf
+0000            275   _CF             BIT 0xdf
+0000            276   _CR             BIT 0xde
+0000            277   _CCF4           BIT 0xdc
+0000            278   _CCF3           BIT 0xdb
+0000            279   _CCF2           BIT 0xda
+0000            280   _CCF1           BIT 0xd9
+0000            281   _CCF0           BIT 0xd8
 0000            282   ;--------------------------------------------------------
-0000            283            rbank0 segment data overlay
+0000            283   ; overlayable register banks
 0000            284   ;--------------------------------------------------------
-0000            285   ; internal ram data
+0000            285            rbank0 segment data overlay
 0000            286   ;--------------------------------------------------------
-0000            287            rseg R_DSEG
+0000            287   ; internal ram data
 0000            288   ;--------------------------------------------------------
-0000            289   ; overlayable items in internal ram 
+0000            289            rseg R_DSEG
 0000            290   ;--------------------------------------------------------
-0000            291            rseg R_OSEG
+0000            291   ; overlayable items in internal ram 
 0000            292   ;--------------------------------------------------------
-0000            293   ; indirectly addressable internal ram data
+0000            293            rseg R_OSEG
 0000            294   ;--------------------------------------------------------
-0000            295            rseg R_ISEG
+0000            295   ; indirectly addressable internal ram data
 0000            296   ;--------------------------------------------------------
-0000            297   ; absolute internal ram data
+0000            297            rseg R_ISEG
 0000            298   ;--------------------------------------------------------
-0000            299            DSEG
+0000            299   ; absolute internal ram data
 0000            300   ;--------------------------------------------------------
-0000            301   ; bit data
+0000            301            DSEG
 0000            302   ;--------------------------------------------------------
-0000            303            rseg R_BSEG
+0000            303   ; bit data
 0000            304   ;--------------------------------------------------------
-0000            305   ; paged external ram data
+0000            305            rseg R_BSEG
 0000            306   ;--------------------------------------------------------
-0000            307            rseg R_PSEG
+0000            307   ; paged external ram data
 0000            308   ;--------------------------------------------------------
-0000            309   ; external ram data
+0000            309            rseg R_PSEG
 0000            310   ;--------------------------------------------------------
-0000            311            rseg R_XSEG
+0000            311   ; external ram data
 0000            312   ;--------------------------------------------------------
-0000            313   ; absolute external ram data
+0000            313            rseg R_XSEG
 0000            314   ;--------------------------------------------------------
-0000            315            XSEG
+0000            315   ; absolute external ram data
 0000            316   ;--------------------------------------------------------
-0000            317   ; external initialized ram data
+0000            317            XSEG
 0000            318   ;--------------------------------------------------------
-0000            319            rseg R_IXSEG
-0000            320            rseg R_HOME
-0000            321            rseg R_GSINIT
-0000            322            rseg R_CSEG
-0000            323   ;--------------------------------------------------------
-0000            324   ; Reset entry point and interrupt vectors
+0000            319   ; external initialized ram data
+0000            320   ;--------------------------------------------------------
+0000            321            rseg R_IXSEG
+0000            322            rseg R_HOME
+0000            323            rseg R_GSINIT
+0000            324            rseg R_CSEG
 0000            325   ;--------------------------------------------------------
-0000            326            CSEG at 0x0000
-0000 020100     327            ljmp    _crt0
-000B            328            CSEG at 0x000b
-000B 020100     329            ljmp    _pwmcounter
-000E            330   ;--------------------------------------------------------
-000E            331   ; global & static initialisations
+0000            326   ; Reset entry point and interrupt vectors
+0000            327   ;--------------------------------------------------------
+0000            328            CSEG at 0x0000
+0000 020100     329            ljmp    _crt0
+000B            330            CSEG at 0x000b
+000B 020100     331            ljmp    _pwmcounter
 000E            332   ;--------------------------------------------------------
-0000            333            rseg R_HOME
-0000            334            rseg R_GSINIT
-0000            335            rseg R_GSINIT
-0000            336   ;--------------------------------------------------------
-0000            337   ; data variables initialization
+000E            333   ; global & static initialisations
+000E            334   ;--------------------------------------------------------
+0000            335            rseg R_HOME
+0000            336            rseg R_GSINIT
+0000            337            rseg R_GSINIT
 0000            338   ;--------------------------------------------------------
-0000            339            rseg R_DINIT
-0000            340            ; The linker places a 'ret' at the end of segment R_DINIT.
-0000            341   ;--------------------------------------------------------
-0000            342   ; code
+0000            339   ; data variables initialization
+0000            340   ;--------------------------------------------------------
+0000            341            rseg R_DINIT
+0000            342            ; The linker places a 'ret' at the end of segment R_DINIT.
 0000            343   ;--------------------------------------------------------
-0000            344            rseg R_CSEG
-0000            345   ;------------------------------------------------------------
-0000            346   ;Allocation info for local variables in function '_c51_external_startup'
+0000            344   ; code
+0000            345   ;--------------------------------------------------------
+0000            346            rseg R_CSEG
 0000            347   ;------------------------------------------------------------
-0000            348   ;------------------------------------------------------------
-0000            349   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:15: unsigned char _c51_external_startup(void)
-0000            350   ;        -----------------------------------------
-0000            351   ;         function _c51_external_startup
+0000            348   ;Allocation info for local variables in function '_c51_external_startup'
+0000            349   ;------------------------------------------------------------
+0000            350   ;------------------------------------------------------------
+0000            351   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:20: unsigned char _c51_external_startup(void)
 0000            352   ;        -----------------------------------------
-0000            353   __c51_external_startup:
-0000            354            using   0
-0000            355   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:18: P0M0=0;  P0M1=0;
-0000 75E600     356            mov     _P0M0,#0x00
-0003 75E700     357            mov     _P0M1,#0x00
-0006            358   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:19: P1M0=0;  P1M1=0x03; //ports 0 and 1 are push-pull 00000011 = 0x03
-0006 75D600     359            mov     _P1M0,#0x00
-0009 75D703     360            mov     _P1M1,#0x03
-000C            361   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:20: P2M0=0x7E;       P2M1=0; //ports 2.1-2.6 input  01111110 = 0x7E
-000C 75CE7E     362            mov     _P2M0,#0x7E
-000F 75CF00     363            mov     _P2M1,#0x00
-0012            364   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:21: P3M0=0;  P3M1=0;
-0012 75C600     365            mov     _P3M0,#0x00
-0015 75C700     366            mov     _P3M1,#0x00
-0018            367   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:22: AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
-0018 758E11     368            mov     _AUXR,#0x11
-001B            369   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:23: P4M0=0;  P4M1=0;
-001B 75BE00     370            mov     _P4M0,#0x00
-001E 75BF00     371            mov     _P4M1,#0x00
-0021            372   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:26: PCON|=0x80;
-0021 438780     373            orl     _PCON,#0x80
-0024            374   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:27: SCON = 0x52;
-0024 759852     375            mov     _SCON,#0x52
-0027            376   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:28: BDRCON=0;
-0027 759B00     377            mov     _BDRCON,#0x00
-002A            378   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:29: BRL=BRG_VAL;
-002A 759AFA     379            mov     _BRL,#0xFA
-002D            380   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:30: BDRCON=BRR|TBCK|RBCK|SPD;
-002D 759B1E     381            mov     _BDRCON,#0x1E
-0030            382   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:33: TR0=0; // Stop timer 0
-0030 C28C       383            clr     _TR0
-0032            384   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:34: TMOD=0x01; // 16-bit timer
-0032 758901     385            mov     _TMOD,#0x01
-0035            386   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:39: TH0=RH0=TIMER0_RELOAD_VALUE/0x100;
-0035 75F4FF     387            mov     _RH0,#0xFF
-0038 758CFF     388            mov     _TH0,#0xFF
-003B            389   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:40: TL0=RL0=TIMER0_RELOAD_VALUE%0x100;
-003B 75F2C2     390            mov     _RL0,#0xC2
-003E 758AC2     391            mov     _TL0,#0xC2
-0041            392   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:41: TR0=1; // Start timer 0 (bit 4 in TCON)
-0041 D28C       393            setb    _TR0
-0043            394   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:42: ET0=1; // Enable timer 0 interrupt
-0043 D2A9       395            setb    _ET0
-0045            396   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:43: EA=1;  // Enable global interrupts
-0045 D2AF       397            setb    _EA
-0047            398   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:45: P1_0=0;
-0047 C290       399            clr     _P1_0
-0049            400   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:46: P1_1=1;
-0049 D291       401            setb    _P1_1
-004B            402   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:48: return 0;
-004B 758200     403            mov     dpl,#0x00
-004E 22         404            ret
-004F            405   ;------------------------------------------------------------
-004F            406   ;Allocation info for local variables in function 'pwmcounter'
-004F            407   ;------------------------------------------------------------
-004F            408   ;------------------------------------------------------------
-004F            409   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:51: void pwmcounter (void) interrupt 1
-004F            410   ;        -----------------------------------------
-004F            411   ;         function pwmcounter
-004F            412   ;        -----------------------------------------
-004F            413   _pwmcounter:
-004F            414   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:53: P1_0=!P1_0;
-004F B290       415            cpl     _P1_0
-0051            416   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:54: P1_1=!P1_1;
-0051 B291       417            cpl     _P1_1
-0053 32         418            reti
-0054            419   ;        eliminated unneeded push/pop psw
-0054            420   ;        eliminated unneeded push/pop dpl
-0054            421   ;        eliminated unneeded push/pop dph
-0054            422   ;        eliminated unneeded push/pop b
-0054            423   ;        eliminated unneeded push/pop acc
-0054            424   ;------------------------------------------------------------
-0054            425   ;Allocation info for local variables in function 'wait_bit_time'
-0054            426   ;------------------------------------------------------------
-0054            427   ;------------------------------------------------------------
-0054            428   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:58: void wait_bit_time(void)
-0054            429   ;        -----------------------------------------
-0054            430   ;         function wait_bit_time
-0054            431   ;        -----------------------------------------
-0054            432   _wait_bit_time:
-0054            433   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:70: _endasm;
-0054            434            
-0054            435     ;For a 22.1184MHz crystal one machine cycle
-0054            436     ;takes 12/22.1184MHz=0.5425347us
-0054 7A02       437                 mov R2, #2
-0056            438             L3:
-0056 7996       439            mov R1, #150
-0058            440             L2:
-0058 7896       441            mov R0, #150
-005A            442             L1:
-005A D8E8       443            djnz R0, L1
-005C D9A8       444                 djnz R1, L2
-005E DA68       445                 djnz R2, L3
-0060 22         446                 ret
-0061            447                
-0061 22         448            ret
-0062            449   ;------------------------------------------------------------
-0062            450   ;Allocation info for local variables in function 'tx_byte'
-0062            451   ;------------------------------------------------------------
-0062            452   ;val                       Allocated to registers r2 
-0062            453   ;j                         Allocated to registers r3 
-0062            454   ;------------------------------------------------------------
-0062            455   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:73: void tx_byte(unsigned char val)
-0062            456   ;        -----------------------------------------
-0062            457   ;         function tx_byte
-0062            458   ;        -----------------------------------------
-0062            459   _tx_byte:
-0062 AA82       460            mov     r2,dpl
-0064            461   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:77: EA=0;
-0064 C2AF       462            clr     _EA
-0066            463   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:78: wait_bit_time();
-0066 C002       464            push    ar2
-0068 120100     465            lcall   _wait_bit_time
-006B D002       466            pop     ar2
-006D            467   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:79: for (j=0; j<8; j++)
-006D 7B00       468            mov     r3,#0x00
-006F            469   L005001?:
-006F BB0868     470            cjne    r3,#0x08,L005010?
-0072            471   L005010?:
-0072 5001       472            jnc     L005004?
-0074            473   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:81: EA=val&(0x01<<j)?1:0; 
-0074 8BF0       474            mov     b,r3
-0076 05F0       475            inc     b
-0078 7C01       476            mov     r4,#0x01
-007A 7D00       477            mov     r5,#0x00
-007C 8001       478            sjmp    L005013?
-007E            479   L005012?:
-007E EC         480            mov     a,r4
-007F 2C         481            add     a,r4
-0080 FC         482            mov     r4,a
-0081 ED         483            mov     a,r5
-0082 33         484            rlc     a
-0083 FD         485            mov     r5,a
-0084            486   L005013?:
-0084 D5F068     487            djnz    b,L005012?
-0087 8A06       488            mov     ar6,r2
-0089 7F00       489            mov     r7,#0x00
-008B EE         490            mov     a,r6
-008C 5204       491            anl     ar4,a
-008E EF         492            mov     a,r7
-008F 5205       493            anl     ar5,a
-0091 EC         494            mov     a,r4
-0092 4D         495            orl     a,r5
-0093 24FF       496            add     a,#0xff
-0095 92AF       497            mov     _EA,c
-0097            498   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:82: wait_bit_time();
-0097 C002       499            push    ar2
-0099 C003       500            push    ar3
-009B 120100     501            lcall   _wait_bit_time
-009E D003       502            pop     ar3
-00A0 D002       503            pop     ar2
-00A2            504   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:79: for (j=0; j<8; j++)
-00A2 0B         505            inc     r3
-00A3 8001       506            sjmp    L005001?
-00A5            507   L005004?:
-00A5            508   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:84: EA=1;
-00A5 D2AF       509            setb    _EA
-00A7            510   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:86: wait_bit_time();
-00A7 120100     511            lcall   _wait_bit_time
-00AA            512   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:87: wait_bit_time();
-00AA 020100     513            ljmp    _wait_bit_time
-00AD            514   ;------------------------------------------------------------
-00AD            515   ;Allocation info for local variables in function 'moveCloser'
-00AD            516   ;------------------------------------------------------------
-00AD            517   ;------------------------------------------------------------
-00AD            518   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:90: void moveCloser(void) 
-00AD            519   ;        -----------------------------------------
-00AD            520   ;         function moveCloser
-00AD            521   ;        -----------------------------------------
-00AD            522   _moveCloser:
-00AD            523   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:92: tx_byte(MOVE_CLOSER); // move closer is 11111101
-00AD 7582F5     524            mov     dpl,#0xF5
-00B0 020100     525            ljmp    _tx_byte
-00B3            526   ;------------------------------------------------------------
-00B3            527   ;Allocation info for local variables in function 'moveFurther'
-00B3            528   ;------------------------------------------------------------
-00B3            529   ;------------------------------------------------------------
-00B3            530   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:95: void moveFurther(void)
-00B3            531   ;        -----------------------------------------
-00B3            532   ;         function moveFurther
-00B3            533   ;        -----------------------------------------
-00B3            534   _moveFurther:
-00B3            535   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:97: tx_byte(MOVE_FURTHER); // move farther is 11110101
-00B3 7582FD     536            mov     dpl,#0xFD
-00B6 020100     537            ljmp    _tx_byte
-00B9            538   ;------------------------------------------------------------
-00B9            539   ;Allocation info for local variables in function 'rotate180'
-00B9            540   ;------------------------------------------------------------
-00B9            541   ;------------------------------------------------------------
-00B9            542   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:100: void rotate180(void)
-00B9            543   ;        -----------------------------------------
-00B9            544   ;         function rotate180
-00B9            545   ;        -----------------------------------------
-00B9            546   _rotate180:
-00B9            547   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:102: tx_byte(ROTATE_180); // rotate is 11010101
-00B9 7582D5     548            mov     dpl,#0xD5
-00BC 020100     549            ljmp    _tx_byte
-00BF            550   ;------------------------------------------------------------
-00BF            551   ;Allocation info for local variables in function 'prlPark'
-00BF            552   ;------------------------------------------------------------
-00BF            553   ;------------------------------------------------------------
-00BF            554   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:105: void prlPark(void)
-00BF            555   ;        -----------------------------------------
-00BF            556   ;         function prlPark
-00BF            557   ;        -----------------------------------------
-00BF            558   _prlPark:
-00BF            559   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:107: tx_byte(PRL_PARK); // parallel park is 10000000
-00BF 758284     560            mov     dpl,#0x84
-00C2 020100     561            ljmp    _tx_byte
-00C5            562   ;------------------------------------------------------------
-00C5            563   ;Allocation info for local variables in function 'main'
-00C5            564   ;------------------------------------------------------------
-00C5            565   ;------------------------------------------------------------
-00C5            566   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:110: void main (void)
-00C5            567   ;        -----------------------------------------
-00C5            568   ;         function main
-00C5            569   ;        -----------------------------------------
-00C5            570   _main:
-00C5            571   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: while(1) {
-00C5            572   L010010?:
-00C5            573   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:114: if(P2_1 == 1) moveCloser();
-00C5 30A1E8     574            jnb     _P2_1,L010002?
-00C8 120100     575            lcall   _moveCloser
-00CB            576   L010002?:
-00CB            577   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:116: if(P2_2 == 1) moveFurther();
-00CB 30A228     578            jnb     _P2_2,L010004?
-00CE 120100     579            lcall   _moveFurther
-00D1            580   L010004?:
-00D1            581   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:118: if(P2_3 == 1) rotate180();
-00D1 30A368     582            jnb     _P2_3,L010006?
-00D4 120100     583            lcall   _rotate180
-00D7            584   L010006?:
-00D7            585   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:120: if(P2_4 == 1) prlPark();
-00D7 30A4A8     586            jnb     _P2_4,L010010?
-00DA 120100     587            lcall   _prlPark
-00DD 8001       588            sjmp    L010010?
-00DF            589            rseg R_CSEG
-00DF            590   
-0000            591            rseg R_XINIT
-0000            592   
-0000            593            rseg R_CONST
-0000            594   
-000E            595            CSEG
-000E            596   
-000E            597   end
+0000            353   ;         function _c51_external_startup
+0000            354   ;        -----------------------------------------
+0000            355   __c51_external_startup:
+0000            356            using   0
+0000            357   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:23: P0M0=0;  P0M1=0xFF; //ports 0 to 4 are push-pull for lcd screen
+0000 75E600     358            mov     _P0M0,#0x00
+0003 75E7FF     359            mov     _P0M1,#0xFF
+0006            360   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:24: P1M0=0;  P1M1=0x03; //ports 0 and 1 are push-pull 00000011 = 0x03
+0006 75D600     361            mov     _P1M0,#0x00
+0009 75D703     362            mov     _P1M1,#0x03
+000C            363   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:25: P2M0=0x7E;       P2M1=0; //ports 2.1-2.6 input  01111110 = 0x7E
+000C 75CE7E     364            mov     _P2M0,#0x7E
+000F 75CF00     365            mov     _P2M1,#0x00
+0012            366   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:26: P3M0=0;  P3M1=0;
+0012 75C600     367            mov     _P3M0,#0x00
+0015 75C700     368            mov     _P3M1,#0x00
+0018            369   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:27: AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
+0018 758E11     370            mov     _AUXR,#0x11
+001B            371   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:28: P4M0=0;  P4M1=0;
+001B 75BE00     372            mov     _P4M0,#0x00
+001E 75BF00     373            mov     _P4M1,#0x00
+0021            374   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:31: PCON|=0x80;
+0021 438780     375            orl     _PCON,#0x80
+0024            376   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:32: SCON = 0x52;
+0024 759852     377            mov     _SCON,#0x52
+0027            378   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:33: BDRCON=0;
+0027 759B00     379            mov     _BDRCON,#0x00
+002A            380   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:34: BRL=BRG_VAL;
+002A 759AFA     381            mov     _BRL,#0xFA
+002D            382   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:35: BDRCON=BRR|TBCK|RBCK|SPD;
+002D 759B1E     383            mov     _BDRCON,#0x1E
+0030            384   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:38: TR0=0; // Stop timer 0
+0030 C28C       385            clr     _TR0
+0032            386   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:39: TMOD=0x01; // 16-bit timer
+0032 758901     387            mov     _TMOD,#0x01
+0035            388   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:44: TH0=RH0=TIMER0_RELOAD_VALUE/0x100;
+0035 75F4FF     389            mov     _RH0,#0xFF
+0038 758CFF     390            mov     _TH0,#0xFF
+003B            391   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:45: TL0=RL0=TIMER0_RELOAD_VALUE%0x100;
+003B 75F2C2     392            mov     _RL0,#0xC2
+003E 758AC2     393            mov     _TL0,#0xC2
+0041            394   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:46: TR0=1; // Start timer 0 (bit 4 in TCON)
+0041 D28C       395            setb    _TR0
+0043            396   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:47: ET0=1; // Enable timer 0 interrupt
+0043 D2A9       397            setb    _ET0
+0045            398   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:48: EA=1;  // Enable global interrupts
+0045 D2AF       399            setb    _EA
+0047            400   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:50: P1_0=0;
+0047 C290       401            clr     _P1_0
+0049            402   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:51: P1_1=1;
+0049 D291       403            setb    _P1_1
+004B            404   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:53: RIGHTARROW = 0;
+004B C281       405            clr     _P0_1
+004D            406   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:54: LEFTARROW = 0;
+004D C282       407            clr     _P0_2
+004F            408   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:55: STOPFACE = 0;
+004F C283       409            clr     _P0_3
+0051            410   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:56: PARALLELPARK = 0;
+0051 C284       411            clr     _P0_4
+0053            412   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:57: BENDER = 1;
+0053 D280       413            setb    _P0_0
+0055            414   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:59: return 0;
+0055 758200     415            mov     dpl,#0x00
+0058 22         416            ret
+0059            417   ;------------------------------------------------------------
+0059            418   ;Allocation info for local variables in function 'pwmcounter'
+0059            419   ;------------------------------------------------------------
+0059            420   ;------------------------------------------------------------
+0059            421   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:62: void pwmcounter (void) interrupt 1
+0059            422   ;        -----------------------------------------
+0059            423   ;         function pwmcounter
+0059            424   ;        -----------------------------------------
+0059            425   _pwmcounter:
+0059            426   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:64: P1_0=!P1_0;
+0059 B290       427            cpl     _P1_0
+005B            428   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:65: P1_1=!P1_1;
+005B B291       429            cpl     _P1_1
+005D 32         430            reti
+005E            431   ;        eliminated unneeded push/pop psw
+005E            432   ;        eliminated unneeded push/pop dpl
+005E            433   ;        eliminated unneeded push/pop dph
+005E            434   ;        eliminated unneeded push/pop b
+005E            435   ;        eliminated unneeded push/pop acc
+005E            436   ;------------------------------------------------------------
+005E            437   ;Allocation info for local variables in function 'wait_bit_time'
+005E            438   ;------------------------------------------------------------
+005E            439   ;------------------------------------------------------------
+005E            440   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:69: void wait_bit_time(void)
+005E            441   ;        -----------------------------------------
+005E            442   ;         function wait_bit_time
+005E            443   ;        -----------------------------------------
+005E            444   _wait_bit_time:
+005E            445   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:81: _endasm;
+005E            446            
+005E            447     ;For a 22.1184MHz crystal one machine cycle
+005E            448     ;takes 12/22.1184MHz=0.5425347us
+005E 7A02       449                 mov R2, #2
+0060            450             L3:
+0060 79C8       451            mov R1, #200
+0062            452             L2:
+0062 78C8       453            mov R0, #200
+0064            454             L1:
+0064 D868       455            djnz R0, L1
+0066 D928       456                 djnz R1, L2
+0068 DAE8       457                 djnz R2, L3
+006A 22         458                 ret
+006B            459                
+006B 22         460            ret
+006C            461   ;------------------------------------------------------------
+006C            462   ;Allocation info for local variables in function 'Wait_1ms'
+006C            463   ;------------------------------------------------------------
+006C            464   ;------------------------------------------------------------
+006C            465   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:84: void Wait_1ms(void){
+006C            466   ;        -----------------------------------------
+006C            467   ;         function Wait_1ms
+006C            468   ;        -----------------------------------------
+006C            469   _Wait_1ms:
+006C            470   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:95: _endasm;
+006C            471            
+006C            472      ;For a 22.1184MHz crystal one machine cycle
+006C            473      ;takes 12/22.1184MHz=0.5425347us
+006C 7A02       474                  mov R2, #2
+006E            475             Lz3:
+006E 7905       476            mov R1, #5
+0070            477             Lz2:
+0070 785C       478            mov R0, #92
+0072            479             Lz1:
+0072 D828       480            djnz R0, Lz1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+0074 D9E8       481                  djnz R1, Lz2 ; 200us*250=0.05s
+0076 DAA8       482                  djnz R2, Lz3 ; 0.05s*20=50ms
+0078 22         483                  ret
+0079            484                
+0079 22         485            ret
+007A            486   ;------------------------------------------------------------
+007A            487   ;Allocation info for local variables in function 'Wait_X_Time'
+007A            488   ;------------------------------------------------------------
+007A            489   ;time                      Allocated to registers r2 r3 
+007A            490   ;i                         Allocated to registers r4 r5 
+007A            491   ;------------------------------------------------------------
+007A            492   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:99: void Wait_X_Time(int time){
+007A            493   ;        -----------------------------------------
+007A            494   ;         function Wait_X_Time
+007A            495   ;        -----------------------------------------
+007A            496   _Wait_X_Time:
+007A AA82       497            mov     r2,dpl
+007C AB83       498            mov     r3,dph
+007E            499   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:101: for (i = 0; i < time; ++i){
+007E 7C00       500            mov     r4,#0x00
+0080 7D00       501            mov     r5,#0x00
+0082            502   L006001?:
+0082 C3         503            clr     c
+0083 EC         504            mov     a,r4
+0084 9A         505            subb    a,r2
+0085 ED         506            mov     a,r5
+0086 6480       507            xrl     a,#0x80
+0088 8BF0       508            mov     b,r3
+008A 63F080     509            xrl     b,#0x80
+008D 95F0       510            subb    a,b
+008F 5001       511            jnc     L006005?
+0091            512   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:102: Wait_1ms();
+0091 C002       513            push    ar2
+0093 C003       514            push    ar3
+0095 C004       515            push    ar4
+0097 C005       516            push    ar5
+0099 120100     517            lcall   _Wait_1ms
+009C D005       518            pop     ar5
+009E D004       519            pop     ar4
+00A0 D003       520            pop     ar3
+00A2 D002       521            pop     ar2
+00A4            522   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:101: for (i = 0; i < time; ++i){
+00A4 0C         523            inc     r4
+00A5 BC00A8     524            cjne    r4,#0x00,L006001?
+00A8 0D         525            inc     r5
+00A9 8001       526            sjmp    L006001?
+00AB            527   L006005?:
+00AB 22         528            ret
+00AC            529   ;------------------------------------------------------------
+00AC            530   ;Allocation info for local variables in function 'tx_byte'
+00AC            531   ;------------------------------------------------------------
+00AC            532   ;val                       Allocated to registers r2 
+00AC            533   ;j                         Allocated to registers r3 
+00AC            534   ;------------------------------------------------------------
+00AC            535   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:106: void tx_byte(unsigned char val)
+00AC            536   ;        -----------------------------------------
+00AC            537   ;         function tx_byte
+00AC            538   ;        -----------------------------------------
+00AC            539   _tx_byte:
+00AC AA82       540            mov     r2,dpl
+00AE            541   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:110: EA=0;
+00AE C2AF       542            clr     _EA
+00B0            543   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:111: wait_bit_time();
+00B0 C002       544            push    ar2
+00B2 120100     545            lcall   _wait_bit_time
+00B5 D002       546            pop     ar2
+00B7            547   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: for (j=0; j<8; j++)
+00B7 7B00       548            mov     r3,#0x00
+00B9            549   L007001?:
+00B9 BB08A8     550            cjne    r3,#0x08,L007010?
+00BC            551   L007010?:
+00BC 5001       552            jnc     L007004?
+00BE            553   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:114: EA=val&(0x01<<j)?1:0; 
+00BE 8BF0       554            mov     b,r3
+00C0 05F0       555            inc     b
+00C2 7C01       556            mov     r4,#0x01
+00C4 7D00       557            mov     r5,#0x00
+00C6 8001       558            sjmp    L007013?
+00C8            559   L007012?:
+00C8 EC         560            mov     a,r4
+00C9 2C         561            add     a,r4
+00CA FC         562            mov     r4,a
+00CB ED         563            mov     a,r5
+00CC 33         564            rlc     a
+00CD FD         565            mov     r5,a
+00CE            566   L007013?:
+00CE D5F068     567            djnz    b,L007012?
+00D1 8A06       568            mov     ar6,r2
+00D3 7F00       569            mov     r7,#0x00
+00D5 EE         570            mov     a,r6
+00D6 5204       571            anl     ar4,a
+00D8 EF         572            mov     a,r7
+00D9 5205       573            anl     ar5,a
+00DB EC         574            mov     a,r4
+00DC 4D         575            orl     a,r5
+00DD 24FF       576            add     a,#0xff
+00DF 92AF       577            mov     _EA,c
+00E1            578   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:115: wait_bit_time();
+00E1 C002       579            push    ar2
+00E3 C003       580            push    ar3
+00E5 120100     581            lcall   _wait_bit_time
+00E8 D003       582            pop     ar3
+00EA D002       583            pop     ar2
+00EC            584   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: for (j=0; j<8; j++)
+00EC 0B         585            inc     r3
+00ED 8001       586            sjmp    L007001?
+00EF            587   L007004?:
+00EF            588   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:117: EA=1;
+00EF D2AF       589            setb    _EA
+00F1            590   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:119: wait_bit_time();
+00F1 120100     591            lcall   _wait_bit_time
+00F4            592   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:120: wait_bit_time();
+00F4 020100     593            ljmp    _wait_bit_time
+00F7            594   ;------------------------------------------------------------
+00F7            595   ;Allocation info for local variables in function 'moveCloser'
+00F7            596   ;------------------------------------------------------------
+00F7            597   ;------------------------------------------------------------
+00F7            598   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:123: void moveCloser(void) 
+00F7            599   ;        -----------------------------------------
+00F7            600   ;         function moveCloser
+00F7            601   ;        -----------------------------------------
+00F7            602   _moveCloser:
+00F7            603   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:125: while (1)
+00F7            604   L008002?:
+00F7            605   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:127: BENDER = 0;
+00F7 C280       606            clr     _P0_0
+00F9            607   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:133: BENDER = 1;
+00F9 8001       608            sjmp    L008002?
+00FB            609   ;------------------------------------------------------------
+00FB            610   ;Allocation info for local variables in function 'moveFurther'
+00FB            611   ;------------------------------------------------------------
+00FB            612   ;------------------------------------------------------------
+00FB            613   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:136: void moveFurther(void)
+00FB            614   ;        -----------------------------------------
+00FB            615   ;         function moveFurther
+00FB            616   ;        -----------------------------------------
+00FB            617   _moveFurther:
+00FB            618   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:138: tx_byte(MOVE_FURTHER); // move farther is 11110101
+00FB 7582FD     619            mov     dpl,#0xFD
+00FE 120100     620            lcall   _tx_byte
+0101            621   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:139: BENDER = 0;
+0101 C280       622            clr     _P0_0
+0103            623   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:140: STOPFACE = 1;
+0103 D283       624            setb    _P0_3
+0105            625   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:141: Wait_X_Time(1500);
+0105 9005DC     626            mov     dptr,#0x05DC
+0108 120100     627            lcall   _Wait_X_Time
+010B            628   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:142: STOPFACE = 0;
+010B C283       629            clr     _P0_3
+010D            630   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:143: BENDER = 1;
+010D D280       631            setb    _P0_0
+010F 22         632            ret
+0110            633   ;------------------------------------------------------------
+0110            634   ;Allocation info for local variables in function 'rotate180'
+0110            635   ;------------------------------------------------------------
+0110            636   ;------------------------------------------------------------
+0110            637   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:146: void rotate180(void)
+0110            638   ;        -----------------------------------------
+0110            639   ;         function rotate180
+0110            640   ;        -----------------------------------------
+0110            641   _rotate180:
+0110            642   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:148: tx_byte(ROTATE_180); // rotate is 11010101
+0110 7582D5     643            mov     dpl,#0xD5
+0113 120100     644            lcall   _tx_byte
+0116            645   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:149: BENDER = 0;
+0116 C280       646            clr     _P0_0
+0118            647   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:150: RIGHTARROW = 1;
+0118 D281       648            setb    _P0_1
+011A            649   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:151: Wait_X_Time(3000);
+011A 900BB8     650            mov     dptr,#0x0BB8
+011D 120100     651            lcall   _Wait_X_Time
+0120            652   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:152: RIGHTARROW = 0;
+0120 C281       653            clr     _P0_1
+0122            654   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:153: BENDER = 1;
+0122 D280       655            setb    _P0_0
+0124 22         656            ret
+0125            657   ;------------------------------------------------------------
+0125            658   ;Allocation info for local variables in function 'prlPark'
+0125            659   ;------------------------------------------------------------
+0125            660   ;------------------------------------------------------------
+0125            661   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:156: void prlPark(void)
+0125            662   ;        -----------------------------------------
+0125            663   ;         function prlPark
+0125            664   ;        -----------------------------------------
+0125            665   _prlPark:
+0125            666   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:158: tx_byte(PRL_PARK); // parallel park is 10000010
+0125 758286     667            mov     dpl,#0x86
+0128 120100     668            lcall   _tx_byte
+012B            669   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:159: BENDER = 0;
+012B C280       670            clr     _P0_0
+012D            671   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:160: PARALLELPARK = 1;
+012D D284       672            setb    _P0_4
+012F            673   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:161: Wait_X_Time(12000);
+012F 902EE0     674            mov     dptr,#0x2EE0
+0132 120100     675            lcall   _Wait_X_Time
+0135            676   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:162: PARALLELPARK = 0;
+0135 C284       677            clr     _P0_4
+0137            678   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:163: BENDER = 1;
+0137 D280       679            setb    _P0_0
+0139 22         680            ret
+013A            681   ;------------------------------------------------------------
+013A            682   ;Allocation info for local variables in function 'main'
+013A            683   ;------------------------------------------------------------
+013A            684   ;------------------------------------------------------------
+013A            685   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:166: void main (void)
+013A            686   ;        -----------------------------------------
+013A            687   ;         function main
+013A            688   ;        -----------------------------------------
+013A            689   _main:
+013A            690   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:168: while(1) {
+013A            691   L012010?:
+013A            692   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:170: if(P2_1 == 1) moveCloser();
+013A 30A128     693            jnb     _P2_1,L012002?
+013D 120100     694            lcall   _moveCloser
+0140            695   L012002?:
+0140            696   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:172: if(P2_2 == 1) moveFurther();
+0140 30A268     697            jnb     _P2_2,L012004?
+0143 120100     698            lcall   _moveFurther
+0146            699   L012004?:
+0146            700   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:174: if(P2_3 == 1) rotate180();
+0146 30A3A8     701            jnb     _P2_3,L012006?
+0149 120100     702            lcall   _rotate180
+014C            703   L012006?:
+014C            704   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:176: if(P2_4 == 1) prlPark();
+014C 30A4E8     705            jnb     _P2_4,L012010?
+014F 120100     706            lcall   _prlPark
+0152 8001       707            sjmp    L012010?
+0154            708            rseg R_CSEG
+0154            709   
+0000            710            rseg R_XINIT
+0000            711   
+0000            712            rseg R_CONST
+0000            713   
+000E            714            CSEG
+000E            715   
+000E            716   end
