@@ -95,7 +95,7 @@ void rotate180(void)
 
 void prlPark(void)
 {
-	tx_byte(PRL_PARK); // parallel park is 10000000
+	tx_byte(PRL_PARK); // parallel park is 10000010
 }
 
 void main (void)
