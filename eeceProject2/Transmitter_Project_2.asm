@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Thu Apr 03 03:36:12 2014
+; This file was generated Thu Apr 03 13:48:27 2014
 ;--------------------------------------------------------
 $name Transmitter_Project_2
 $optc51 --model-small
@@ -401,16 +401,6 @@ __c51_external_startup:
 	clr	_P1_0
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:51: P1_1=1;
 	setb	_P1_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:53: RIGHTARROW = 0;
-	clr	_P0_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:54: LEFTARROW = 0;
-	clr	_P0_2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:55: STOPFACE = 0;
-	clr	_P0_3
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:56: PARALLELPARK = 0;
-	clr	_P0_4
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:57: BENDER = 1;
-	setb	_P0_0
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:59: return 0;
 	mov	dpl,#0x00
 	ret
@@ -550,7 +540,7 @@ L007001?:
 	cjne	r3,#0x08,L007010?
 L007010?:
 	jnc	L007004?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:114: EA=val&(0x01<<j)?1:0; 
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:114: EA=val&(0x01<<j)?1:0; //if true, 1. else 0.
 	mov	b,r3
 	inc	b
 	mov	r4,#0x01
@@ -600,108 +590,69 @@ L007004?:
 ;	 function moveCloser
 ;	-----------------------------------------
 _moveCloser:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:125: while (1)
-L008002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:127: BENDER = 0;
-	clr	_P0_0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:133: BENDER = 1;
-	sjmp	L008002?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:125: tx_byte(MOVE_CLOSER); // move closer is 11111101
+	mov	dpl,#0xF5
+	ljmp	_tx_byte
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'moveFurther'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:136: void moveFurther(void)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:133: void moveFurther(void)
 ;	-----------------------------------------
 ;	 function moveFurther
 ;	-----------------------------------------
 _moveFurther:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:138: tx_byte(MOVE_FURTHER); // move farther is 11110101
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:135: tx_byte(MOVE_FURTHER); // move farther is 11110101
 	mov	dpl,#0xFD
-	lcall	_tx_byte
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:139: BENDER = 0;
-	clr	_P0_0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:140: STOPFACE = 1;
-	setb	_P0_3
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:141: Wait_X_Time(1500);
-	mov	dptr,#0x05DC
-	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:142: STOPFACE = 0;
-	clr	_P0_3
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:143: BENDER = 1;
-	setb	_P0_0
-	ret
+	ljmp	_tx_byte
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'rotate180'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:146: void rotate180(void)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:143: void rotate180(void)
 ;	-----------------------------------------
 ;	 function rotate180
 ;	-----------------------------------------
 _rotate180:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:148: tx_byte(ROTATE_180); // rotate is 11010101
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:145: tx_byte(ROTATE_180); // rotate is 11010101
 	mov	dpl,#0xD5
-	lcall	_tx_byte
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:149: BENDER = 0;
-	clr	_P0_0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:150: RIGHTARROW = 1;
-	setb	_P0_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:151: Wait_X_Time(3000);
-	mov	dptr,#0x0BB8
-	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:152: RIGHTARROW = 0;
-	clr	_P0_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:153: BENDER = 1;
-	setb	_P0_0
-	ret
+	ljmp	_tx_byte
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'prlPark'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:156: void prlPark(void)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:153: void prlPark(void)
 ;	-----------------------------------------
 ;	 function prlPark
 ;	-----------------------------------------
 _prlPark:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:158: tx_byte(PRL_PARK); // parallel park is 10000010
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:155: tx_byte(PRL_PARK); // parallel park is 10000010
 	mov	dpl,#0x86
-	lcall	_tx_byte
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:159: BENDER = 0;
-	clr	_P0_0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:160: PARALLELPARK = 1;
-	setb	_P0_4
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:161: Wait_X_Time(12000);
-	mov	dptr,#0x2EE0
-	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:162: PARALLELPARK = 0;
-	clr	_P0_4
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:163: BENDER = 1;
-	setb	_P0_0
-	ret
+	ljmp	_tx_byte
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:166: void main (void)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:163: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:168: while(1) {
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:165: while(1) {
 L012010?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:170: if(P2_1 == 1) moveCloser();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:167: if(P2_1 == 1) moveCloser();
 	jnb	_P2_1,L012002?
 	lcall	_moveCloser
 L012002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:172: if(P2_2 == 1) moveFurther();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:169: if(P2_2 == 1) moveFurther();
 	jnb	_P2_2,L012004?
 	lcall	_moveFurther
 L012004?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:174: if(P2_3 == 1) rotate180();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:171: if(P2_3 == 1) rotate180();
 	jnb	_P2_3,L012006?
 	lcall	_rotate180
 L012006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:176: if(P2_4 == 1) prlPark();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:173: if(P2_4 == 1) prlPark();
 	jnb	_P2_4,L012010?
 	lcall	_prlPark
 	sjmp	L012010?

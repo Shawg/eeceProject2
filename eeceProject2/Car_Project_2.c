@@ -72,12 +72,11 @@ void wait1s(void);
 void run (void);
 void Wait_1ms (void);
 void Wait_X_Time (int time);
-void Short_Buzzer(void);
 
 unsigned char _c51_external_startup(void)
 {
 	// Configure ports as a bidirectional with internal pull-ups.
-	P0M0=0;	P0M1=0x01; // configure port 0.0 for buzzer
+	P0M0=0;	P0M1=0;
 	P1M0=0;	P1M1=0;
 	P2M0=0;	P2M1=0;
 	P3M0=0;	P3M1=0;
@@ -367,22 +366,6 @@ void Parallel_Park_Wait_6(void){
 
 }
 
-//Sounds buzzer
-void Short_Buzzer(void){
-	_asm
-			mov R4, #10
-	J1:		mov R3, #250
-	J0:		mov R2, #80
-	J3:		mov R1, #100
-			djnz R1, $
-			djnz R2, J3
-			cpl P0.0
-			djnz R3, J0
-			djnz R4, J1
-			ret
-	_endasm;
-}
-
 // This causes the car to move backards in a straight line
 void Move_Forwards(void){
 	Move_Right_Motor_Forwards();
@@ -398,13 +381,12 @@ void Parallel_Park(void){
 	Move_Left_Motor_Backwards();
 	Wait_X_Time(1000);
 	Move_Right_Motor_Backwards();
-	Wait_X_Time(500);
+	Wait_X_Time(700);
 	Stop_Car();
 	Move_Right_Motor_Backwards();
-	Wait_X_Time(985);
+	Wait_X_Time(1050);
 	Stop_Car();
-	Short_Buzzer();
-
+	
 	wait1s(); //replace with while(1) loop to tell the robot to unParallel park
 	wait1s();
 	wait1s();
@@ -416,11 +398,10 @@ void Parallel_Park(void){
 	Wait_X_Time(600);
 	Stop_Car();
 	Move_Left_Motor_Forwards();
-	Wait_X_Time(1000);
+	Wait_X_Time(900);
 	Move_Right_Motor_Forwards();
 	Wait_X_Time(1300);
 	Stop_Car();
-	Short_Buzzer();
 }
 
 void Undo_Parallel_Park (void){
@@ -488,7 +469,7 @@ void Rotate_Car_180_CW(void){
 	Stop_Car();
 	Move_Left_Motor_Forwards();
 	Move_Right_Motor_Backwards();
-	Wait_X_Time(1277);
+	Wait_X_Time(1600);
  	Stop_Car();
 	
 	if(reverse == 0){
@@ -505,7 +486,7 @@ void Rotate_Car_180_CCW(void){
  	Stop_Car();
 	Move_Right_Motor_Forwards();
 	Move_Left_Motor_Backwards();
-	Wait_X_Time(1277); //wait 2000 ms
+	Wait_X_Time(1500); //wait 2000 ms
  	Stop_Car();
 
 	if(reverse == 0){

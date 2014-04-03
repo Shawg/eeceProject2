@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Thu Apr 03 02:22:51 2014
+; This file was generated Thu Apr 03 13:47:48 2014
 ;--------------------------------------------------------
 $name Car_Project_2
 $optc51 --model-small
@@ -61,6 +61,7 @@ $optc51 --model-small
 	public _Face_Transmitter
 	public _Wait_X_Time
 	public _Wait_1ms
+	public _Short_Buzzer
 	public _Move_Forwards
 	public _Parallel_Park
 	public _Undo_Parallel_Park
@@ -353,9 +354,9 @@ _dist_index:
 	ds 2
 _reverse:
 	ds 1
-_run_right_distance_1_179:
+_run_right_distance_1_182:
 	ds 2
-_run_left_distance_1_179:
+_run_left_distance_1_182:
 	ds 2
 _run_sloc0_1_0:
 	ds 2
@@ -438,71 +439,71 @@ _run_sloc0_1_0:
 ;Allocation info for local variables in function '_c51_external_startup'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:76: unsigned char _c51_external_startup(void)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:77: unsigned char _c51_external_startup(void)
 ;	-----------------------------------------
 ;	 function _c51_external_startup
 ;	-----------------------------------------
 __c51_external_startup:
 	using	0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:79: P0M0=0;	P0M1=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:80: P0M0=0;	P0M1=0x01; // configure port 0.0 for buzzer
 	mov	_P0M0,#0x00
-	mov	_P0M1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:80: P1M0=0;	P1M1=0;
+	mov	_P0M1,#0x01
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:81: P1M0=0;	P1M1=0;
 	mov	_P1M0,#0x00
 	mov	_P1M1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:81: P2M0=0;	P2M1=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:82: P2M0=0;	P2M1=0;
 	mov	_P2M0,#0x00
 	mov	_P2M1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:82: P3M0=0;	P3M1=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:83: P3M0=0;	P3M1=0;
 	mov	_P3M0,#0x00
 	mov	_P3M1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:83: AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:84: AUXR=0B_0001_0001; // 1152 bytes of internal XDATA, P4.4 is a general purpose I/O
 	mov	_AUXR,#0x11
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:84: P4M0=0;	P4M1=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:85: P4M0=0;	P4M1=0;
 	mov	_P4M0,#0x00
 	mov	_P4M1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:87: PCON|=0x80;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:88: PCON|=0x80;
 	orl	_PCON,#0x80
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:88: SCON = 0x52;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:89: SCON = 0x52;
 	mov	_SCON,#0x52
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:89: BDRCON=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:90: BDRCON=0;
 	mov	_BDRCON,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:90: BRL=BRG_VAL;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:91: BRL=BRG_VAL;
 	mov	_BRL,#0xFA
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:91: BDRCON=BRR|TBCK|RBCK|SPD;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:92: BDRCON=BRR|TBCK|RBCK|SPD;
 	mov	_BDRCON,#0x1E
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:94: TR0=0; // Stop timer 0
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:95: TR0=0; // Stop timer 0
 	clr	_TR0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:95: TMOD=0x01; // 16-bit timer
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:96: TMOD=0x01; // 16-bit timer
 	mov	_TMOD,#0x01
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:100: TH0=RH0=TIMER0_RELOAD_VALUE/0x100;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:101: TH0=RH0=TIMER0_RELOAD_VALUE/0x100;
 	mov	_RH0,#0xFF
 	mov	_TH0,#0xFF
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:101: TL0=RL0=TIMER0_RELOAD_VALUE%0x100;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:102: TL0=RL0=TIMER0_RELOAD_VALUE%0x100;
 	mov	_RL0,#0x48
 	mov	_TL0,#0x48
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:102: TR0=1; // Start timer 0 (bit 4 in TCON)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:103: TR0=1; // Start timer 0 (bit 4 in TCON)
 	setb	_TR0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:103: ET0=1; // Enable timer 0 interrupt
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:104: ET0=1; // Enable timer 0 interrupt
 	setb	_ET0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:104: EA=1;  // Enable global interrupts
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:105: EA=1;  // Enable global interrupts
 	setb	_EA
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:106: left_motor_pwmcount1 = 0;    
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:107: left_motor_pwmcount1 = 0;    
 	mov	_left_motor_pwmcount1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:107: left_motor_pwmcount2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:108: left_motor_pwmcount2 = 0;
 	mov	_left_motor_pwmcount2,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:108: right_motor_pwmcount1 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:109: right_motor_pwmcount1 = 0;
 	mov	_right_motor_pwmcount1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:109: right_motor_pwmcount2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:110: right_motor_pwmcount2 = 0;
 	mov	_right_motor_pwmcount2,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:111: return 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:112: return 0;
 	mov	dpl,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'pwmcounter'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:116: void pwmcounter (void) interrupt 1
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:117: void pwmcounter (void) interrupt 1
 ;	-----------------------------------------
 ;	 function pwmcounter
 ;	-----------------------------------------
@@ -510,50 +511,50 @@ _pwmcounter:
 	push	acc
 	push	psw
 	mov	psw,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:118: if(++left_motor_pwmcount1>99) left_motor_pwmcount1=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:119: if(++left_motor_pwmcount1>99) left_motor_pwmcount1=0;
 	inc	_left_motor_pwmcount1
 	mov	a,_left_motor_pwmcount1
 	add	a,#0xff - 0x63
 	jnc	L003002?
 	mov	_left_motor_pwmcount1,#0x00
 L003002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:119: P1_2=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:120: P1_2=(left_motor_pwm1>left_motor_pwmcount1)?1:0;
 	clr	c
 	mov	a,_left_motor_pwmcount1
 	subb	a,_left_motor_pwm1
 	mov	_P1_2,c
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:121: if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:122: if(++left_motor_pwmcount2>99) left_motor_pwmcount2=0;
 	inc	_left_motor_pwmcount2
 	mov	a,_left_motor_pwmcount2
 	add	a,#0xff - 0x63
 	jnc	L003004?
 	mov	_left_motor_pwmcount2,#0x00
 L003004?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:122: P1_4=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:123: P1_4=(left_motor_pwm2>left_motor_pwmcount2)?1:0;
 	clr	c
 	mov	a,_left_motor_pwmcount2
 	subb	a,_left_motor_pwm2
 	mov	_P1_4,c
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:124: if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:125: if(++right_motor_pwmcount1>99) right_motor_pwmcount1=0;
 	inc	_right_motor_pwmcount1
 	mov	a,_right_motor_pwmcount1
 	add	a,#0xff - 0x63
 	jnc	L003006?
 	mov	_right_motor_pwmcount1,#0x00
 L003006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:125: P1_0=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:126: P1_0=(right_motor_pwm1>right_motor_pwmcount1)?1:0;
 	clr	c
 	mov	a,_right_motor_pwmcount1
 	subb	a,_right_motor_pwm1
 	mov	_P1_0,c
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:127: if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:128: if(++right_motor_pwmcount2>99) right_motor_pwmcount2=0;
 	inc	_right_motor_pwmcount2
 	mov	a,_right_motor_pwmcount2
 	add	a,#0xff - 0x63
 	jnc	L003008?
 	mov	_right_motor_pwmcount2,#0x00
 L003008?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:128: P1_1=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:129: P1_1=(right_motor_pwm2>right_motor_pwmcount2)?1:0;
 	clr	c
 	mov	a,_right_motor_pwmcount2
 	subb	a,_right_motor_pwm2
@@ -568,96 +569,96 @@ L003008?:
 ;Allocation info for local variables in function 'Move_Right_Motor_Backwards'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:133: void Move_Right_Motor_Backwards(){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:134: void Move_Right_Motor_Backwards(){
 ;	-----------------------------------------
 ;	 function Move_Right_Motor_Backwards
 ;	-----------------------------------------
 _Move_Right_Motor_Backwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:134: right_motor_pwm1 = 51;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:135: right_motor_pwm1 = 51;
 	mov	_right_motor_pwm1,#0x33
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:135: right_motor_pwm2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:136: right_motor_pwm2 = 0;
 	mov	_right_motor_pwm2,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Right_Motor_Forwards'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:141: void Move_Right_Motor_Forwards (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:142: void Move_Right_Motor_Forwards (void){
 ;	-----------------------------------------
 ;	 function Move_Right_Motor_Forwards
 ;	-----------------------------------------
 _Move_Right_Motor_Forwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:142: right_motor_pwm1 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:143: right_motor_pwm1 = 0;
 	mov	_right_motor_pwm1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:143: right_motor_pwm2 = 51;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:144: right_motor_pwm2 = 51;
 	mov	_right_motor_pwm2,#0x33
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Left_Motor_Backwards'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:149: void Move_Left_Motor_Backwards (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:150: void Move_Left_Motor_Backwards (void){
 ;	-----------------------------------------
 ;	 function Move_Left_Motor_Backwards
 ;	-----------------------------------------
 _Move_Left_Motor_Backwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:150: left_motor_pwm1 = 47;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:151: left_motor_pwm1 = 47;
 	mov	_left_motor_pwm1,#0x2F
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:151: left_motor_pwm2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:152: left_motor_pwm2 = 0;
 	mov	_left_motor_pwm2,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Left_Motor_Forwards'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:156: void Move_Left_Motor_Forwards (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:157: void Move_Left_Motor_Forwards (void){
 ;	-----------------------------------------
 ;	 function Move_Left_Motor_Forwards
 ;	-----------------------------------------
 _Move_Left_Motor_Forwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:157: left_motor_pwm1 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:158: left_motor_pwm1 = 0;
 	mov	_left_motor_pwm1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:158: left_motor_pwm2 = 47;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:159: left_motor_pwm2 = 47;
 	mov	_left_motor_pwm2,#0x2F
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Stop_Right_Motor'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:162: void Stop_Right_Motor (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:163: void Stop_Right_Motor (void){
 ;	-----------------------------------------
 ;	 function Stop_Right_Motor
 ;	-----------------------------------------
 _Stop_Right_Motor:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:163: right_motor_pwm1 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:164: right_motor_pwm1 = 0;
 	mov	_right_motor_pwm1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:164: right_motor_pwm2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:165: right_motor_pwm2 = 0;
 	mov	_right_motor_pwm2,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Stop_Left_Motor'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:168: void Stop_Left_Motor (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:169: void Stop_Left_Motor (void){
 ;	-----------------------------------------
 ;	 function Stop_Left_Motor
 ;	-----------------------------------------
 _Stop_Left_Motor:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:169: left_motor_pwm1 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:170: left_motor_pwm1 = 0;
 	mov	_left_motor_pwm1,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:170: left_motor_pwm2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:171: left_motor_pwm2 = 0;
 	mov	_left_motor_pwm2,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'wait50ms'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:173: void wait50ms(){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:174: void wait50ms(){
 ;	-----------------------------------------
 ;	 function wait50ms
 ;	-----------------------------------------
 _wait50ms:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:184: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:185: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -678,16 +679,16 @@ _wait50ms:
 ;------------------------------------------------------------
 ;i                         Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:187: void wait1s(){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:188: void wait1s(){
 ;	-----------------------------------------
 ;	 function wait1s
 ;	-----------------------------------------
 _wait1s:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:189: for (i = 0; i < 20; ++i){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:190: for (i = 0; i < 20; ++i){
 	mov	r2,#0x14
 	mov	r3,#0x00
 L011003?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:190: wait50ms();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:191: wait50ms();
 	push	ar2
 	push	ar3
 	lcall	_wait50ms
@@ -697,7 +698,7 @@ L011003?:
 	cjne	r2,#0xff,L011009?
 	dec	r3
 L011009?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:189: for (i = 0; i < 20; ++i){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:190: for (i = 0; i < 20; ++i){
 	mov	a,r2
 	orl	a,r3
 	jnz	L011003?
@@ -706,38 +707,38 @@ L011009?:
 ;Allocation info for local variables in function 'Get_Right_Distance'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:198: unsigned int Get_Right_Distance(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:199: unsigned int Get_Right_Distance(void){
 ;	-----------------------------------------
 ;	 function Get_Right_Distance
 ;	-----------------------------------------
 _Get_Right_Distance:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:201: return GetADC(2); //for now channel 1 is right motor
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:202: return GetADC(2); //for now channel 1 is right motor
 	mov	dpl,#0x02
 	ljmp	_GetADC
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Get_Left_Distance'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:206: unsigned int Get_Left_Distance(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:207: unsigned int Get_Left_Distance(void){
 ;	-----------------------------------------
 ;	 function Get_Left_Distance
 ;	-----------------------------------------
 _Get_Left_Distance:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:208: return GetADC(3); //for now channel 0 is left motor
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:209: return GetADC(3); //for now channel 0 is left motor
 	mov	dpl,#0x03
 	ljmp	_GetADC
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Stop_Car'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:212: void Stop_Car (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:213: void Stop_Car (void){
 ;	-----------------------------------------
 ;	 function Stop_Car
 ;	-----------------------------------------
 _Stop_Car:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:213: Stop_Right_Motor();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:214: Stop_Right_Motor();
 	lcall	_Stop_Right_Motor
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:214: Stop_Left_Motor();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:215: Stop_Left_Motor();
 	ljmp	_Stop_Left_Motor
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Face_Transmitter'
@@ -745,16 +746,16 @@ _Stop_Car:
 ;right_distance            Allocated to registers r2 r3 
 ;left_distance             Allocated to registers r4 r5 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:218: void Face_Transmitter(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:219: void Face_Transmitter(void){
 ;	-----------------------------------------
 ;	 function Face_Transmitter
 ;	-----------------------------------------
 _Face_Transmitter:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:222: right_distance = Get_Right_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:223: right_distance = Get_Right_Distance();
 	lcall	_Get_Right_Distance
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:223: left_distance = Get_Left_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:224: left_distance = Get_Left_Distance();
 	push	ar2
 	push	ar3
 	lcall	_Get_Left_Distance
@@ -762,7 +763,7 @@ _Face_Transmitter:
 	mov	r5,dph
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:228: printf(" \n Before Turning!!!!!!!!! Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:229: printf(" \n Before Turning!!!!!!!!! Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
 	push	ar2
 	push	ar3
 	push	ar4
@@ -785,7 +786,7 @@ _Face_Transmitter:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:229: if (right_distance - left_distance > 50){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:230: if (right_distance - left_distance > 50){
 	mov	a,r2
 	clr	c
 	subb	a,r4
@@ -799,7 +800,7 @@ _Face_Transmitter:
 	clr	a
 	subb	a,r7
 	jnc	L015010?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:231: while(right_distance > left_distance ){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:232: while(right_distance > left_distance ){
 L015001?:
 	clr	c
 	mov	a,r4
@@ -807,13 +808,13 @@ L015001?:
 	mov	a,r5
 	subb	a,r3
 	jnc	L015003?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:232: Turn_Car_Right();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:233: Turn_Car_Right();
 	lcall	_Turn_Car_Right
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:233: right_distance = Get_Right_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: right_distance = Get_Right_Distance();
 	lcall	_Get_Right_Distance
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:234: left_distance = Get_Left_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:235: left_distance = Get_Left_Distance();
 	push	ar2
 	push	ar3
 	lcall	_Get_Left_Distance
@@ -821,7 +822,7 @@ L015001?:
 	mov	r5,dph
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:235: printf(" \n First Loop Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:236: printf(" \n First Loop Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
 	push	ar2
 	push	ar3
 	push	ar4
@@ -840,7 +841,7 @@ L015001?:
 	mov	a,sp
 	add	a,#0xf9
 	mov	sp,a
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:236: printf("\r");
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:237: printf("\r");
 	mov	a,#__str_2
 	push	acc
 	mov	a,#(__str_2 >> 8)
@@ -857,11 +858,11 @@ L015001?:
 	pop	ar2
 	sjmp	L015001?
 L015003?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:238: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:239: Stop_Car();
 	lcall	_Stop_Car
 	sjmp	L015011?
 L015010?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:240: else if (left_distance - right_distance > 30){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:241: else if (left_distance - right_distance > 30){
 	mov	a,r4
 	clr	c
 	subb	a,r2
@@ -875,7 +876,7 @@ L015010?:
 	clr	a
 	subb	a,r7
 	jnc	L015011?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:242: while(left_distance > right_distance ){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:243: while(left_distance > right_distance ){
 L015004?:
 	clr	c
 	mov	a,r2
@@ -883,13 +884,13 @@ L015004?:
 	mov	a,r3
 	subb	a,r5
 	jnc	L015006?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:243: Turn_Car_Left();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:244: Turn_Car_Left();
 	lcall	_Turn_Car_Left
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:244: right_distance = Get_Right_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:245: right_distance = Get_Right_Distance();
 	lcall	_Get_Right_Distance
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:245: left_distance = Get_Left_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:246: left_distance = Get_Left_Distance();
 	push	ar2
 	push	ar3
 	lcall	_Get_Left_Distance
@@ -897,7 +898,7 @@ L015004?:
 	mov	r5,dph
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:246: printf(" \n Second Loop Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:247: printf(" \n Second Loop Right Voltage Reading: %u, Left Voltage Reading: %u", right_distance, left_distance);
 	push	ar2
 	push	ar3
 	push	ar4
@@ -916,7 +917,7 @@ L015004?:
 	mov	a,sp
 	add	a,#0xf9
 	mov	sp,a
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:247: printf("\r");
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:248: printf("\r");
 	mov	a,#__str_2
 	push	acc
 	mov	a,#(__str_2 >> 8)
@@ -933,10 +934,10 @@ L015004?:
 	pop	ar2
 	sjmp	L015004?
 L015006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:249: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:250: Stop_Car();
 	lcall	_Stop_Car
 L015011?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:251: printf("made through both loops");
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:252: printf("made through both loops");
 	mov	a,#__str_4
 	push	acc
 	mov	a,#(__str_4 >> 8)
@@ -947,7 +948,7 @@ L015011?:
 	dec	sp
 	dec	sp
 	dec	sp
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:253: return;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:254: return;
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Wait_X_Time'
@@ -955,14 +956,14 @@ L015011?:
 ;time                      Allocated to registers r2 r3 
 ;i                         Allocated to registers r4 r5 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:257: void Wait_X_Time(int time){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:258: void Wait_X_Time(int time){
 ;	-----------------------------------------
 ;	 function Wait_X_Time
 ;	-----------------------------------------
 _Wait_X_Time:
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:259: for (i = 0; i < time; ++i){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:260: for (i = 0; i < time; ++i){
 	mov	r4,#0x00
 	mov	r5,#0x00
 L016001?:
@@ -975,7 +976,7 @@ L016001?:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	L016005?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:260: Wait_1ms();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:261: Wait_1ms();
 	push	ar2
 	push	ar3
 	push	ar4
@@ -985,7 +986,7 @@ L016001?:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:259: for (i = 0; i < time; ++i){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:260: for (i = 0; i < time; ++i){
 	inc	r4
 	cjne	r4,#0x00,L016001?
 	inc	r5
@@ -996,12 +997,12 @@ L016005?:
 ;Allocation info for local variables in function 'Wait_1ms'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:264: void Wait_1ms(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:265: void Wait_1ms(void){
 ;	-----------------------------------------
 ;	 function Wait_1ms
 ;	-----------------------------------------
 _Wait_1ms:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:275: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:276: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1021,12 +1022,12 @@ _Wait_1ms:
 ;Allocation info for local variables in function 'Parallel_Park_Wait_1'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:279: void Parallel_Park_Wait_1(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:280: void Parallel_Park_Wait_1(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park_Wait_1
 ;	-----------------------------------------
 _Parallel_Park_Wait_1:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:290: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:291: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1046,12 +1047,12 @@ _Parallel_Park_Wait_1:
 ;Allocation info for local variables in function 'Parallel_Park_Wait_2'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:294: void Parallel_Park_Wait_2(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:295: void Parallel_Park_Wait_2(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park_Wait_2
 ;	-----------------------------------------
 _Parallel_Park_Wait_2:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:305: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:306: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1071,12 +1072,12 @@ _Parallel_Park_Wait_2:
 ;Allocation info for local variables in function 'Parallel_Park_Wait_3'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:309: void Parallel_Park_Wait_3(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:310: void Parallel_Park_Wait_3(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park_Wait_3
 ;	-----------------------------------------
 _Parallel_Park_Wait_3:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:320: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:321: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1096,12 +1097,12 @@ _Parallel_Park_Wait_3:
 ;Allocation info for local variables in function 'Parallel_Park_Wait_4'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:324: void Parallel_Park_Wait_4(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:325: void Parallel_Park_Wait_4(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park_Wait_4
 ;	-----------------------------------------
 _Parallel_Park_Wait_4:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:335: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:336: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1121,12 +1122,12 @@ _Parallel_Park_Wait_4:
 ;Allocation info for local variables in function 'Parallel_Park_Wait_5'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:339: void Parallel_Park_Wait_5(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:340: void Parallel_Park_Wait_5(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park_Wait_5
 ;	-----------------------------------------
 _Parallel_Park_Wait_5:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:350: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:351: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1146,12 +1147,12 @@ _Parallel_Park_Wait_5:
 ;Allocation info for local variables in function 'Parallel_Park_Wait_6'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:354: void Parallel_Park_Wait_6(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:355: void Parallel_Park_Wait_6(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park_Wait_6
 ;	-----------------------------------------
 _Parallel_Park_Wait_6:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:365: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:366: _endasm;
 	
    ;For a 22.1184MHz crystal one machine cycle
    ;takes 12/22.1184MHz=0.5425347us
@@ -1168,165 +1169,195 @@ _Parallel_Park_Wait_6:
 	    
 	ret
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'Short_Buzzer'
+;------------------------------------------------------------
+;------------------------------------------------------------
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:371: void Short_Buzzer(void){
+;	-----------------------------------------
+;	 function Short_Buzzer
+;	-----------------------------------------
+_Short_Buzzer:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:383: _endasm;
+	
+	   mov R4, #10
+	 J1:
+	mov R3, #250
+	 J0:
+	mov R2, #80
+	 J3:
+	mov R1, #100
+	   djnz R1, $
+	   djnz R2, J3
+	   cpl P0.0
+	   djnz R3, J0
+	   djnz R4, J1
+	   ret
+	 
+	ret
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Forwards'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:370: void Move_Forwards(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:387: void Move_Forwards(void){
 ;	-----------------------------------------
 ;	 function Move_Forwards
 ;	-----------------------------------------
 _Move_Forwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:371: Move_Right_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:388: Move_Right_Motor_Forwards();
 	lcall	_Move_Right_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:372: Move_Left_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:389: Move_Left_Motor_Forwards();
 	ljmp	_Move_Left_Motor_Forwards
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Parallel_Park'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:376: void Parallel_Park(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:393: void Parallel_Park(void){
 ;	-----------------------------------------
 ;	 function Parallel_Park
 ;	-----------------------------------------
 _Parallel_Park:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:377: Move_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:394: Move_Backwards();
 	lcall	_Move_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:378: Wait_X_Time(1300);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:395: Wait_X_Time(1300);
 	mov	dptr,#0x0514
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:380: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:397: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:381: Move_Left_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:398: Move_Left_Motor_Backwards();
 	lcall	_Move_Left_Motor_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:382: Wait_X_Time(1000);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:399: Wait_X_Time(1000);
 	mov	dptr,#0x03E8
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:383: Move_Right_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:400: Move_Right_Motor_Backwards();
 	lcall	_Move_Right_Motor_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:384: Wait_X_Time(500);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:401: Wait_X_Time(500);
 	mov	dptr,#0x01F4
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:385: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:402: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:386: Move_Right_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:403: Move_Right_Motor_Backwards();
 	lcall	_Move_Right_Motor_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:387: Wait_X_Time(985);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:404: Wait_X_Time(985);
 	mov	dptr,#0x03D9
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:388: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:405: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:390: wait1s(); //replace with while(1) loop to tell the robot to unParallel park
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:406: Short_Buzzer();
+	lcall	_Short_Buzzer
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:408: wait1s(); //replace with while(1) loop to tell the robot to unParallel park
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:391: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:409: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:392: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:410: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:393: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:411: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:395: Move_Right_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:413: Move_Right_Motor_Forwards();
 	lcall	_Move_Right_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:396: Wait_X_Time(985);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:414: Wait_X_Time(985);
 	mov	dptr,#0x03D9
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:397: Move_Left_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:415: Move_Left_Motor_Forwards();
 	lcall	_Move_Left_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:398: Wait_X_Time(600);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:416: Wait_X_Time(600);
 	mov	dptr,#0x0258
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:399: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:417: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:400: Move_Left_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:418: Move_Left_Motor_Forwards();
 	lcall	_Move_Left_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:401: Wait_X_Time(1000);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:419: Wait_X_Time(1000);
 	mov	dptr,#0x03E8
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:402: Move_Right_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:420: Move_Right_Motor_Forwards();
 	lcall	_Move_Right_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:403: Wait_X_Time(1300);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:421: Wait_X_Time(1300);
 	mov	dptr,#0x0514
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:404: Stop_Car();
-	ljmp	_Stop_Car
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:422: Stop_Car();
+	lcall	_Stop_Car
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:423: Short_Buzzer();
+	ljmp	_Short_Buzzer
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Undo_Parallel_Park'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:407: void Undo_Parallel_Park (void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:426: void Undo_Parallel_Park (void){
 ;	-----------------------------------------
 ;	 function Undo_Parallel_Park
 ;	-----------------------------------------
 _Undo_Parallel_Park:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:408: Turn_Car_Left();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:427: Turn_Car_Left();
 	lcall	_Turn_Car_Left
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:409: Parallel_Park_Wait_3();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:428: Parallel_Park_Wait_3();
 	lcall	_Parallel_Park_Wait_3
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:411: Move_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:430: Move_Backwards();
 	lcall	_Move_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:412: Parallel_Park_Wait_4();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:431: Parallel_Park_Wait_4();
 	lcall	_Parallel_Park_Wait_4
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:414: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:433: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:415: Turn_Car_Right();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:434: Turn_Car_Right();
 	lcall	_Turn_Car_Right
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:416: Parallel_Park_Wait_3();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:435: Parallel_Park_Wait_3();
 	lcall	_Parallel_Park_Wait_3
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:418: Move_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:437: Move_Backwards();
 	lcall	_Move_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:419: Parallel_Park_Wait_1();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:438: Parallel_Park_Wait_1();
 	lcall	_Parallel_Park_Wait_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:421: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:440: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:422: Parallel_Park_Wait_5();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:441: Parallel_Park_Wait_5();
 	lcall	_Parallel_Park_Wait_5
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:424: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:443: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:425: Parallel_Park_Wait_6();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:444: Parallel_Park_Wait_6();
 	ljmp	_Parallel_Park_Wait_6
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Turn_Car_Left'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:431: void Turn_Car_Left(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:450: void Turn_Car_Left(void){
 ;	-----------------------------------------
 ;	 function Turn_Car_Left
 ;	-----------------------------------------
 _Turn_Car_Left:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:432: Move_Right_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:451: Move_Right_Motor_Backwards();
 	ljmp	_Move_Right_Motor_Backwards
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Turn_Car_Right'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:438: void Turn_Car_Right(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:457: void Turn_Car_Right(void){
 ;	-----------------------------------------
 ;	 function Turn_Car_Right
 ;	-----------------------------------------
 _Turn_Car_Right:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:439: Move_Left_Motor_Backwards(); //Same thoughts as above, (in Turn_Car_Left)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:458: Move_Left_Motor_Backwards(); //Same thoughts as above, (in Turn_Car_Left)
 	ljmp	_Move_Left_Motor_Backwards
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Backwards'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:444: void Move_Backwards(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:463: void Move_Backwards(void){
 ;	-----------------------------------------
 ;	 function Move_Backwards
 ;	-----------------------------------------
 _Move_Backwards:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:445: Move_Right_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:464: Move_Right_Motor_Backwards();
 	lcall	_Move_Right_Motor_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:446: Move_Left_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:465: Move_Left_Motor_Backwards();
 	ljmp	_Move_Left_Motor_Backwards
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Car_Closer'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:452: void Move_Car_Closer(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:471: void Move_Car_Closer(void){
 ;	-----------------------------------------
 ;	 function Move_Car_Closer
 ;	-----------------------------------------
 _Move_Car_Closer:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:455: if(dist_index > 0) dist_index--;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:474: if(dist_index > 0) dist_index--;
 	clr	c
 	clr	a
 	subb	a,_dist_index
@@ -1335,96 +1366,96 @@ _Move_Car_Closer:
 	mov	b,(_dist_index + 1)
 	xrl	b,#0x80
 	subb	a,b
-	jnc	L030003?
+	jnc	L031003?
 	dec	_dist_index
 	mov	a,#0xff
-	cjne	a,_dist_index,L030007?
+	cjne	a,_dist_index,L031007?
 	dec	(_dist_index + 1)
-L030007?:
-L030003?:
+L031007?:
+L031003?:
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Move_Car_Further'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:461: void Move_Car_Further(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:480: void Move_Car_Further(void){
 ;	-----------------------------------------
 ;	 function Move_Car_Further
 ;	-----------------------------------------
 _Move_Car_Further:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:464: if(dist_index < 3) dist_index++;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:483: if(dist_index < 3) dist_index++;
 	clr	c
 	mov	a,_dist_index
 	subb	a,#0x03
 	mov	a,(_dist_index + 1)
 	xrl	a,#0x80
 	subb	a,#0x80
-	jnc	L031003?
+	jnc	L032003?
 	inc	_dist_index
 	clr	a
-	cjne	a,_dist_index,L031007?
+	cjne	a,_dist_index,L032007?
 	inc	(_dist_index + 1)
-L031007?:
-L031003?:
+L032007?:
+L032003?:
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Rotate_Car_180_CW'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:468: void Rotate_Car_180_CW(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:487: void Rotate_Car_180_CW(void){
 ;	-----------------------------------------
 ;	 function Rotate_Car_180_CW
 ;	-----------------------------------------
 _Rotate_Car_180_CW:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:469: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:488: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:470: Move_Left_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:489: Move_Left_Motor_Forwards();
 	lcall	_Move_Left_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:471: Move_Right_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:490: Move_Right_Motor_Backwards();
 	lcall	_Move_Right_Motor_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:472: Wait_X_Time(1277);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:491: Wait_X_Time(1277);
 	mov	dptr,#0x04FD
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:473: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:492: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:475: if(reverse == 0){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:494: if(reverse == 0){
 	mov	a,_reverse
-	jnz	L032002?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:476: reverse = 1;
+	jnz	L033002?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:495: reverse = 1;
 	mov	_reverse,#0x01
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:478: reverse = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:497: reverse = 0;
 	ret
-L032002?:
+L033002?:
 	mov	_reverse,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Rotate_Car_180_CCW'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:485: void Rotate_Car_180_CCW(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:504: void Rotate_Car_180_CCW(void){
 ;	-----------------------------------------
 ;	 function Rotate_Car_180_CCW
 ;	-----------------------------------------
 _Rotate_Car_180_CCW:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:486: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:505: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:487: Move_Right_Motor_Forwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:506: Move_Right_Motor_Forwards();
 	lcall	_Move_Right_Motor_Forwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:488: Move_Left_Motor_Backwards();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:507: Move_Left_Motor_Backwards();
 	lcall	_Move_Left_Motor_Backwards
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:489: Wait_X_Time(1277); //wait 2000 ms
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:508: Wait_X_Time(1277); //wait 2000 ms
 	mov	dptr,#0x04FD
 	lcall	_Wait_X_Time
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:490: Stop_Car();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:509: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:492: if(reverse == 0){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:511: if(reverse == 0){
 	mov	a,_reverse
-	jnz	L033002?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:493: reverse = 1;
+	jnz	L034002?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:512: reverse = 1;
 	mov	_reverse,#0x01
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:495: reverse = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:514: reverse = 0;
 	ret
-L033002?:
+L034002?:
 	mov	_reverse,#0x00
 	ret
 ;------------------------------------------------------------
@@ -1435,26 +1466,26 @@ L033002?:
 ;val                       Allocated to registers r4 
 ;v                         Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:503: unsigned char rx_byte (int min){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:522: unsigned char rx_byte (int min){
 ;	-----------------------------------------
 ;	 function rx_byte
 ;	-----------------------------------------
 _rx_byte:
 	mov	r2,dpl
 	mov	r3,dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:508: EA = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:527: EA = 0;
 	clr	_EA
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:509: P1_0 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:528: P1_0 = 0;
 	clr	_P1_0
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:510: P1_1 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:529: P1_1 = 0;
 	clr	_P1_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:511: P1_2 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:530: P1_2 = 0;
 	clr	_P1_2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:512: P1_4 = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:531: P1_4 = 0;
 	clr	_P1_4
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:515: val=0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:534: val=0;
 	mov	r4,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:516: wait_one_and_half_bit_time();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:535: wait_one_and_half_bit_time();
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1462,13 +1493,13 @@ _rx_byte:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:517: for(j=0; j<8; j++)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:536: for(j=0; j<8; j++)
 	mov	r5,#0x00
-L034001?:
-	cjne	r5,#0x08,L034013?
-L034013?:
-	jnc	L034004?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:519: v=GetADC(2);
+L035001?:
+	cjne	r5,#0x08,L035013?
+L035013?:
+	jnc	L035004?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:538: v=GetADC(2);
 	mov	dpl,#0x02
 	push	ar2
 	push	ar3
@@ -1481,7 +1512,7 @@ L034013?:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:520: val|=(v>min)?(0x01<<j):0x00; // min is threshold voltage but in our case it is 1023
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:539: val|=(v>min)?(0x01<<j):0x00; // min is threshold voltage but in our case it is 1023
 	clr	c
 	mov	a,r2
 	subb	a,r6
@@ -1490,23 +1521,23 @@ L034013?:
 	mov	b,r7
 	xrl	b,#0x80
 	subb	a,b
-	jnc	L034007?
+	jnc	L035007?
 	mov	b,r5
 	inc	b
 	mov	a,#0x01
-	sjmp	L034018?
-L034016?:
+	sjmp	L035018?
+L035016?:
 	add	a,acc
-L034018?:
-	djnz	b,L034016?
+L035018?:
+	djnz	b,L035016?
 	mov	r6,a
-	sjmp	L034008?
-L034007?:
+	sjmp	L035008?
+L035007?:
 	mov	r6,#0x00
-L034008?:
+L035008?:
 	mov	a,r6
 	orl	ar4,a
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:521: wait_bit_time();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:540: wait_bit_time();
 	push	ar2
 	push	ar3
 	push	ar4
@@ -1516,29 +1547,29 @@ L034008?:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:517: for(j=0; j<8; j++)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:536: for(j=0; j<8; j++)
 	inc	r5
-	sjmp	L034001?
-L034004?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:524: wait_one_and_half_bit_time();
+	sjmp	L035001?
+L035004?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:543: wait_one_and_half_bit_time();
 	push	ar4
 	lcall	_wait_one_and_half_bit_time
 	pop	ar4
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:525: EA = 1;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:544: EA = 1;
 	setb	_EA
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:526: return val;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:545: return val;
 	mov	dpl,r4
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'wait_bit_time'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:531: void wait_bit_time(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:550: void wait_bit_time(void){
 ;	-----------------------------------------
 ;	 function wait_bit_time
 ;	-----------------------------------------
 _wait_bit_time:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:542: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:561: _endasm;
 	
   ;For a 22.1184MHz crystal one machine cycle
   ;takes 12/22.1184MHz=0.5425347us
@@ -1558,12 +1589,12 @@ _wait_bit_time:
 ;Allocation info for local variables in function 'wait_one_and_half_bit_time'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:546: void wait_one_and_half_bit_time(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:565: void wait_one_and_half_bit_time(void){
 ;	-----------------------------------------
 ;	 function wait_one_and_half_bit_time
 ;	-----------------------------------------
 _wait_one_and_half_bit_time:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:557: _endasm;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:576: _endasm;
 	
   ;For a 22.1184MHz crystal one machine cycle
   ;takes 12/22.1184MHz=0.5425347us
@@ -1584,22 +1615,22 @@ _wait_one_and_half_bit_time:
 ;------------------------------------------------------------
 ;value                     Allocated to registers r2 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:561: void SPIWrite(unsigned char value){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:580: void SPIWrite(unsigned char value){
 ;	-----------------------------------------
 ;	 function SPIWrite
 ;	-----------------------------------------
 _SPIWrite:
 	mov	r2,dpl
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:562: SPSTA&=(~SPIF); // Clear the SPIF flag in SPSTA
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:581: SPSTA&=(~SPIF); // Clear the SPIF flag in SPSTA
 	anl	_SPSTA,#0x7F
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:563: SPDAT=value;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:582: SPDAT=value;
 	mov	_SPDAT,r2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:564: while((SPSTA & SPIF)!=SPIF); //Wait for transmission to end
-L037001?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:583: while((SPSTA & SPIF)!=SPIF); //Wait for transmission to end
+L038001?:
 	mov	a,#0x80
 	anl	a,_SPSTA
 	mov	r2,a
-	cjne	r2,#0x80,L037001?
+	cjne	r2,#0x80,L038001?
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'GetADC'
@@ -1607,54 +1638,54 @@ L037001?:
 ;channel                   Allocated to registers r2 
 ;adc                       Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:568: unsigned int GetADC(unsigned char channel){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:587: unsigned int GetADC(unsigned char channel){
 ;	-----------------------------------------
 ;	 function GetADC
 ;	-----------------------------------------
 _GetADC:
 	mov	r2,dpl
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:572: SPCON&=(~SPEN); // Disable SPI
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:591: SPCON&=(~SPEN); // Disable SPI
 	anl	_SPCON,#0xBF
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:573: SPCON=MSTR|CPOL|CPHA|SPR1|SPR0|SSDIS;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:592: SPCON=MSTR|CPOL|CPHA|SPR1|SPR0|SSDIS;
 	mov	_SPCON,#0x3F
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:574: SPCON|=SPEN; // Enable SPI
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:593: SPCON|=SPEN; // Enable SPI
 	orl	_SPCON,#0x40
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:576: P4_1=0; // Activate the MCP3004 ADC.
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:595: P4_1=0; // Activate the MCP3004 ADC.
 	clr	_P4_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:577: SPIWrite(channel|0x18);	// Send start bit, single/diff* bit, D2, D1, and D0 bits.
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:596: SPIWrite(channel|0x18);	// Send start bit, single/diff* bit, D2, D1, and D0 bits.
 	mov	a,#0x18
 	orl	a,r2
 	mov	dpl,a
 	lcall	_SPIWrite
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:578: for(adc=0; adc<10; adc++); // Wait for S/H to setup
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:597: for(adc=0; adc<10; adc++); // Wait for S/H to setup
 	mov	r2,#0x0A
 	mov	r3,#0x00
-L038003?:
+L039003?:
 	dec	r2
-	cjne	r2,#0xff,L038009?
+	cjne	r2,#0xff,L039009?
 	dec	r3
-L038009?:
+L039009?:
 	mov	a,r2
 	orl	a,r3
-	jnz	L038003?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:579: SPIWrite(0x55); // Read bits 9 down to 4
+	jnz	L039003?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:598: SPIWrite(0x55); // Read bits 9 down to 4
 	mov	dpl,#0x55
 	lcall	_SPIWrite
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:580: adc=((SPDAT&0x3f)*0x100);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:599: adc=((SPDAT&0x3f)*0x100);
 	mov	a,#0x3F
 	anl	a,_SPDAT
 	mov	r3,a
 	mov	r2,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:581: SPIWrite(0x55);// Read bits 3 down to 0
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:600: SPIWrite(0x55);// Read bits 3 down to 0
 	mov	dpl,#0x55
 	push	ar2
 	push	ar3
 	lcall	_SPIWrite
 	pop	ar3
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:582: P4_1=1; // Deactivate the MCP3004 ADC.
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:601: P4_1=1; // Deactivate the MCP3004 ADC.
 	setb	_P4_1
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:583: adc+=(SPDAT&0xf0); // SPDR contains the low part of the result. 
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:602: adc+=(SPDAT&0xf0); // SPDR contains the low part of the result. 
 	mov	a,#0xF0
 	anl	a,_SPDAT
 	mov	r4,a
@@ -1664,7 +1695,7 @@ L038009?:
 	mov	r2,a
 	mov	a,r5
 	addc	a,r3
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:584: adc>>=4;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:603: adc>>=4;
 	swap	a
 	xch	a,r2
 	swap	a
@@ -1675,7 +1706,7 @@ L038009?:
 	xch	a,r2
 	xrl	a,r2
 	xch	a,r2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:586: return adc;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:605: return adc;
 	mov	dpl,r2
 	mov	dph,a
 	ret
@@ -1683,50 +1714,50 @@ L038009?:
 ;Allocation info for local variables in function 'Testing_Code'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:607: void Testing_Code(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:626: void Testing_Code(void){
 ;	-----------------------------------------
 ;	 function Testing_Code
 ;	-----------------------------------------
 _Testing_Code:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:608: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:627: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:609: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:628: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:612: while(1){
-L039002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:613: Parallel_Park();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:631: while(1){
+L040002?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:632: Parallel_Park();
 	lcall	_Parallel_Park
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:614: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:633: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:615: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:634: wait1s();
 	lcall	_wait1s
-	sjmp	L039002?
+	sjmp	L040002?
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'run'
 ;------------------------------------------------------------
-;right_distance            Allocated with name '_run_right_distance_1_179'
-;left_distance             Allocated with name '_run_left_distance_1_179'
+;right_distance            Allocated with name '_run_right_distance_1_182'
+;left_distance             Allocated with name '_run_left_distance_1_182'
 ;sloc0                     Allocated with name '_run_sloc0_1_0'
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:619: void run(void){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:638: void run(void){
 ;	-----------------------------------------
 ;	 function run
 ;	-----------------------------------------
 _run:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:620: unsigned int right_distance = Get_Right_Distance();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:639: unsigned int right_distance = Get_Right_Distance();
 	lcall	_Get_Right_Distance
-	mov	_run_right_distance_1_179,dpl
-	mov	(_run_right_distance_1_179 + 1),dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:621: unsigned int left_distance = Get_Left_Distance();
+	mov	_run_right_distance_1_182,dpl
+	mov	(_run_right_distance_1_182 + 1),dph
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:640: unsigned int left_distance = Get_Left_Distance();
 	lcall	_Get_Left_Distance
-	mov	_run_left_distance_1_179,dpl
-	mov	(_run_left_distance_1_179 + 1),dph
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:623: if(!reverse) {
+	mov	_run_left_distance_1_182,dpl
+	mov	(_run_left_distance_1_182 + 1),dph
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:642: if(!reverse) {
 	mov	a,_reverse
-	jz	L040047?
-	ljmp	L040030?
-L040047?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:624: if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+	jz	L041047?
+	ljmp	L041030?
+L041047?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:643: if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r6,a
@@ -1738,11 +1769,11 @@ L040047?:
 	mov	ar6,@r0
 	inc	r0
 	mov	ar7,@r0
-	mov	a,_run_right_distance_1_179
+	mov	a,_run_right_distance_1_182
 	clr	c
 	subb	a,r6
 	mov	dpl,a
-	mov	a,(_run_right_distance_1_179 + 1)
+	mov	a,(_run_right_distance_1_182 + 1)
 	subb	a,r7
 	mov	dph,a
 	lcall	_abs
@@ -1766,8 +1797,8 @@ L040047?:
 	subb	a,r4
 	mov	a,r7
 	subb	a,r5
-	jc	L040006?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:625: if (right_distance > dist_table[dist_index]){
+	jc	L041006?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:644: if (right_distance > dist_table[dist_index]){
 	mov	a,_run_sloc0_1_0
 	add	a,#_dist_table
 	mov	r0,a
@@ -1776,14 +1807,14 @@ L040047?:
 	mov	ar5,@r0
 	clr	c
 	mov	a,r4
-	subb	a,_run_right_distance_1_179
+	subb	a,_run_right_distance_1_182
 	mov	a,r5
-	subb	a,(_run_right_distance_1_179 + 1)
-	jnc	L040002?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:626: Move_Right_Motor_Forwards();
+	subb	a,(_run_right_distance_1_182 + 1)
+	jnc	L041002?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:645: Move_Right_Motor_Forwards();
 	lcall	_Move_Right_Motor_Forwards
-L040002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:628: if (right_distance < dist_table[dist_index]){
+L041002?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:647: if (right_distance < dist_table[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r4,a
@@ -1796,19 +1827,19 @@ L040002?:
 	inc	r0
 	mov	ar5,@r0
 	clr	c
-	mov	a,_run_right_distance_1_179
+	mov	a,_run_right_distance_1_182
 	subb	a,r4
-	mov	a,(_run_right_distance_1_179 + 1)
+	mov	a,(_run_right_distance_1_182 + 1)
 	subb	a,r5
-	jnc	L040007?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:629: Move_Right_Motor_Backwards();
+	jnc	L041007?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:648: Move_Right_Motor_Backwards();
 	lcall	_Move_Right_Motor_Backwards
-	sjmp	L040007?
-L040006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:633: Stop_Car();
+	sjmp	L041007?
+L041006?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:652: Stop_Car();
 	lcall	_Stop_Car
-L040007?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:635: if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+L041007?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:654: if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r4,a
@@ -1820,11 +1851,11 @@ L040007?:
 	mov	ar4,@r0
 	inc	r0
 	mov	ar5,@r0
-	mov	a,_run_left_distance_1_179
+	mov	a,_run_left_distance_1_182
 	clr	c
 	subb	a,r4
 	mov	dpl,a
-	mov	a,(_run_left_distance_1_179 + 1)
+	mov	a,(_run_left_distance_1_182 + 1)
 	subb	a,r5
 	mov	dph,a
 	lcall	_abs
@@ -1847,8 +1878,8 @@ L040007?:
 	subb	a,r4
 	mov	a,(_run_sloc0_1_0 + 1)
 	subb	a,r5
-	jc	L040013?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:636: if (left_distance > dist_table[dist_index]){
+	jc	L041013?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:655: if (left_distance > dist_table[dist_index]){
 	mov	a,r6
 	add	a,#_dist_table
 	mov	r0,a
@@ -1857,14 +1888,14 @@ L040007?:
 	mov	ar5,@r0
 	clr	c
 	mov	a,r4
-	subb	a,_run_left_distance_1_179
+	subb	a,_run_left_distance_1_182
 	mov	a,r5
-	subb	a,(_run_left_distance_1_179 + 1)
-	jnc	L040009?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:637: Move_Left_Motor_Forwards();
+	subb	a,(_run_left_distance_1_182 + 1)
+	jnc	L041009?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:656: Move_Left_Motor_Forwards();
 	lcall	_Move_Left_Motor_Forwards
-L040009?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:639: if (left_distance < dist_table[dist_index]){
+L041009?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:658: if (left_distance < dist_table[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r4,a
@@ -1877,20 +1908,20 @@ L040009?:
 	inc	r0
 	mov	ar5,@r0
 	clr	c
-	mov	a,_run_left_distance_1_179
+	mov	a,_run_left_distance_1_182
 	subb	a,r4
-	mov	a,(_run_left_distance_1_179 + 1)
+	mov	a,(_run_left_distance_1_182 + 1)
 	subb	a,r5
-	jc	L040053?
+	jc	L041053?
 	ret
-L040053?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:640: Move_Left_Motor_Backwards();
+L041053?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:659: Move_Left_Motor_Backwards();
 	ljmp	_Move_Left_Motor_Backwards
-L040013?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:644: Stop_Car();
+L041013?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:663: Stop_Car();
 	ljmp	_Stop_Car
-L040030?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:647: if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+L041030?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:666: if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r4,a
@@ -1902,11 +1933,11 @@ L040030?:
 	mov	ar4,@r0
 	inc	r0
 	mov	ar5,@r0
-	mov	a,_run_right_distance_1_179
+	mov	a,_run_right_distance_1_182
 	clr	c
 	subb	a,r4
 	mov	dpl,a
-	mov	a,(_run_right_distance_1_179 + 1)
+	mov	a,(_run_right_distance_1_182 + 1)
 	subb	a,r5
 	mov	dph,a
 	lcall	_abs
@@ -1929,8 +1960,8 @@ L040030?:
 	subb	a,r2
 	mov	a,r5
 	subb	a,r3
-	jc	L040020?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:648: if (right_distance < dist_table[dist_index]){
+	jc	L041020?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:667: if (right_distance < dist_table[dist_index]){
 	mov	a,r6
 	add	a,#_dist_table
 	mov	r0,a
@@ -1938,15 +1969,15 @@ L040030?:
 	inc	r0
 	mov	ar3,@r0
 	clr	c
-	mov	a,_run_right_distance_1_179
+	mov	a,_run_right_distance_1_182
 	subb	a,r2
-	mov	a,(_run_right_distance_1_179 + 1)
+	mov	a,(_run_right_distance_1_182 + 1)
 	subb	a,r3
-	jnc	L040016?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:649: Move_Right_Motor_Forwards();
+	jnc	L041016?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:668: Move_Right_Motor_Forwards();
 	lcall	_Move_Right_Motor_Forwards
-L040016?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:651: if (right_distance > dist_table[dist_index]){
+L041016?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:670: if (right_distance > dist_table[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r2,a
@@ -1960,18 +1991,18 @@ L040016?:
 	mov	ar3,@r0
 	clr	c
 	mov	a,r2
-	subb	a,_run_right_distance_1_179
+	subb	a,_run_right_distance_1_182
 	mov	a,r3
-	subb	a,(_run_right_distance_1_179 + 1)
-	jnc	L040021?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:652: Move_Right_Motor_Backwards();
+	subb	a,(_run_right_distance_1_182 + 1)
+	jnc	L041021?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:671: Move_Right_Motor_Backwards();
 	lcall	_Move_Right_Motor_Backwards
-	sjmp	L040021?
-L040020?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:656: Stop_Car();
+	sjmp	L041021?
+L041020?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:675: Stop_Car();
 	lcall	_Stop_Car
-L040021?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:658: if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+L041021?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:677: if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r2,a
@@ -1983,11 +2014,11 @@ L040021?:
 	mov	ar2,@r0
 	inc	r0
 	mov	ar3,@r0
-	mov	a,_run_left_distance_1_179
+	mov	a,_run_left_distance_1_182
 	clr	c
 	subb	a,r2
 	mov	dpl,a
-	mov	a,(_run_left_distance_1_179 + 1)
+	mov	a,(_run_left_distance_1_182 + 1)
 	subb	a,r3
 	mov	dph,a
 	lcall	_abs
@@ -2010,8 +2041,8 @@ L040021?:
 	subb	a,r6
 	mov	a,r3
 	subb	a,r7
-	jc	L040027?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:659: if (left_distance < dist_table[dist_index]){
+	jc	L041027?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:678: if (left_distance < dist_table[dist_index]){
 	mov	a,r4
 	add	a,#_dist_table
 	mov	r0,a
@@ -2019,15 +2050,15 @@ L040021?:
 	inc	r0
 	mov	ar3,@r0
 	clr	c
-	mov	a,_run_left_distance_1_179
+	mov	a,_run_left_distance_1_182
 	subb	a,r2
-	mov	a,(_run_left_distance_1_179 + 1)
+	mov	a,(_run_left_distance_1_182 + 1)
 	subb	a,r3
-	jnc	L040023?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:660: Move_Left_Motor_Forwards();
+	jnc	L041023?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:679: Move_Left_Motor_Forwards();
 	lcall	_Move_Left_Motor_Forwards
-L040023?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:662: if (left_distance > dist_table[dist_index]){
+L041023?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:681: if (left_distance > dist_table[dist_index]){
 	mov	a,_dist_index
 	add	a,_dist_index
 	mov	r2,a
@@ -2041,41 +2072,41 @@ L040023?:
 	mov	ar3,@r0
 	clr	c
 	mov	a,r2
-	subb	a,_run_left_distance_1_179
+	subb	a,_run_left_distance_1_182
 	mov	a,r3
-	subb	a,(_run_left_distance_1_179 + 1)
-	jnc	L040032?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:663: Move_Left_Motor_Backwards();
+	subb	a,(_run_left_distance_1_182 + 1)
+	jnc	L041032?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:682: Move_Left_Motor_Backwards();
 	ljmp	_Move_Left_Motor_Backwards
-L040027?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:667: Stop_Car();
+L041027?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:686: Stop_Car();
 	ljmp	_Stop_Car
-L040032?:
+L041032?:
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Fake_run'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:671: void Fake_run(void) {
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:690: void Fake_run(void) {
 ;	-----------------------------------------
 ;	 function Fake_run
 ;	-----------------------------------------
 _Fake_run:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:672: Rotate_Car_180_CW();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:691: Rotate_Car_180_CW();
 	lcall	_Rotate_Car_180_CW
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:673: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:692: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:674: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:693: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:675: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:694: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:676: Rotate_Car_180_CCW();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:695: Rotate_Car_180_CCW();
 	lcall	_Rotate_Car_180_CCW
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:677: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:696: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:678: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:697: wait1s();
 	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:679: wait1s();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:698: wait1s();
 	ljmp	_wait1s
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
@@ -2083,20 +2114,20 @@ _Fake_run:
 ;logic_0_thresh            Allocated to registers 
 ;cmd                       Allocated to registers r2 
 ;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:682: void main (void)
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:701: void main (void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:685: unsigned char cmd = 0;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:704: unsigned char cmd = 0;
 	mov	r2,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:686: dist_index = 1;
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:705: dist_index = 1;
 	mov	_dist_index,#0x01
 	clr	a
 	mov	(_dist_index + 1),a
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:687: reverse = 1;	
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:706: reverse = 1;	
 	mov	_reverse,#0x01
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:689: printf("\n");
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:708: printf("\n");
 	push	ar2
 	mov	a,#__str_5
 	push	acc
@@ -2109,9 +2140,9 @@ _main:
 	dec	sp
 	dec	sp
 	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:691: while(1){
-L042013?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:693: printf("Right: %u  Left: %u Cmd: %u\n", Get_Right_Distance(), Get_Left_Distance(), cmd);
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:710: while(1){
+L043013?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:712: printf("Right: %u  Left: %u Cmd: %u\n", Get_Right_Distance(), Get_Left_Distance(), cmd);
 	mov	ar3,r2
 	mov	r4,#0x00
 	push	ar2
@@ -2137,9 +2168,9 @@ L042013?:
 	mov	a,sp
 	add	a,#0xf7
 	mov	sp,a
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:694: run();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:713: run();
 	lcall	_run
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:697: if(Get_Right_Distance() < logic_0_thresh && Get_Left_Distance() < logic_0_thresh){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:716: if(Get_Right_Distance() < logic_0_thresh && Get_Left_Distance() < logic_0_thresh){
 	lcall	_Get_Right_Distance
 	mov	r3,dpl
 	mov	r4,dph
@@ -2149,7 +2180,7 @@ L042013?:
 	subb	a,#0x0A
 	mov	a,r4
 	subb	a,#0x00
-	jnc	L042013?
+	jnc	L043013?
 	push	ar2
 	lcall	_Get_Left_Distance
 	mov	r3,dpl
@@ -2160,41 +2191,41 @@ L042013?:
 	subb	a,#0x0A
 	mov	a,r4
 	subb	a,#0x00
-	jnc	L042013?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:698: Stop_Car();
+	jnc	L043013?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:717: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:699: cmd = rx_byte (logic_0_thresh);     	
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:718: cmd = rx_byte (logic_0_thresh);     	
 	mov	dptr,#0x000A
 	lcall	_rx_byte
 	mov	r2,dpl
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:700: if(cmd == MOVE_FURTHER) Move_Car_Further();
-	cjne	r2,#0xFD,L042002?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:719: if(cmd == MOVE_FURTHER) Move_Car_Further();
+	cjne	r2,#0xFD,L043002?
 	push	ar2
 	lcall	_Move_Car_Further
 	pop	ar2
-L042002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:701: if(cmd == MOVE_CLOSER) Move_Car_Closer();
-	cjne	r2,#0xF5,L042004?
+L043002?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:720: if(cmd == MOVE_CLOSER) Move_Car_Closer();
+	cjne	r2,#0xF5,L043004?
 	push	ar2
 	lcall	_Move_Car_Closer
 	pop	ar2
-L042004?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:702: if(cmd == ROTATE_180) Rotate_Car_180_CW();
-	cjne	r2,#0xD5,L042006?
+L043004?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:721: if(cmd == ROTATE_180) Rotate_Car_180_CW();
+	cjne	r2,#0xD5,L043006?
 	push	ar2
 	lcall	_Rotate_Car_180_CW
 	pop	ar2
-L042006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:703: if(cmd == PRL_PARK) Parallel_Park();
-	cjne	r2,#0x86,L042032?
-	sjmp	L042033?
-L042032?:
-	ljmp	L042013?
-L042033?:
+L043006?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:722: if(cmd == PRL_PARK) Parallel_Park();
+	cjne	r2,#0x86,L043032?
+	sjmp	L043033?
+L043032?:
+	ljmp	L043013?
+L043033?:
 	push	ar2
 	lcall	_Parallel_Park
 	pop	ar2
-	ljmp	L042013?
+	ljmp	L043013?
 	rseg R_CSEG
 
 	rseg R_XINIT

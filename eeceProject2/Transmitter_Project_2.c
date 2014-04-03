@@ -11,11 +11,11 @@
 #define BRG_VAL (0x100-(CLK/(32L*BAUD)))
 #define FREQ (15105.6463263*2.0)
 #define TIMER0_RELOAD_VALUE (long int) (65536.0-(CLK/(12.0*FREQ)))
-#define BENDER P0_0
-#define RIGHTARROW P0_1
-#define LEFTARROW P0_2
-#define STOPFACE P0_3
-#define PARALLELPARK P0_4
+// #define BENDER P0_0
+// #define RIGHTARROW P0_1
+// #define LEFTARROW P0_2
+// #define STOPFACE P0_3
+// #define PARALLELPARK P0_4
 
 unsigned char _c51_external_startup(void)
 {
@@ -50,11 +50,11 @@ unsigned char _c51_external_startup(void)
 	P1_0=0;
 	P1_1=1;
 	
-	RIGHTARROW = 0;
-    LEFTARROW = 0;
-    STOPFACE = 0;
-    PARALLELPARK = 0;
-	BENDER = 1;
+	// RIGHTARROW = 0;
+ //    LEFTARROW = 0;
+ //    STOPFACE = 0;
+ //    PARALLELPARK = 0;
+	// BENDER = 1;
 
     return 0;
 }
@@ -111,7 +111,7 @@ void tx_byte(unsigned char val)
 	wait_bit_time();
 	for (j=0; j<8; j++)
 	{
-		EA=val&(0x01<<j)?1:0; 
+		EA=val&(0x01<<j)?1:0; //if true, 1. else 0.
 		wait_bit_time();
 	}
 	EA=1;
@@ -123,41 +123,41 @@ void tx_byte(unsigned char val)
 void moveCloser(void) 
 {
 	tx_byte(MOVE_CLOSER); // move closer is 11111101
-	BENDER = 0;
-	STOPFACE = 1;
-	Wait_X_Time(1500);
-	STOPFACE = 0;
-	BENDER = 1;
+	// BENDER = 0;
+	// STOPFACE = 1;
+	// Wait_X_Time(1500);
+	// STOPFACE = 0;
+	// BENDER = 1;
 }
 
 void moveFurther(void)
 {
 	tx_byte(MOVE_FURTHER); // move farther is 11110101
-	BENDER = 0;
-	STOPFACE = 1;
-	Wait_X_Time(1500);
-	STOPFACE = 0;
-	BENDER = 1;
+	// BENDER = 0;
+	// STOPFACE = 1;
+	// Wait_X_Time(1500);
+	// STOPFACE = 0;
+	// BENDER = 1;
 }
 
 void rotate180(void)
 {
 	tx_byte(ROTATE_180); // rotate is 11010101
-	BENDER = 0;
-	RIGHTARROW = 1;
-	Wait_X_Time(3000);
-	RIGHTARROW = 0;
-	BENDER = 1;
+	// BENDER = 0;
+	// RIGHTARROW = 1;
+	// Wait_X_Time(3000);
+	// RIGHTARROW = 0;
+	// BENDER = 1;
 }
 
 void prlPark(void)
 {
 	tx_byte(PRL_PARK); // parallel park is 10000010
-	BENDER = 0;
-	PARALLELPARK = 1;
-	Wait_X_Time(12000);
-	PARALLELPARK = 0;
-	BENDER = 1;
+	// BENDER = 0;
+	// PARALLELPARK = 1;
+	// Wait_X_Time(12000);
+	// PARALLELPARK = 0;
+	// BENDER = 1;
 }
 
 void main (void)

@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-0000              4   ; This file was generated Thu Apr 03 03:36:12 2014
+0000              4   ; This file was generated Thu Apr 03 13:48:27 2014
 0000              5   ;--------------------------------------------------------
                   5   $name Transmitter_Project_2
                   6   $optc51 --model-small
@@ -401,316 +401,267 @@
 0047 C290       401            clr     _P1_0
 0049            402   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:51: P1_1=1;
 0049 D291       403            setb    _P1_1
-004B            404   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:53: RIGHTARROW = 0;
-004B C281       405            clr     _P0_1
-004D            406   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:54: LEFTARROW = 0;
-004D C282       407            clr     _P0_2
-004F            408   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:55: STOPFACE = 0;
-004F C283       409            clr     _P0_3
-0051            410   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:56: PARALLELPARK = 0;
-0051 C284       411            clr     _P0_4
-0053            412   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:57: BENDER = 1;
-0053 D280       413            setb    _P0_0
-0055            414   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:59: return 0;
-0055 758200     415            mov     dpl,#0x00
-0058 22         416            ret
-0059            417   ;------------------------------------------------------------
-0059            418   ;Allocation info for local variables in function 'pwmcounter'
-0059            419   ;------------------------------------------------------------
-0059            420   ;------------------------------------------------------------
-0059            421   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:62: void pwmcounter (void) interrupt 1
-0059            422   ;        -----------------------------------------
-0059            423   ;         function pwmcounter
-0059            424   ;        -----------------------------------------
-0059            425   _pwmcounter:
-0059            426   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:64: P1_0=!P1_0;
-0059 B290       427            cpl     _P1_0
-005B            428   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:65: P1_1=!P1_1;
-005B B291       429            cpl     _P1_1
-005D 32         430            reti
-005E            431   ;        eliminated unneeded push/pop psw
-005E            432   ;        eliminated unneeded push/pop dpl
-005E            433   ;        eliminated unneeded push/pop dph
-005E            434   ;        eliminated unneeded push/pop b
-005E            435   ;        eliminated unneeded push/pop acc
-005E            436   ;------------------------------------------------------------
-005E            437   ;Allocation info for local variables in function 'wait_bit_time'
-005E            438   ;------------------------------------------------------------
-005E            439   ;------------------------------------------------------------
-005E            440   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:69: void wait_bit_time(void)
-005E            441   ;        -----------------------------------------
-005E            442   ;         function wait_bit_time
-005E            443   ;        -----------------------------------------
-005E            444   _wait_bit_time:
-005E            445   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:81: _endasm;
-005E            446            
-005E            447     ;For a 22.1184MHz crystal one machine cycle
-005E            448     ;takes 12/22.1184MHz=0.5425347us
-005E 7A02       449                 mov R2, #2
-0060            450             L3:
-0060 79C8       451            mov R1, #200
-0062            452             L2:
-0062 78C8       453            mov R0, #200
-0064            454             L1:
-0064 D868       455            djnz R0, L1
-0066 D928       456                 djnz R1, L2
-0068 DAE8       457                 djnz R2, L3
-006A 22         458                 ret
-006B            459                
-006B 22         460            ret
-006C            461   ;------------------------------------------------------------
-006C            462   ;Allocation info for local variables in function 'Wait_1ms'
-006C            463   ;------------------------------------------------------------
-006C            464   ;------------------------------------------------------------
-006C            465   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:84: void Wait_1ms(void){
-006C            466   ;        -----------------------------------------
-006C            467   ;         function Wait_1ms
-006C            468   ;        -----------------------------------------
-006C            469   _Wait_1ms:
-006C            470   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:95: _endasm;
-006C            471            
-006C            472      ;For a 22.1184MHz crystal one machine cycle
-006C            473      ;takes 12/22.1184MHz=0.5425347us
-006C 7A02       474                  mov R2, #2
-006E            475             Lz3:
-006E 7905       476            mov R1, #5
-0070            477             Lz2:
-0070 785C       478            mov R0, #92
-0072            479             Lz1:
-0072 D828       480            djnz R0, Lz1 ; 2 machine cycles-> 2*0.5425347us*184=200us
-0074 D9E8       481                  djnz R1, Lz2 ; 200us*250=0.05s
-0076 DAA8       482                  djnz R2, Lz3 ; 0.05s*20=50ms
-0078 22         483                  ret
-0079            484                
-0079 22         485            ret
-007A            486   ;------------------------------------------------------------
-007A            487   ;Allocation info for local variables in function 'Wait_X_Time'
-007A            488   ;------------------------------------------------------------
-007A            489   ;time                      Allocated to registers r2 r3 
-007A            490   ;i                         Allocated to registers r4 r5 
-007A            491   ;------------------------------------------------------------
-007A            492   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:99: void Wait_X_Time(int time){
-007A            493   ;        -----------------------------------------
-007A            494   ;         function Wait_X_Time
-007A            495   ;        -----------------------------------------
-007A            496   _Wait_X_Time:
-007A AA82       497            mov     r2,dpl
-007C AB83       498            mov     r3,dph
-007E            499   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:101: for (i = 0; i < time; ++i){
-007E 7C00       500            mov     r4,#0x00
-0080 7D00       501            mov     r5,#0x00
-0082            502   L006001?:
-0082 C3         503            clr     c
-0083 EC         504            mov     a,r4
-0084 9A         505            subb    a,r2
-0085 ED         506            mov     a,r5
-0086 6480       507            xrl     a,#0x80
-0088 8BF0       508            mov     b,r3
-008A 63F080     509            xrl     b,#0x80
-008D 95F0       510            subb    a,b
-008F 5001       511            jnc     L006005?
-0091            512   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:102: Wait_1ms();
-0091 C002       513            push    ar2
-0093 C003       514            push    ar3
-0095 C004       515            push    ar4
-0097 C005       516            push    ar5
-0099 120100     517            lcall   _Wait_1ms
-009C D005       518            pop     ar5
-009E D004       519            pop     ar4
-00A0 D003       520            pop     ar3
-00A2 D002       521            pop     ar2
-00A4            522   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:101: for (i = 0; i < time; ++i){
-00A4 0C         523            inc     r4
-00A5 BC00A8     524            cjne    r4,#0x00,L006001?
-00A8 0D         525            inc     r5
-00A9 8001       526            sjmp    L006001?
-00AB            527   L006005?:
-00AB 22         528            ret
-00AC            529   ;------------------------------------------------------------
-00AC            530   ;Allocation info for local variables in function 'tx_byte'
-00AC            531   ;------------------------------------------------------------
-00AC            532   ;val                       Allocated to registers r2 
-00AC            533   ;j                         Allocated to registers r3 
-00AC            534   ;------------------------------------------------------------
-00AC            535   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:106: void tx_byte(unsigned char val)
-00AC            536   ;        -----------------------------------------
-00AC            537   ;         function tx_byte
-00AC            538   ;        -----------------------------------------
-00AC            539   _tx_byte:
-00AC AA82       540            mov     r2,dpl
-00AE            541   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:110: EA=0;
-00AE C2AF       542            clr     _EA
-00B0            543   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:111: wait_bit_time();
-00B0 C002       544            push    ar2
-00B2 120100     545            lcall   _wait_bit_time
-00B5 D002       546            pop     ar2
-00B7            547   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: for (j=0; j<8; j++)
-00B7 7B00       548            mov     r3,#0x00
-00B9            549   L007001?:
-00B9 BB08A8     550            cjne    r3,#0x08,L007010?
-00BC            551   L007010?:
-00BC 5001       552            jnc     L007004?
-00BE            553   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:114: EA=val&(0x01<<j)?1:0; 
-00BE 8BF0       554            mov     b,r3
-00C0 05F0       555            inc     b
-00C2 7C01       556            mov     r4,#0x01
-00C4 7D00       557            mov     r5,#0x00
-00C6 8001       558            sjmp    L007013?
-00C8            559   L007012?:
-00C8 EC         560            mov     a,r4
-00C9 2C         561            add     a,r4
-00CA FC         562            mov     r4,a
-00CB ED         563            mov     a,r5
-00CC 33         564            rlc     a
-00CD FD         565            mov     r5,a
-00CE            566   L007013?:
-00CE D5F068     567            djnz    b,L007012?
-00D1 8A06       568            mov     ar6,r2
-00D3 7F00       569            mov     r7,#0x00
-00D5 EE         570            mov     a,r6
-00D6 5204       571            anl     ar4,a
-00D8 EF         572            mov     a,r7
-00D9 5205       573            anl     ar5,a
-00DB EC         574            mov     a,r4
-00DC 4D         575            orl     a,r5
-00DD 24FF       576            add     a,#0xff
-00DF 92AF       577            mov     _EA,c
-00E1            578   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:115: wait_bit_time();
-00E1 C002       579            push    ar2
-00E3 C003       580            push    ar3
-00E5 120100     581            lcall   _wait_bit_time
-00E8 D003       582            pop     ar3
-00EA D002       583            pop     ar2
-00EC            584   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: for (j=0; j<8; j++)
-00EC 0B         585            inc     r3
-00ED 8001       586            sjmp    L007001?
-00EF            587   L007004?:
-00EF            588   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:117: EA=1;
-00EF D2AF       589            setb    _EA
-00F1            590   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:119: wait_bit_time();
-00F1 120100     591            lcall   _wait_bit_time
-00F4            592   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:120: wait_bit_time();
-00F4 020100     593            ljmp    _wait_bit_time
-00F7            594   ;------------------------------------------------------------
-00F7            595   ;Allocation info for local variables in function 'moveCloser'
-00F7            596   ;------------------------------------------------------------
-00F7            597   ;------------------------------------------------------------
-00F7            598   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:123: void moveCloser(void) 
-00F7            599   ;        -----------------------------------------
-00F7            600   ;         function moveCloser
-00F7            601   ;        -----------------------------------------
-00F7            602   _moveCloser:
-00F7            603   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:125: while (1)
-00F7            604   L008002?:
-00F7            605   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:127: BENDER = 0;
-00F7 C280       606            clr     _P0_0
-00F9            607   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:133: BENDER = 1;
-00F9 8001       608            sjmp    L008002?
-00FB            609   ;------------------------------------------------------------
-00FB            610   ;Allocation info for local variables in function 'moveFurther'
-00FB            611   ;------------------------------------------------------------
-00FB            612   ;------------------------------------------------------------
-00FB            613   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:136: void moveFurther(void)
-00FB            614   ;        -----------------------------------------
-00FB            615   ;         function moveFurther
-00FB            616   ;        -----------------------------------------
-00FB            617   _moveFurther:
-00FB            618   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:138: tx_byte(MOVE_FURTHER); // move farther is 11110101
-00FB 7582FD     619            mov     dpl,#0xFD
-00FE 120100     620            lcall   _tx_byte
-0101            621   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:139: BENDER = 0;
-0101 C280       622            clr     _P0_0
-0103            623   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:140: STOPFACE = 1;
-0103 D283       624            setb    _P0_3
-0105            625   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:141: Wait_X_Time(1500);
-0105 9005DC     626            mov     dptr,#0x05DC
-0108 120100     627            lcall   _Wait_X_Time
-010B            628   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:142: STOPFACE = 0;
-010B C283       629            clr     _P0_3
-010D            630   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:143: BENDER = 1;
-010D D280       631            setb    _P0_0
-010F 22         632            ret
-0110            633   ;------------------------------------------------------------
-0110            634   ;Allocation info for local variables in function 'rotate180'
-0110            635   ;------------------------------------------------------------
-0110            636   ;------------------------------------------------------------
-0110            637   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:146: void rotate180(void)
-0110            638   ;        -----------------------------------------
-0110            639   ;         function rotate180
-0110            640   ;        -----------------------------------------
-0110            641   _rotate180:
-0110            642   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:148: tx_byte(ROTATE_180); // rotate is 11010101
-0110 7582D5     643            mov     dpl,#0xD5
-0113 120100     644            lcall   _tx_byte
-0116            645   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:149: BENDER = 0;
-0116 C280       646            clr     _P0_0
-0118            647   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:150: RIGHTARROW = 1;
-0118 D281       648            setb    _P0_1
-011A            649   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:151: Wait_X_Time(3000);
-011A 900BB8     650            mov     dptr,#0x0BB8
-011D 120100     651            lcall   _Wait_X_Time
-0120            652   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:152: RIGHTARROW = 0;
-0120 C281       653            clr     _P0_1
-0122            654   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:153: BENDER = 1;
-0122 D280       655            setb    _P0_0
-0124 22         656            ret
-0125            657   ;------------------------------------------------------------
-0125            658   ;Allocation info for local variables in function 'prlPark'
-0125            659   ;------------------------------------------------------------
-0125            660   ;------------------------------------------------------------
-0125            661   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:156: void prlPark(void)
-0125            662   ;        -----------------------------------------
-0125            663   ;         function prlPark
-0125            664   ;        -----------------------------------------
-0125            665   _prlPark:
-0125            666   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:158: tx_byte(PRL_PARK); // parallel park is 10000010
-0125 758286     667            mov     dpl,#0x86
-0128 120100     668            lcall   _tx_byte
-012B            669   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:159: BENDER = 0;
-012B C280       670            clr     _P0_0
-012D            671   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:160: PARALLELPARK = 1;
-012D D284       672            setb    _P0_4
-012F            673   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:161: Wait_X_Time(12000);
-012F 902EE0     674            mov     dptr,#0x2EE0
-0132 120100     675            lcall   _Wait_X_Time
-0135            676   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:162: PARALLELPARK = 0;
-0135 C284       677            clr     _P0_4
-0137            678   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:163: BENDER = 1;
-0137 D280       679            setb    _P0_0
-0139 22         680            ret
-013A            681   ;------------------------------------------------------------
-013A            682   ;Allocation info for local variables in function 'main'
-013A            683   ;------------------------------------------------------------
-013A            684   ;------------------------------------------------------------
-013A            685   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:166: void main (void)
-013A            686   ;        -----------------------------------------
-013A            687   ;         function main
-013A            688   ;        -----------------------------------------
-013A            689   _main:
-013A            690   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:168: while(1) {
-013A            691   L012010?:
-013A            692   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:170: if(P2_1 == 1) moveCloser();
-013A 30A128     693            jnb     _P2_1,L012002?
-013D 120100     694            lcall   _moveCloser
-0140            695   L012002?:
-0140            696   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:172: if(P2_2 == 1) moveFurther();
-0140 30A268     697            jnb     _P2_2,L012004?
-0143 120100     698            lcall   _moveFurther
-0146            699   L012004?:
-0146            700   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:174: if(P2_3 == 1) rotate180();
-0146 30A3A8     701            jnb     _P2_3,L012006?
-0149 120100     702            lcall   _rotate180
-014C            703   L012006?:
-014C            704   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:176: if(P2_4 == 1) prlPark();
-014C 30A4E8     705            jnb     _P2_4,L012010?
-014F 120100     706            lcall   _prlPark
-0152 8001       707            sjmp    L012010?
-0154            708            rseg R_CSEG
-0154            709   
-0000            710            rseg R_XINIT
-0000            711   
-0000            712            rseg R_CONST
-0000            713   
-000E            714            CSEG
-000E            715   
-000E            716   end
+004B            404   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:59: return 0;
+004B 758200     405            mov     dpl,#0x00
+004E 22         406            ret
+004F            407   ;------------------------------------------------------------
+004F            408   ;Allocation info for local variables in function 'pwmcounter'
+004F            409   ;------------------------------------------------------------
+004F            410   ;------------------------------------------------------------
+004F            411   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:62: void pwmcounter (void) interrupt 1
+004F            412   ;        -----------------------------------------
+004F            413   ;         function pwmcounter
+004F            414   ;        -----------------------------------------
+004F            415   _pwmcounter:
+004F            416   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:64: P1_0=!P1_0;
+004F B290       417            cpl     _P1_0
+0051            418   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:65: P1_1=!P1_1;
+0051 B291       419            cpl     _P1_1
+0053 32         420            reti
+0054            421   ;        eliminated unneeded push/pop psw
+0054            422   ;        eliminated unneeded push/pop dpl
+0054            423   ;        eliminated unneeded push/pop dph
+0054            424   ;        eliminated unneeded push/pop b
+0054            425   ;        eliminated unneeded push/pop acc
+0054            426   ;------------------------------------------------------------
+0054            427   ;Allocation info for local variables in function 'wait_bit_time'
+0054            428   ;------------------------------------------------------------
+0054            429   ;------------------------------------------------------------
+0054            430   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:69: void wait_bit_time(void)
+0054            431   ;        -----------------------------------------
+0054            432   ;         function wait_bit_time
+0054            433   ;        -----------------------------------------
+0054            434   _wait_bit_time:
+0054            435   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:81: _endasm;
+0054            436            
+0054            437     ;For a 22.1184MHz crystal one machine cycle
+0054            438     ;takes 12/22.1184MHz=0.5425347us
+0054 7A02       439                 mov R2, #2
+0056            440             L3:
+0056 79C8       441            mov R1, #200
+0058            442             L2:
+0058 78C8       443            mov R0, #200
+005A            444             L1:
+005A D868       445            djnz R0, L1
+005C D928       446                 djnz R1, L2
+005E DAE8       447                 djnz R2, L3
+0060 22         448                 ret
+0061            449                
+0061 22         450            ret
+0062            451   ;------------------------------------------------------------
+0062            452   ;Allocation info for local variables in function 'Wait_1ms'
+0062            453   ;------------------------------------------------------------
+0062            454   ;------------------------------------------------------------
+0062            455   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:84: void Wait_1ms(void){
+0062            456   ;        -----------------------------------------
+0062            457   ;         function Wait_1ms
+0062            458   ;        -----------------------------------------
+0062            459   _Wait_1ms:
+0062            460   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:95: _endasm;
+0062            461            
+0062            462      ;For a 22.1184MHz crystal one machine cycle
+0062            463      ;takes 12/22.1184MHz=0.5425347us
+0062 7A02       464                  mov R2, #2
+0064            465             Lz3:
+0064 7905       466            mov R1, #5
+0066            467             Lz2:
+0066 785C       468            mov R0, #92
+0068            469             Lz1:
+0068 D828       470            djnz R0, Lz1 ; 2 machine cycles-> 2*0.5425347us*184=200us
+006A D9E8       471                  djnz R1, Lz2 ; 200us*250=0.05s
+006C DAA8       472                  djnz R2, Lz3 ; 0.05s*20=50ms
+006E 22         473                  ret
+006F            474                
+006F 22         475            ret
+0070            476   ;------------------------------------------------------------
+0070            477   ;Allocation info for local variables in function 'Wait_X_Time'
+0070            478   ;------------------------------------------------------------
+0070            479   ;time                      Allocated to registers r2 r3 
+0070            480   ;i                         Allocated to registers r4 r5 
+0070            481   ;------------------------------------------------------------
+0070            482   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:99: void Wait_X_Time(int time){
+0070            483   ;        -----------------------------------------
+0070            484   ;         function Wait_X_Time
+0070            485   ;        -----------------------------------------
+0070            486   _Wait_X_Time:
+0070 AA82       487            mov     r2,dpl
+0072 AB83       488            mov     r3,dph
+0074            489   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:101: for (i = 0; i < time; ++i){
+0074 7C00       490            mov     r4,#0x00
+0076 7D00       491            mov     r5,#0x00
+0078            492   L006001?:
+0078 C3         493            clr     c
+0079 EC         494            mov     a,r4
+007A 9A         495            subb    a,r2
+007B ED         496            mov     a,r5
+007C 6480       497            xrl     a,#0x80
+007E 8BF0       498            mov     b,r3
+0080 63F080     499            xrl     b,#0x80
+0083 95F0       500            subb    a,b
+0085 5001       501            jnc     L006005?
+0087            502   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:102: Wait_1ms();
+0087 C002       503            push    ar2
+0089 C003       504            push    ar3
+008B C004       505            push    ar4
+008D C005       506            push    ar5
+008F 120100     507            lcall   _Wait_1ms
+0092 D005       508            pop     ar5
+0094 D004       509            pop     ar4
+0096 D003       510            pop     ar3
+0098 D002       511            pop     ar2
+009A            512   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:101: for (i = 0; i < time; ++i){
+009A 0C         513            inc     r4
+009B BC00A8     514            cjne    r4,#0x00,L006001?
+009E 0D         515            inc     r5
+009F 8001       516            sjmp    L006001?
+00A1            517   L006005?:
+00A1 22         518            ret
+00A2            519   ;------------------------------------------------------------
+00A2            520   ;Allocation info for local variables in function 'tx_byte'
+00A2            521   ;------------------------------------------------------------
+00A2            522   ;val                       Allocated to registers r2 
+00A2            523   ;j                         Allocated to registers r3 
+00A2            524   ;------------------------------------------------------------
+00A2            525   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:106: void tx_byte(unsigned char val)
+00A2            526   ;        -----------------------------------------
+00A2            527   ;         function tx_byte
+00A2            528   ;        -----------------------------------------
+00A2            529   _tx_byte:
+00A2 AA82       530            mov     r2,dpl
+00A4            531   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:110: EA=0;
+00A4 C2AF       532            clr     _EA
+00A6            533   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:111: wait_bit_time();
+00A6 C002       534            push    ar2
+00A8 120100     535            lcall   _wait_bit_time
+00AB D002       536            pop     ar2
+00AD            537   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: for (j=0; j<8; j++)
+00AD 7B00       538            mov     r3,#0x00
+00AF            539   L007001?:
+00AF BB08A8     540            cjne    r3,#0x08,L007010?
+00B2            541   L007010?:
+00B2 5001       542            jnc     L007004?
+00B4            543   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:114: EA=val&(0x01<<j)?1:0; //if true, 1. else 0.
+00B4 8BF0       544            mov     b,r3
+00B6 05F0       545            inc     b
+00B8 7C01       546            mov     r4,#0x01
+00BA 7D00       547            mov     r5,#0x00
+00BC 8001       548            sjmp    L007013?
+00BE            549   L007012?:
+00BE EC         550            mov     a,r4
+00BF 2C         551            add     a,r4
+00C0 FC         552            mov     r4,a
+00C1 ED         553            mov     a,r5
+00C2 33         554            rlc     a
+00C3 FD         555            mov     r5,a
+00C4            556   L007013?:
+00C4 D5F068     557            djnz    b,L007012?
+00C7 8A06       558            mov     ar6,r2
+00C9 7F00       559            mov     r7,#0x00
+00CB EE         560            mov     a,r6
+00CC 5204       561            anl     ar4,a
+00CE EF         562            mov     a,r7
+00CF 5205       563            anl     ar5,a
+00D1 EC         564            mov     a,r4
+00D2 4D         565            orl     a,r5
+00D3 24FF       566            add     a,#0xff
+00D5 92AF       567            mov     _EA,c
+00D7            568   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:115: wait_bit_time();
+00D7 C002       569            push    ar2
+00D9 C003       570            push    ar3
+00DB 120100     571            lcall   _wait_bit_time
+00DE D003       572            pop     ar3
+00E0 D002       573            pop     ar2
+00E2            574   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:112: for (j=0; j<8; j++)
+00E2 0B         575            inc     r3
+00E3 8001       576            sjmp    L007001?
+00E5            577   L007004?:
+00E5            578   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:117: EA=1;
+00E5 D2AF       579            setb    _EA
+00E7            580   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:119: wait_bit_time();
+00E7 120100     581            lcall   _wait_bit_time
+00EA            582   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:120: wait_bit_time();
+00EA 020100     583            ljmp    _wait_bit_time
+00ED            584   ;------------------------------------------------------------
+00ED            585   ;Allocation info for local variables in function 'moveCloser'
+00ED            586   ;------------------------------------------------------------
+00ED            587   ;------------------------------------------------------------
+00ED            588   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:123: void moveCloser(void) 
+00ED            589   ;        -----------------------------------------
+00ED            590   ;         function moveCloser
+00ED            591   ;        -----------------------------------------
+00ED            592   _moveCloser:
+00ED            593   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:125: tx_byte(MOVE_CLOSER); // move closer is 11111101
+00ED 7582F5     594            mov     dpl,#0xF5
+00F0 020100     595            ljmp    _tx_byte
+00F3            596   ;------------------------------------------------------------
+00F3            597   ;Allocation info for local variables in function 'moveFurther'
+00F3            598   ;------------------------------------------------------------
+00F3            599   ;------------------------------------------------------------
+00F3            600   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:133: void moveFurther(void)
+00F3            601   ;        -----------------------------------------
+00F3            602   ;         function moveFurther
+00F3            603   ;        -----------------------------------------
+00F3            604   _moveFurther:
+00F3            605   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:135: tx_byte(MOVE_FURTHER); // move farther is 11110101
+00F3 7582FD     606            mov     dpl,#0xFD
+00F6 020100     607            ljmp    _tx_byte
+00F9            608   ;------------------------------------------------------------
+00F9            609   ;Allocation info for local variables in function 'rotate180'
+00F9            610   ;------------------------------------------------------------
+00F9            611   ;------------------------------------------------------------
+00F9            612   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:143: void rotate180(void)
+00F9            613   ;        -----------------------------------------
+00F9            614   ;         function rotate180
+00F9            615   ;        -----------------------------------------
+00F9            616   _rotate180:
+00F9            617   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:145: tx_byte(ROTATE_180); // rotate is 11010101
+00F9 7582D5     618            mov     dpl,#0xD5
+00FC 020100     619            ljmp    _tx_byte
+00FF            620   ;------------------------------------------------------------
+00FF            621   ;Allocation info for local variables in function 'prlPark'
+00FF            622   ;------------------------------------------------------------
+00FF            623   ;------------------------------------------------------------
+00FF            624   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:153: void prlPark(void)
+00FF            625   ;        -----------------------------------------
+00FF            626   ;         function prlPark
+00FF            627   ;        -----------------------------------------
+00FF            628   _prlPark:
+00FF            629   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:155: tx_byte(PRL_PARK); // parallel park is 10000010
+00FF 758286     630            mov     dpl,#0x86
+0102 020100     631            ljmp    _tx_byte
+0105            632   ;------------------------------------------------------------
+0105            633   ;Allocation info for local variables in function 'main'
+0105            634   ;------------------------------------------------------------
+0105            635   ;------------------------------------------------------------
+0105            636   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:163: void main (void)
+0105            637   ;        -----------------------------------------
+0105            638   ;         function main
+0105            639   ;        -----------------------------------------
+0105            640   _main:
+0105            641   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:165: while(1) {
+0105            642   L012010?:
+0105            643   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:167: if(P2_1 == 1) moveCloser();
+0105 30A1E8     644            jnb     _P2_1,L012002?
+0108 120100     645            lcall   _moveCloser
+010B            646   L012002?:
+010B            647   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:169: if(P2_2 == 1) moveFurther();
+010B 30A228     648            jnb     _P2_2,L012004?
+010E 120100     649            lcall   _moveFurther
+0111            650   L012004?:
+0111            651   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:171: if(P2_3 == 1) rotate180();
+0111 30A368     652            jnb     _P2_3,L012006?
+0114 120100     653            lcall   _rotate180
+0117            654   L012006?:
+0117            655   ;        C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Transmitter_Project_2.c:173: if(P2_4 == 1) prlPark();
+0117 30A4A8     656            jnb     _P2_4,L012010?
+011A 120100     657            lcall   _prlPark
+011D 8001       658            sjmp    L012010?
+011F            659            rseg R_CSEG
+011F            660   
+0000            661            rseg R_XINIT
+0000            662   
+0000            663            rseg R_CONST
+0000            664   
+000E            665            CSEG
+000E            666   
+000E            667   end
