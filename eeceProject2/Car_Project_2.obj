@@ -11,27 +11,28 @@ R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,00F0,NO
+R_CONST,code,0105,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
-R_DINIT,code,0018,NO
-R_DSEG,data,0013,NO
+R_DINIT,code,0030,NO
+R_DSEG,data,0021,NO
 R_OSEG,data,0000,OV
 R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,07C2,NO
+R_CSEG,code,07A6,NO
 </SEGMENTS>
 
 <LOCALS>
-L042006?,R_CSEG,07BA,0000
-L042004?,R_CSEG,07B0,0000
-L042002?,R_CSEG,07A6,0000
+_run_right_distance_1_179,R_DSEG,001B,0002
+L042006?,R_CSEG,079E,0000
+L042004?,R_CSEG,0794,0000
+L042002?,R_CSEG,078A,0000
 L030007?,R_CSEG,039F,0000
 L039002?,R_CSEG,0506,0000
 L030003?,R_CSEG,039F,0000
-L040053?,R_CSEG,0635,0000
+L040053?,R_CSEG,0631,0000
 L015006?,R_CSEG,023C,0000
 L015004?,R_CSEG,01D8,0000
 L015003?,R_CSEG,01C4,0000
@@ -79,41 +80,44 @@ Lz1,R_CSEG,028D,0000
 Lz2,R_CSEG,028B,0000
 Lz3,R_CSEG,0289,0000
 L033002?,R_CSEG,03EE,0000
-L040016?,R_CSEG,06A2,0000
-L040013?,R_CSEG,0638,0000
+L040016?,R_CSEG,0688,0000
+L040013?,R_CSEG,0634,0000
 L034008?,R_CSEG,0453,0000
 L034007?,R_CSEG,0451,0000
 L034004?,R_CSEG,046C,0000
-L040027?,R_CSEG,0744,0000
+L040027?,R_CSEG,0718,0000
 L034001?,R_CSEG,0413,0000
-L040023?,R_CSEG,0729,0000
-L040021?,R_CSEG,06D2,0000
-L040020?,R_CSEG,06C7,0000
-L040032?,R_CSEG,0747,0000
-L040030?,R_CSEG,063B,0000
-L040047?,R_CSEG,052E,0000
+L040023?,R_CSEG,06FB,0000
+L040021?,R_CSEG,06AA,0000
+L040020?,R_CSEG,06A7,0000
+L040032?,R_CSEG,071B,0000
+L040030?,R_CSEG,0637,0000
+_run_left_distance_1_179,R_DSEG,001D,0002
+L040047?,R_CSEG,0547,0000
 L011009?,R_CSEG,00F7,0000
+_run_sloc0_1_0,R_DSEG,001F,0002
 __str_0,R_CONST,0000,0000
 __str_1,R_CONST,004F,0000
 __str_2,R_CONST,0091,0000
 __str_3,R_CONST,0093,0000
 __str_4,R_CONST,00D6,0000
 __str_5,R_CONST,00EE,0000
+__str_6,R_CONST,0103,0000
 L011003?,R_CSEG,00E7,0000
-L042012?,R_CSEG,077E,0000
+L042013?,R_CSEG,0752,0000
 L015011?,R_CSEG,023F,0000
 L015010?,R_CSEG,01C9,0000
-L040009?,R_CSEG,061C,0000
-L040007?,R_CSEG,05C5,0000
-L040006?,R_CSEG,05BA,0000
-L040002?,R_CSEG,0595,0000
+L040009?,R_CSEG,0616,0000
+L040007?,R_CSEG,05C1,0000
+L040006?,R_CSEG,05BE,0000
+L040002?,R_CSEG,059F,0000
 L037001?,R_CSEG,049B,0000
 L038009?,R_CSEG,04C2,0000
 L038003?,R_CSEG,04BD,0000
 </LOCALS>
 
 <PUBLICS>
-_main,R_CSEG,0760,0000
+_main,R_CSEG,0734,0000
 _run,R_CSEG,0511,0000
 _Rotate_Car_180_CW,R_CSEG,03B6,0000
 _SPIWrite,R_CSEG,0494,0000
@@ -138,9 +142,9 @@ _Get_Left_Distance,R_CSEG,0102,0000
 _Get_Right_Distance,R_CSEG,00FC,0000
 _left_motor_pwm1,R_DSEG,0002,0001
 _left_motor_pwm2,R_DSEG,0003,0001
-_Fake_run,R_CSEG,0748,0000
+_Fake_run,R_CSEG,071C,0000
 _Stop_Right_Motor,R_CSEG,00C7,0000
-_dist_index,R_DSEG,0010,0002
+_dist_index,R_DSEG,0018,0002
 _Move_Car_Further,R_CSEG,03A0,0000
 _Parallel_Park_Wait_1,R_CSEG,0295,0000
 _Parallel_Park_Wait_2,R_CSEG,02A3,0000
@@ -149,6 +153,7 @@ _Parallel_Park_Wait_4,R_CSEG,02BF,0000
 _Parallel_Park_Wait_5,R_CSEG,02CD,0000
 _Parallel_Park_Wait_6,R_CSEG,02DB,0000
 _Wait_1ms,R_CSEG,0287,0000
+_dist_error,R_DSEG,0010,0008
 _Move_Right_Motor_Forwards,R_CSEG,00B2,0000
 _pwmcounter,R_CSEG,0057,0000
 _Face_Transmitter,R_CSEG,010E,0000
@@ -163,7 +168,7 @@ _wait1s,R_CSEG,00E3,0000
 _Stop_Left_Motor,R_CSEG,00CE,0000
 _Move_Forwards,R_CSEG,02E9,0000
 _Move_Left_Motor_Backwards,R_CSEG,00B9,0000
-_reverse,R_DSEG,0012,0001
+_reverse,R_DSEG,001A,0001
 _Testing_Code,R_CSEG,0500,0000
 </PUBLICS>
 
@@ -211,6 +216,14 @@ _crt0,any,0000,0000
 75 data8(_dist_table;0x0004;+;0x0001;+;) 00
 75 data8(_dist_table;0x0006;+;) 14
 75 data8(_dist_table;0x0006;+;0x0001;+;) 00
+75 data8(_dist_error;) 1E
+75 data8(_dist_error;0x0001;+;) 00
+75 data8(_dist_error;0x0002;+;) 14
+75 data8(_dist_error;0x0002;+;0x0001;+;) 00
+75 data8(_dist_error;0x0004;+;) 0A
+75 data8(_dist_error;0x0004;+;0x0001;+;) 00
+75 data8(_dist_error;0x0006;+;) 05
+75 data8(_dist_error;0x0006;+;0x0001;+;) 00
 </CODE>
 
 <CODE R_CSEG>
@@ -840,15 +853,25 @@ F5 83
 12 addr16(_wait1s;)  
 80 rel2(L039002?;)
 12 addr16(_Get_Right_Distance;)  
-AA 82
-AB 83
-C0 02
-C0 03
+85 82 data8(_run_right_distance_1_179;)
+85 83 data8(_run_right_distance_1_179;0x0001;+;)
 12 addr16(_Get_Left_Distance;)  
-AC 82
-AD 83
-D0 03
-D0 02
+85 82 data8(_run_left_distance_1_179;)
+85 83 data8(_run_left_distance_1_179;0x0001;+;)
+C0 data8(_run_left_distance_1_179;)
+C0 data8(_run_left_distance_1_179;0x0001;+;)
+C0 data8(_run_right_distance_1_179;)
+C0 data8(_run_right_distance_1_179;0x0001;+;)
+74 data8(__str_5;)
+C0 E0
+74 data8(__str_5;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 F9
+F5 81
 E5 data8(_reverse;)
 60 rel2(L040047?;)
 02 addr16(L040030?;)  
@@ -863,249 +886,192 @@ F8
 86 06
 08
 86 07
-EA
+E5 data8(_run_right_distance_1_179;)
 C3
 9E
 F5 82
-EB
+E5 data8(_run_right_distance_1_179;0x0001;+;)
 9F
 F5 83
-C0 02
-C0 03
-C0 04
-C0 05
 12 addr16(_abs;)  
 AE 82
 AF 83
-D0 05
-D0 04
-D0 03
-D0 02
-C3
-EE
-94 14
-EF
-64 80
-94 80
-40 rel2(L040006?;)
-E5 data8(_dist_index;)
-25 data8(_dist_index;)
-FE
+85 data8(_dist_index;) data8(_run_sloc0_1_0;)
 E5 data8(_dist_index;0x0001;+;)
+C5 data8(_run_sloc0_1_0;)
+25 E0
+C5 data8(_run_sloc0_1_0;)
 33
-EE
-24 data8(_dist_table;)
+F5 data8(_run_sloc0_1_0;0x0001;+;)
+E5 data8(_run_sloc0_1_0;)
+24 data8(_dist_error;)
 F8
-86 06
+86 04
 08
-86 07
-C3
-EE
-9A
-EF
-9B
-50 rel2(L040002?;)
-C0 02
-C0 03
-C0 04
-C0 05
-12 addr16(_Move_Right_Motor_Forwards;)  
-D0 05
-D0 04
-D0 03
-D0 02
-E5 data8(_dist_index;)
-25 data8(_dist_index;)
-FE
-E5 data8(_dist_index;0x0001;+;)
-33
-EE
-24 data8(_dist_table;)
-F8
-86 06
-08
-86 07
-C3
-EA
-9E
-EB
-9F
-50 rel2(L040007?;)
-C0 04
-C0 05
-12 addr16(_Move_Right_Motor_Backwards;)  
-D0 05
-D0 04
-80 rel2(L040007?;)
-C0 04
-C0 05
-12 addr16(_Stop_Car;)  
-D0 05
-D0 04
-E5 data8(_dist_index;)
-25 data8(_dist_index;)
-FE
-E5 data8(_dist_index;0x0001;+;)
-33
-EE
-24 data8(_dist_table;)
-F8
-86 06
-08
-86 07
-EC
-C3
-9E
-F5 82
-ED
-9F
-F5 83
-C0 04
-C0 05
-12 addr16(_abs;)  
-AE 82
-AF 83
-D0 05
-D0 04
-C3
-EE
-94 14
-EF
-64 80
-94 80
-40 rel2(L040013?;)
-E5 data8(_dist_index;)
-25 data8(_dist_index;)
-FE
-E5 data8(_dist_index;0x0001;+;)
-33
-EE
-24 data8(_dist_table;)
-F8
-86 06
-08
-86 07
+86 05
 C3
 EE
 9C
 EF
 9D
-50 rel2(L040009?;)
-C0 04
-C0 05
-12 addr16(_Move_Left_Motor_Forwards;)  
-D0 05
-D0 04
+40 rel2(L040006?;)
+E5 data8(_run_sloc0_1_0;)
+24 data8(_dist_table;)
+F8
+86 04
+08
+86 05
+C3
+EC
+95 data8(_run_right_distance_1_179;)
+ED
+95 data8(_run_right_distance_1_179;0x0001;+;)
+50 rel2(L040002?;)
+12 addr16(_Move_Right_Motor_Forwards;)  
+E5 data8(_dist_index;)
+25 data8(_dist_index;)
+FC
+E5 data8(_dist_index;0x0001;+;)
+33
+EC
+24 data8(_dist_table;)
+F8
+86 04
+08
+86 05
+C3
+E5 data8(_run_right_distance_1_179;)
+9C
+E5 data8(_run_right_distance_1_179;0x0001;+;)
+9D
+50 rel2(L040007?;)
+12 addr16(_Move_Right_Motor_Backwards;)  
+80 rel2(L040007?;)
+12 addr16(_Stop_Car;)  
+E5 data8(_dist_index;)
+25 data8(_dist_index;)
+FC
+E5 data8(_dist_index;0x0001;+;)
+33
+EC
+24 data8(_dist_table;)
+F8
+86 04
+08
+86 05
+E5 data8(_run_left_distance_1_179;)
+C3
+9C
+F5 82
+E5 data8(_run_left_distance_1_179;0x0001;+;)
+9D
+F5 83
+12 addr16(_abs;)  
+85 82 data8(_run_sloc0_1_0;)
+85 83 data8(_run_sloc0_1_0;0x0001;+;)
 E5 data8(_dist_index;)
 25 data8(_dist_index;)
 FE
 E5 data8(_dist_index;0x0001;+;)
 33
+FF
+EE
+24 data8(_dist_error;)
+F8
+86 04
+08
+86 05
+C3
+E5 data8(_run_sloc0_1_0;)
+9C
+E5 data8(_run_sloc0_1_0;0x0001;+;)
+9D
+40 rel2(L040013?;)
 EE
 24 data8(_dist_table;)
 F8
-86 06
+86 04
 08
-86 07
+86 05
 C3
 EC
-9E
+95 data8(_run_left_distance_1_179;)
 ED
-9F
+95 data8(_run_left_distance_1_179;0x0001;+;)
+50 rel2(L040009?;)
+12 addr16(_Move_Left_Motor_Forwards;)  
+E5 data8(_dist_index;)
+25 data8(_dist_index;)
+FC
+E5 data8(_dist_index;0x0001;+;)
+33
+EC
+24 data8(_dist_table;)
+F8
+86 04
+08
+86 05
+C3
+E5 data8(_run_left_distance_1_179;)
+9C
+E5 data8(_run_left_distance_1_179;0x0001;+;)
+9D
 40 rel2(L040053?;)
 22
 02 addr16(_Move_Left_Motor_Backwards;)  
 02 addr16(_Stop_Car;)  
 E5 data8(_dist_index;)
 25 data8(_dist_index;)
-FE
+FC
 E5 data8(_dist_index;0x0001;+;)
 33
-EE
+EC
 24 data8(_dist_table;)
 F8
-86 06
+86 04
 08
-86 07
-EA
+86 05
+E5 data8(_run_right_distance_1_179;)
 C3
-9E
+9C
 F5 82
-EB
-9F
+E5 data8(_run_right_distance_1_179;0x0001;+;)
+9D
 F5 83
-C0 02
-C0 03
-C0 04
-C0 05
 12 addr16(_abs;)  
-AE 82
-AF 83
-D0 05
-D0 04
-D0 03
-D0 02
-C3
-EE
-94 14
-EF
-64 80
-94 80
-40 rel2(L040020?;)
+AC 82
+AD 83
 E5 data8(_dist_index;)
 25 data8(_dist_index;)
 FE
 E5 data8(_dist_index;0x0001;+;)
 33
+FF
 EE
-24 data8(_dist_table;)
+24 data8(_dist_error;)
 F8
-86 06
+86 02
 08
-86 07
+86 03
 C3
-EA
-9E
-EB
-9F
-50 rel2(L040016?;)
-C0 02
-C0 03
-C0 04
-C0 05
-12 addr16(_Move_Right_Motor_Forwards;)  
-D0 05
-D0 04
-D0 03
-D0 02
-E5 data8(_dist_index;)
-25 data8(_dist_index;)
-FE
-E5 data8(_dist_index;0x0001;+;)
-33
-EE
-24 data8(_dist_table;)
-F8
-86 06
-08
-86 07
-C3
-EE
+EC
 9A
-EF
+ED
 9B
-50 rel2(L040021?;)
-C0 04
-C0 05
-12 addr16(_Move_Right_Motor_Backwards;)  
-D0 05
-D0 04
-80 rel2(L040021?;)
-C0 04
-C0 05
-12 addr16(_Stop_Car;)  
-D0 05
-D0 04
+40 rel2(L040020?;)
+EE
+24 data8(_dist_table;)
+F8
+86 02
+08
+86 03
+C3
+E5 data8(_run_right_distance_1_179;)
+9A
+E5 data8(_run_right_distance_1_179;0x0001;+;)
+9B
+50 rel2(L040016?;)
+12 addr16(_Move_Right_Motor_Forwards;)  
 E5 data8(_dist_index;)
 25 data8(_dist_index;)
 FA
@@ -1117,49 +1083,67 @@ F8
 86 02
 08
 86 03
-EC
+C3
+EA
+95 data8(_run_right_distance_1_179;)
+EB
+95 data8(_run_right_distance_1_179;0x0001;+;)
+50 rel2(L040021?;)
+12 addr16(_Move_Right_Motor_Backwards;)  
+80 rel2(L040021?;)
+12 addr16(_Stop_Car;)  
+E5 data8(_dist_index;)
+25 data8(_dist_index;)
+FA
+E5 data8(_dist_index;0x0001;+;)
+33
+EA
+24 data8(_dist_table;)
+F8
+86 02
+08
+86 03
+E5 data8(_run_left_distance_1_179;)
 C3
 9A
 F5 82
-ED
+E5 data8(_run_left_distance_1_179;0x0001;+;)
 9B
 F5 83
-C0 04
-C0 05
 12 addr16(_abs;)  
 AA 82
 AB 83
-D0 05
-D0 04
-C3
-EA
-94 14
-EB
-64 80
-94 80
-40 rel2(L040027?;)
 E5 data8(_dist_index;)
 25 data8(_dist_index;)
-FA
+FC
 E5 data8(_dist_index;0x0001;+;)
 33
+FD
+EC
+24 data8(_dist_error;)
+F8
+86 06
+08
+86 07
+C3
 EA
+9E
+EB
+9F
+40 rel2(L040027?;)
+EC
 24 data8(_dist_table;)
 F8
 86 02
 08
 86 03
 C3
-EC
+E5 data8(_run_left_distance_1_179;)
 9A
-ED
+E5 data8(_run_left_distance_1_179;0x0001;+;)
 9B
 50 rel2(L040023?;)
-C0 04
-C0 05
 12 addr16(_Move_Left_Motor_Forwards;)  
-D0 05
-D0 04
 E5 data8(_dist_index;)
 25 data8(_dist_index;)
 FA
@@ -1173,9 +1157,9 @@ F8
 86 03
 C3
 EA
-9C
+95 data8(_run_left_distance_1_179;)
 EB
-9D
+95 data8(_run_left_distance_1_179;0x0001;+;)
 50 rel2(L040032?;)
 02 addr16(_Move_Left_Motor_Backwards;)  
 02 addr16(_Stop_Car;)  
@@ -1192,9 +1176,9 @@ EB
 E4
 F5 data8(_dist_index;0x0001;+;)
 75 data8(_reverse;) 00
-74 data8(__str_5;)
+74 data8(__str_6;)
 C0 E0
-74 data8(__str_5;0x0008;>>;)
+74 data8(__str_6;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
@@ -1211,7 +1195,16 @@ EA
 94 0A
 EB
 94 00
-50 rel2(L042012?;)
+50 rel2(L042013?;)
+12 addr16(_Get_Left_Distance;)  
+AA 82
+AB 83
+C3
+EA
+94 0A
+EB
+94 00
+50 rel2(L042013?;)
 12 addr16(_Stop_Car;)  
 90 00 0A
 12 addr16(_rx_byte;)  
@@ -1228,9 +1221,9 @@ BA D5 rel3(L042006?;)
 C0 02
 12 addr16(_Rotate_Car_180_CW;)  
 D0 02
-BA 84 rel3(L042012?;)
+BA 84 rel3(L042013?;)
 12 addr16(_Parallel_Park;)  
-80 rel2(L042012?;)
+80 rel2(L042013?;)
 </CODE>
 
 <CODE R_CSEG>
@@ -1269,6 +1262,10 @@ BA 84 rel3(L042012?;)
 00
 6D 61 64 65 20 74 68 72 6F 75 67 68 20 62 6F 74 68
 20 6C 6F 6F 70 73 
+00
+52 69 67 68 74 3A 20 25 75 20 20 4C 65 66 74 3A 20
+25 75 
+0A
 00
 0A
 00

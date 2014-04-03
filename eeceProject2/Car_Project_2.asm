@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1034 (Dec 12 2012) (MSVC)
-; This file was generated Tue Apr 01 22:41:49 2014
+; This file was generated Wed Apr 02 12:46:49 2014
 ;--------------------------------------------------------
 $name Car_Project_2
 $optc51 --model-small
@@ -37,6 +37,7 @@ $optc51 --model-small
 	public __c51_external_startup
 	public _reverse
 	public _dist_index
+	public _dist_error
 	public _dist_table
 	public _right_motor_pwm2
 	public _right_motor_pwm1
@@ -346,10 +347,18 @@ _right_motor_pwm2:
 	ds 1
 _dist_table:
 	ds 8
+_dist_error:
+	ds 8
 _dist_index:
 	ds 2
 _reverse:
 	ds 1
+_run_right_distance_1_179:
+	ds 2
+_run_left_distance_1_179:
+	ds 2
+_run_sloc0_1_0:
+	ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -402,7 +411,7 @@ _reverse:
 ; data variables initialization
 ;--------------------------------------------------------
 	rseg R_DINIT
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:34: unsigned int dist_table[4] = {150, 75, 30, 20};
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:33: unsigned int dist_table[4] = {150, 75, 30, 20};
 	mov	_dist_table,#0x96
 	mov	(_dist_table + 1),#0x00
 	mov	(_dist_table + 0x0002),#0x4B
@@ -411,6 +420,15 @@ _reverse:
 	mov	((_dist_table + 0x0004) + 1),#0x00
 	mov	(_dist_table + 0x0006),#0x14
 	mov	((_dist_table + 0x0006) + 1),#0x00
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:34: unsigned int dist_error[4] = {30, 20, 10, 5};
+	mov	_dist_error,#0x1E
+	mov	(_dist_error + 1),#0x00
+	mov	(_dist_error + 0x0002),#0x14
+	mov	((_dist_error + 0x0002) + 1),#0x00
+	mov	(_dist_error + 0x0004),#0x0A
+	mov	((_dist_error + 0x0004) + 1),#0x00
+	mov	(_dist_error + 0x0006),#0x05
+	mov	((_dist_error + 0x0006) + 1),#0x00
 	; The linker places a 'ret' at the end of segment R_DINIT.
 ;--------------------------------------------------------
 ; code
@@ -1686,8 +1704,9 @@ L039002?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'run'
 ;------------------------------------------------------------
-;right_distance            Allocated to registers r2 r3 
-;left_distance             Allocated to registers r4 r5 
+;right_distance            Allocated with name '_run_right_distance_1_179'
+;left_distance             Allocated with name '_run_left_distance_1_179'
+;sloc0                     Allocated with name '_run_sloc0_1_0'
 ;------------------------------------------------------------
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:620: void run(void){
 ;	-----------------------------------------
@@ -1696,429 +1715,17 @@ L039002?:
 _run:
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:621: unsigned int right_distance = Get_Right_Distance();
 	lcall	_Get_Right_Distance
-	mov	r2,dpl
-	mov	r3,dph
+	mov	_run_right_distance_1_179,dpl
+	mov	(_run_right_distance_1_179 + 1),dph
 ;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:622: unsigned int left_distance = Get_Left_Distance();
-	push	ar2
-	push	ar3
 	lcall	_Get_Left_Distance
-	mov	r4,dpl
-	mov	r5,dph
-	pop	ar3
-	pop	ar2
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:624: if(!reverse) {
-	mov	a,_reverse
-	jz	L040047?
-	ljmp	L040030?
-L040047?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:625: if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	mov	a,r2
-	clr	c
-	subb	a,r6
-	mov	dpl,a
-	mov	a,r3
-	subb	a,r7
-	mov	dph,a
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	lcall	_abs
-	mov	r6,dpl
-	mov	r7,dph
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	clr	c
-	mov	a,r6
-	subb	a,#0x14
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x80
-	jc	L040006?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:626: if (right_distance > dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	clr	c
-	mov	a,r6
-	subb	a,r2
-	mov	a,r7
-	subb	a,r3
-	jnc	L040002?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:627: Move_Right_Motor_Forwards();
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	lcall	_Move_Right_Motor_Forwards
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-L040002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:629: if (right_distance < dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	clr	c
-	mov	a,r2
-	subb	a,r6
-	mov	a,r3
-	subb	a,r7
-	jnc	L040007?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:630: Move_Right_Motor_Backwards();
-	push	ar4
-	push	ar5
-	lcall	_Move_Right_Motor_Backwards
-	pop	ar5
-	pop	ar4
-	sjmp	L040007?
-L040006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:634: Stop_Car();
-	push	ar4
-	push	ar5
-	lcall	_Stop_Car
-	pop	ar5
-	pop	ar4
-L040007?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:636: if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	mov	a,r4
-	clr	c
-	subb	a,r6
-	mov	dpl,a
-	mov	a,r5
-	subb	a,r7
-	mov	dph,a
-	push	ar4
-	push	ar5
-	lcall	_abs
-	mov	r6,dpl
-	mov	r7,dph
-	pop	ar5
-	pop	ar4
-	clr	c
-	mov	a,r6
-	subb	a,#0x14
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x80
-	jc	L040013?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:637: if (left_distance > dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	clr	c
-	mov	a,r6
-	subb	a,r4
-	mov	a,r7
-	subb	a,r5
-	jnc	L040009?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:638: Move_Left_Motor_Forwards();
-	push	ar4
-	push	ar5
-	lcall	_Move_Left_Motor_Forwards
-	pop	ar5
-	pop	ar4
-L040009?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:640: if (left_distance < dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	clr	c
-	mov	a,r4
-	subb	a,r6
-	mov	a,r5
-	subb	a,r7
-	jc	L040053?
-	ret
-L040053?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:641: Move_Left_Motor_Backwards();
-	ljmp	_Move_Left_Motor_Backwards
-L040013?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:645: Stop_Car();
-	ljmp	_Stop_Car
-L040030?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:648: if (abs(right_distance - dist_table[dist_index]) >= ERROR_BOUND){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	mov	a,r2
-	clr	c
-	subb	a,r6
-	mov	dpl,a
-	mov	a,r3
-	subb	a,r7
-	mov	dph,a
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	lcall	_abs
-	mov	r6,dpl
-	mov	r7,dph
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-	clr	c
-	mov	a,r6
-	subb	a,#0x14
-	mov	a,r7
-	xrl	a,#0x80
-	subb	a,#0x80
-	jc	L040020?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:649: if (right_distance < dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	clr	c
-	mov	a,r2
-	subb	a,r6
-	mov	a,r3
-	subb	a,r7
-	jnc	L040016?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:650: Move_Right_Motor_Forwards();
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	lcall	_Move_Right_Motor_Forwards
-	pop	ar5
-	pop	ar4
-	pop	ar3
-	pop	ar2
-L040016?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:652: if (right_distance > dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r6,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r6
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar6,@r0
-	inc	r0
-	mov	ar7,@r0
-	clr	c
-	mov	a,r6
-	subb	a,r2
-	mov	a,r7
-	subb	a,r3
-	jnc	L040021?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:653: Move_Right_Motor_Backwards();
-	push	ar4
-	push	ar5
-	lcall	_Move_Right_Motor_Backwards
-	pop	ar5
-	pop	ar4
-	sjmp	L040021?
-L040020?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:657: Stop_Car();
-	push	ar4
-	push	ar5
-	lcall	_Stop_Car
-	pop	ar5
-	pop	ar4
-L040021?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:659: if (abs(left_distance - dist_table[dist_index]) >= ERROR_BOUND){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r2,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r2
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar2,@r0
-	inc	r0
-	mov	ar3,@r0
-	mov	a,r4
-	clr	c
-	subb	a,r2
-	mov	dpl,a
-	mov	a,r5
-	subb	a,r3
-	mov	dph,a
-	push	ar4
-	push	ar5
-	lcall	_abs
-	mov	r2,dpl
-	mov	r3,dph
-	pop	ar5
-	pop	ar4
-	clr	c
-	mov	a,r2
-	subb	a,#0x14
-	mov	a,r3
-	xrl	a,#0x80
-	subb	a,#0x80
-	jc	L040027?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:660: if (left_distance < dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r2,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r2
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar2,@r0
-	inc	r0
-	mov	ar3,@r0
-	clr	c
-	mov	a,r4
-	subb	a,r2
-	mov	a,r5
-	subb	a,r3
-	jnc	L040023?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:661: Move_Left_Motor_Forwards();
-	push	ar4
-	push	ar5
-	lcall	_Move_Left_Motor_Forwards
-	pop	ar5
-	pop	ar4
-L040023?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:663: if (left_distance > dist_table[dist_index]){
-	mov	a,_dist_index
-	add	a,_dist_index
-	mov	r2,a
-	mov	a,(_dist_index + 1)
-	rlc	a
-	mov	a,r2
-	add	a,#_dist_table
-	mov	r0,a
-	mov	ar2,@r0
-	inc	r0
-	mov	ar3,@r0
-	clr	c
-	mov	a,r2
-	subb	a,r4
-	mov	a,r3
-	subb	a,r5
-	jnc	L040032?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:664: Move_Left_Motor_Backwards();
-	ljmp	_Move_Left_Motor_Backwards
-L040027?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:668: Stop_Car();
-	ljmp	_Stop_Car
-L040032?:
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'Fake_run'
-;------------------------------------------------------------
-;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:672: void Fake_run(void) {
-;	-----------------------------------------
-;	 function Fake_run
-;	-----------------------------------------
-_Fake_run:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:673: Rotate_Car_180_CW();
-	lcall	_Rotate_Car_180_CW
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:674: wait1s();
-	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:675: wait1s();
-	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:676: wait1s();
-	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:677: Rotate_Car_180_CCW();
-	lcall	_Rotate_Car_180_CCW
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:678: wait1s();
-	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:679: wait1s();
-	lcall	_wait1s
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:680: wait1s();
-	ljmp	_wait1s
-;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
-;------------------------------------------------------------
-;logic_0_thresh            Allocated to registers 
-;cmd                       Allocated to registers r2 
-;------------------------------------------------------------
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:683: void main (void)
-;	-----------------------------------------
-;	 function main
-;	-----------------------------------------
-_main:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:687: dist_index = 1;
-	mov	_dist_index,#0x01
-	clr	a
-	mov	(_dist_index + 1),a
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:688: reverse = 0;	
-	mov	_reverse,#0x00
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:690: printf("\n");
+	mov	_run_left_distance_1_179,dpl
+	mov	(_run_left_distance_1_179 + 1),dph
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:624: printf("Right: %u  Left: %u\n", right_distance, left_distance);
+	push	_run_left_distance_1_179
+	push	(_run_left_distance_1_179 + 1)
+	push	_run_right_distance_1_179
+	push	(_run_right_distance_1_179 + 1)
 	mov	a,#__str_5
 	push	acc
 	mov	a,#(__str_5 >> 8)
@@ -2126,14 +1733,398 @@ _main:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:626: if(!reverse) {
+	mov	a,_reverse
+	jz	L040047?
+	ljmp	L040030?
+L040047?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:627: if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r6,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r6
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar6,@r0
+	inc	r0
+	mov	ar7,@r0
+	mov	a,_run_right_distance_1_179
+	clr	c
+	subb	a,r6
+	mov	dpl,a
+	mov	a,(_run_right_distance_1_179 + 1)
+	subb	a,r7
+	mov	dph,a
+	lcall	_abs
+	mov	r6,dpl
+	mov	r7,dph
+	mov	_run_sloc0_1_0,_dist_index
+	mov	a,(_dist_index + 1)
+	xch	a,_run_sloc0_1_0
+	add	a,acc
+	xch	a,_run_sloc0_1_0
+	rlc	a
+	mov	(_run_sloc0_1_0 + 1),a
+	mov	a,_run_sloc0_1_0
+	add	a,#_dist_error
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	clr	c
+	mov	a,r6
+	subb	a,r4
+	mov	a,r7
+	subb	a,r5
+	jc	L040006?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:628: if (right_distance > dist_table[dist_index]){
+	mov	a,_run_sloc0_1_0
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	clr	c
+	mov	a,r4
+	subb	a,_run_right_distance_1_179
+	mov	a,r5
+	subb	a,(_run_right_distance_1_179 + 1)
+	jnc	L040002?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:629: Move_Right_Motor_Forwards();
+	lcall	_Move_Right_Motor_Forwards
+L040002?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:631: if (right_distance < dist_table[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r4,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r4
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	clr	c
+	mov	a,_run_right_distance_1_179
+	subb	a,r4
+	mov	a,(_run_right_distance_1_179 + 1)
+	subb	a,r5
+	jnc	L040007?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:632: Move_Right_Motor_Backwards();
+	lcall	_Move_Right_Motor_Backwards
+	sjmp	L040007?
+L040006?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:636: Stop_Car();
+	lcall	_Stop_Car
+L040007?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:638: if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r4,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r4
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	mov	a,_run_left_distance_1_179
+	clr	c
+	subb	a,r4
+	mov	dpl,a
+	mov	a,(_run_left_distance_1_179 + 1)
+	subb	a,r5
+	mov	dph,a
+	lcall	_abs
+	mov	_run_sloc0_1_0,dpl
+	mov	(_run_sloc0_1_0 + 1),dph
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r6,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	r7,a
+	mov	a,r6
+	add	a,#_dist_error
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	clr	c
+	mov	a,_run_sloc0_1_0
+	subb	a,r4
+	mov	a,(_run_sloc0_1_0 + 1)
+	subb	a,r5
+	jc	L040013?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:639: if (left_distance > dist_table[dist_index]){
+	mov	a,r6
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	clr	c
+	mov	a,r4
+	subb	a,_run_left_distance_1_179
+	mov	a,r5
+	subb	a,(_run_left_distance_1_179 + 1)
+	jnc	L040009?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:640: Move_Left_Motor_Forwards();
+	lcall	_Move_Left_Motor_Forwards
+L040009?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:642: if (left_distance < dist_table[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r4,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r4
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	clr	c
+	mov	a,_run_left_distance_1_179
+	subb	a,r4
+	mov	a,(_run_left_distance_1_179 + 1)
+	subb	a,r5
+	jc	L040053?
+	ret
+L040053?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:643: Move_Left_Motor_Backwards();
+	ljmp	_Move_Left_Motor_Backwards
+L040013?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:647: Stop_Car();
+	ljmp	_Stop_Car
+L040030?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:650: if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r4,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r4
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar4,@r0
+	inc	r0
+	mov	ar5,@r0
+	mov	a,_run_right_distance_1_179
+	clr	c
+	subb	a,r4
+	mov	dpl,a
+	mov	a,(_run_right_distance_1_179 + 1)
+	subb	a,r5
+	mov	dph,a
+	lcall	_abs
+	mov	r4,dpl
+	mov	r5,dph
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r6,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	r7,a
+	mov	a,r6
+	add	a,#_dist_error
+	mov	r0,a
+	mov	ar2,@r0
+	inc	r0
+	mov	ar3,@r0
+	clr	c
+	mov	a,r4
+	subb	a,r2
+	mov	a,r5
+	subb	a,r3
+	jc	L040020?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:651: if (right_distance < dist_table[dist_index]){
+	mov	a,r6
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar2,@r0
+	inc	r0
+	mov	ar3,@r0
+	clr	c
+	mov	a,_run_right_distance_1_179
+	subb	a,r2
+	mov	a,(_run_right_distance_1_179 + 1)
+	subb	a,r3
+	jnc	L040016?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:652: Move_Right_Motor_Forwards();
+	lcall	_Move_Right_Motor_Forwards
+L040016?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:654: if (right_distance > dist_table[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r2,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r2
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar2,@r0
+	inc	r0
+	mov	ar3,@r0
+	clr	c
+	mov	a,r2
+	subb	a,_run_right_distance_1_179
+	mov	a,r3
+	subb	a,(_run_right_distance_1_179 + 1)
+	jnc	L040021?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:655: Move_Right_Motor_Backwards();
+	lcall	_Move_Right_Motor_Backwards
+	sjmp	L040021?
+L040020?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:659: Stop_Car();
+	lcall	_Stop_Car
+L040021?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:661: if (abs(left_distance - dist_table[dist_index]) >= dist_error[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r2,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r2
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar2,@r0
+	inc	r0
+	mov	ar3,@r0
+	mov	a,_run_left_distance_1_179
+	clr	c
+	subb	a,r2
+	mov	dpl,a
+	mov	a,(_run_left_distance_1_179 + 1)
+	subb	a,r3
+	mov	dph,a
+	lcall	_abs
+	mov	r2,dpl
+	mov	r3,dph
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r4,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	r5,a
+	mov	a,r4
+	add	a,#_dist_error
+	mov	r0,a
+	mov	ar6,@r0
+	inc	r0
+	mov	ar7,@r0
+	clr	c
+	mov	a,r2
+	subb	a,r6
+	mov	a,r3
+	subb	a,r7
+	jc	L040027?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:662: if (left_distance < dist_table[dist_index]){
+	mov	a,r4
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar2,@r0
+	inc	r0
+	mov	ar3,@r0
+	clr	c
+	mov	a,_run_left_distance_1_179
+	subb	a,r2
+	mov	a,(_run_left_distance_1_179 + 1)
+	subb	a,r3
+	jnc	L040023?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:663: Move_Left_Motor_Forwards();
+	lcall	_Move_Left_Motor_Forwards
+L040023?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:665: if (left_distance > dist_table[dist_index]){
+	mov	a,_dist_index
+	add	a,_dist_index
+	mov	r2,a
+	mov	a,(_dist_index + 1)
+	rlc	a
+	mov	a,r2
+	add	a,#_dist_table
+	mov	r0,a
+	mov	ar2,@r0
+	inc	r0
+	mov	ar3,@r0
+	clr	c
+	mov	a,r2
+	subb	a,_run_left_distance_1_179
+	mov	a,r3
+	subb	a,(_run_left_distance_1_179 + 1)
+	jnc	L040032?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:666: Move_Left_Motor_Backwards();
+	ljmp	_Move_Left_Motor_Backwards
+L040027?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:670: Stop_Car();
+	ljmp	_Stop_Car
+L040032?:
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'Fake_run'
+;------------------------------------------------------------
+;------------------------------------------------------------
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:674: void Fake_run(void) {
+;	-----------------------------------------
+;	 function Fake_run
+;	-----------------------------------------
+_Fake_run:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:675: Rotate_Car_180_CW();
+	lcall	_Rotate_Car_180_CW
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:676: wait1s();
+	lcall	_wait1s
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:677: wait1s();
+	lcall	_wait1s
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:678: wait1s();
+	lcall	_wait1s
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:679: Rotate_Car_180_CCW();
+	lcall	_Rotate_Car_180_CCW
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:680: wait1s();
+	lcall	_wait1s
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:681: wait1s();
+	lcall	_wait1s
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:682: wait1s();
+	ljmp	_wait1s
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;logic_0_thresh            Allocated to registers 
+;cmd                       Allocated to registers r2 
+;------------------------------------------------------------
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:685: void main (void)
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:689: dist_index = 1;
+	mov	_dist_index,#0x01
+	clr	a
+	mov	(_dist_index + 1),a
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:690: reverse = 0;	
+	mov	_reverse,#0x00
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:692: printf("\n");
+	mov	a,#__str_6
+	push	acc
+	mov	a,#(__str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
 	dec	sp
 	dec	sp
 	dec	sp
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:692: while(1){
-L042012?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:694: run();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:694: while(1){
+L042013?:
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:696: run();
 	lcall	_run
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:697: if(Get_Right_Distance() < logic_0_thresh){
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:699: if(Get_Right_Distance() < logic_0_thresh && Get_Left_Distance() < logic_0_thresh){
 	lcall	_Get_Right_Distance
 	mov	r2,dpl
 	mov	r3,dph
@@ -2142,35 +2133,44 @@ L042012?:
 	subb	a,#0x0A
 	mov	a,r3
 	subb	a,#0x00
-	jnc	L042012?
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:698: Stop_Car();
+	jnc	L042013?
+	lcall	_Get_Left_Distance
+	mov	r2,dpl
+	mov	r3,dph
+	clr	c
+	mov	a,r2
+	subb	a,#0x0A
+	mov	a,r3
+	subb	a,#0x00
+	jnc	L042013?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:700: Stop_Car();
 	lcall	_Stop_Car
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:699: cmd = rx_byte (logic_0_thresh);     	
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:701: cmd = rx_byte (logic_0_thresh);     	
 	mov	dptr,#0x000A
 	lcall	_rx_byte
 	mov	r2,dpl
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:700: if(cmd == MOVE_FURTHER) Move_Car_Further();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:702: if(cmd == MOVE_FURTHER) Move_Car_Further();
 	cjne	r2,#0xFD,L042002?
 	push	ar2
 	lcall	_Move_Car_Further
 	pop	ar2
 L042002?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:701: if(cmd == MOVE_CLOSER) Move_Car_Closer();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:703: if(cmd == MOVE_CLOSER) Move_Car_Closer();
 	cjne	r2,#0xF5,L042004?
 	push	ar2
 	lcall	_Move_Car_Closer
 	pop	ar2
 L042004?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:702: if(cmd == ROTATE_180) Rotate_Car_180_CW();
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:704: if(cmd == ROTATE_180) Rotate_Car_180_CW();
 	cjne	r2,#0xD5,L042006?
 	push	ar2
 	lcall	_Rotate_Car_180_CW
 	pop	ar2
 L042006?:
-;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:703: if(cmd == PRL_PARK) Parallel_Park();
-	cjne	r2,#0x84,L042012?
+;	C:\Users\Travis\Documents\GitHub\eeceProject2\eeceProject2\Car_Project_2.c:705: if(cmd == PRL_PARK) Parallel_Park();
+	cjne	r2,#0x84,L042013?
 	lcall	_Parallel_Park
-	sjmp	L042012?
+	sjmp	L042013?
 	rseg R_CSEG
 
 	rseg R_XINIT
@@ -2201,6 +2201,10 @@ __str_4:
 	db 'made through both loops'
 	db 0x00
 __str_5:
+	db 'Right: %u  Left: %u'
+	db 0x0A
+	db 0x00
+__str_6:
 	db 0x0A
 	db 0x00
 

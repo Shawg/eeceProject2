@@ -621,6 +621,8 @@ void run(void){
 	unsigned int right_distance = Get_Right_Distance();
 	unsigned int left_distance = Get_Left_Distance();
 
+	printf("Right: %u  Left: %u\n", right_distance, left_distance);
+
 	if(!reverse) {
 		if (abs(right_distance - dist_table[dist_index]) >= dist_error[dist_index]){
 			if (right_distance > dist_table[dist_index]){
@@ -694,7 +696,7 @@ void main (void)
 		run();
 
 		//Check for start bit to indicate a command from transmitter
-		if(Get_Right_Distance() < logic_0_thresh){
+		if(Get_Right_Distance() < logic_0_thresh && Get_Left_Distance() < logic_0_thresh){
 			Stop_Car();
         	cmd = rx_byte (logic_0_thresh);     	
         	if(cmd == MOVE_FURTHER) Move_Car_Further();
